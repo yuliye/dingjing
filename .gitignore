@@ -1,0 +1,4 @@
+testapp2/node_modules
+testapp2/.env
+testapp2/Dockerfile
+testapp2/docker-compose.yml
