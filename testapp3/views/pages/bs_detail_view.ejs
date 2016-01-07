@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head><% include ../partials/bs_head.ejs %></head>
+
+
+<body class="with-top-navbar">
+  <% include ../partials/bs_menu.ejs %>   
+
+  <div class="container-fluid container-fluid-spacious">
+    <div class="dashhead m-t-md">
+
+
+  <div class="dashhead-titles">
+    <h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6>
+    <h2 class="dashhead-title">基金名称</h2>
+  </div>
+
+  <div class="btn-toolbar dashhead-toolbar p-y">
+    <button class="btn btn-primary m-l" type="button">
+  <span class="icon icon-heart"></span>
+  收藏基金
+</button>
+
+    <button class="btn btn-primary m-l" type="button" data-toggle="modal" data-target="#saveModal">
+  <span class="icon icon-squared-plus"></span>
+  加入组合
+</button>
+
+<div class="modal" id="saveModal">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">加入组合</h4>
+      </div>
+      <div class="modal-body">
+        <select class="custom-select custom-select-sm">
+          <option>新组合</option>
+          <option>First option</option>
+          <option>Another option</option>
+          <option>Alternative</option>
+          <option>Last one</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-link modal-action" data-dismiss="modal">取消</button>
+        <button type="button" class="btn-link modal-action" data-dismiss="modal">
+          <strong>添加</strong>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+
+    </div>
+
+<div class="hr-divider m-t m-b-md">
+  <h3 class="hr-divider-content hr-divider-heading">基本情况一览</h3>
+</div>
+<div class="row statcard">
+  <div class="col-sm-6 col-md-3">
+    <div class="statcard statcard-primary p-a-md">
+      <h1 class="statcard-number">
+        27.4%
+        <small class="delta-indicator delta-positive">5.2%</small>
+      </h1>
+      <span class="statcard-desc">本年度回报＋上月回报</span>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-3">
+    <table class="table table-mini3">
+    <tbody>
+      <tr>
+        <td>最低投资</td>
+        <td>$100K</td>
+      </tr>
+      <tr>
+        <td>管理费用</td>
+        <td>2.00%</td>
+      </tr>
+      <tr>
+        <td>业绩提成</td>
+        <td>20.00%</td>
+      </tr>
+    </tbody>
+    </table> 
+  </div>
+  <div class="col-sm-6 col-md-3">
+    <table class="table table-mini3">
+    <tbody>
+      <tr>
+        <td>年化波动</td>
+        <td>35.02%</td>
+      </tr>
+      <tr>
+        <td>夏普比率</td>
+        <td>0.91</td>
+      </tr>
+      <tr>
+        <td>年复回报</td>
+        <td>25.66%</td>
+      </tr>
+    </tbody>
+    </table> 
+  </div>
+  <div class="col-sm-6 col-md-3">
+    <table class="table table-mini3">
+    <tbody>
+      <tr>
+        <td>资产规模</td>
+        <td>$40M</td>
+      </tr>
+      <tr>
+        <td>最大回撤</td>
+        <td>-10.54%</td>
+      </tr>
+      <tr>
+        <td>普标相关</td>
+        <td>0.13</td>
+      </tr>
+    </tbody>
+    </table> 
+  </div>
+</div>
+
+<% include ../partials/bs_graph.ejs %>
+
+<div class="hr-divider m-t-lg m-b-md">
+  <h3 class="hr-divider-content hr-divider-heading">最近五年数据</h3>
+</div>
+
+  <% include ../partials/table-large15.ejs %>
+  </div>
+
+  <% include ../partials/bs_foot.ejs %>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<div class="table-full">
+  <div class="table-responsive">
+    <table id="example" class="table" data-sort="table">
+      <thead>
+        <tr>
+          <th><input type="checkbox" class="select-all" id="selectAll"></th>
+          <th><%= header[0] %></th>
+          <% for(var i=start; i<start+4; i++) { %>
+            <th><%= header[i] %></th>
+          <% } %>
+        </tr>
+      </thead>
+      <tbody>
+      <% data.forEach(function(row) { %>
+        <tr>
+          <td><input type="checkbox" class="select-row"></td>
+          <td><a href="/test1"><%= row[0] %></a></td>
+          <% for(var i=start; i<start+4; i++) { %>
+            <td><%= row[i] %></td>
+          <% } %>
+        </tr>
+      <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="text-center">
+  <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</div>
