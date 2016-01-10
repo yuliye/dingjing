@@ -35,6 +35,15 @@ var data = [
         ['Bloody Mary', 3, 7, 11, 23, 11, 3, 7, 11, 23, 11, 43, 33],
         ['Martini', 5, 7, 11, 23, 11, 3, 7, 11, 23, 11, 3, 7],
         ['Scotch', 11, 7, 11, 23, 11, 7, 11, 23, 11, 3, 7, 11],
+        ['Bloody Mary', 3, 7, 11, 23, 11, 3, 7, 11, 23, 11, 43, 33],
+        ['Martini', 5, 7, 11, 23, 11, 3, 7, 11, 23, 11, 3, 7],
+        ['Scotch', 11, 7, 11, 23, 11, 7, 11, 23, 11, 3, 7, 11],
+        ['Bloody Mary', 3, 7, 11, 23, 11, 3, 7, 11, 23, 11, 43, 33],
+        ['Martini', 5, 7, 11, 23, 11, 3, 7, 11, 23, 11, 3, 7],
+        ['Scotch', 11, 7, 11, 23, 11, 7, 11, 23, 11, 3, 7, 11],
+        ['Bloody Mary', 3, 7, 11, 23, 11, 3, 7, 11, 23, 11, 43, 33],
+        ['Martini', 5, 7, 11, 23, 11, 3, 7, 11, 23, 11, 3, 7],
+        ['Scotch', 11, 7, 11, 23, 11, 7, 11, 23, 11, 3, 7, 11]
     ];
 
 var header = ['基金名', 
@@ -62,6 +71,22 @@ app.get('/test2', function(request, response) {
 
 app.get('/test3', function(request, response) {
   response.render('pages/bs_search_view');
+});
+
+app.get('/userlogin', function(request, response) {
+  response.render('pages/login');
+});
+
+app.get('/pwd_recover', function(request, response) {
+  response.render('pages/pwd_recover');
+});
+
+app.get('/reg_valid', function(request, response) {
+  response.render('pages/reg_valid');
+});
+
+app.get('/reg_form', function(request, response) {
+  response.render('pages/reg_form');
 });
 
 app.get('/public/:name?', function(request, response) {
