@@ -1,0 +1,89 @@
+<div class="hr-divider m-y-md">
+  <ul class="nav nav-pills hr-divider-content hr-divider-nav" role="tablist">
+    <li class="active" role="presentation">
+      <a href="#sales" role="tab" data-toggle="tab" aria-controls="sales">基于$1K的增长</a>
+    </li>
+    <li role="presentation">
+      <a href="#inventory" role="tab" data-toggle="tab" aria-controls="inventory">月数据柱状图</a>
+    </li>
+    <li role="presentation">
+      <a href="#profit" role="tab" data-toggle="tab" aria-controls="profit">基金构成</a>
+    </li>
+  </ul>
+</div>
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="sales">
+    <div class="ex-line-graphs">
+       <canvas
+        class="ex-line-graph"
+        width="600" height="400"
+        data-chart="line"
+        data-scale-line-color="transparent"
+        data-scale-grid-line-color="rgba(255,255,255,.05)"
+        data-scale-font-color="#a2a2a2"
+        data-labels="['','Aug 29','','','Sept 5','','','Sept 12','','','Sept 19','']"
+        data-value="[{fillColor: 'rgba(28,168,221,.03)', data: [2500, 3300, 2512, 2775, 2498, 3512, 2925, 4275, 3507, 3825, 3445, 3985]}]">
+      </canvas>
+    </div>
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="inventory">
+    <div class="ex-line-graphs">
+      <canvas
+        class="ex-line-graph"
+        width="600" height="400"
+        data-chart="bar"
+        data-scale-line-color="transparent"
+        data-scale-grid-line-color="rgba(255,255,255,.05)"
+        data-scale-font-color="#a2a2a2"
+        data-labels="['August','September','October','November','December','January','February']"
+        data-value="[{ label: 'First dataset', data: [65, 59, 80, 81, 56, 55, 40] }, { label: 'Second dataset', data: [28, 48, 40, 19, 86, 27, 90] }]">
+      </canvas>
+    </div>
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="profit">
+    <div class="row ex-graphs text-center">
+      <div class="col-sm-4">
+        <div class="c-w-lg m-x-auto">
+          <canvas
+            class="ex-graph"
+            width="200" height="200"
+            data-chart="doughnut"
+            data-segment-stroke-color="#222"
+            data-value="[{ value: 230, color: '#1ca8dd', label: 'Returning' }, { value: 130, color: '#1bc98e', label: 'New' }]">
+          </canvas>
+        </div>
+        <strong class="text-muted">Traffic</strong>
+        <h3>New vs Returning</h3>
+      </div>
+      <div class="col-sm-4">
+        <div class="c-w-lg m-x-auto">
+          <canvas
+            class="ex-graph"
+            width="200" height="200"
+            data-chart="doughnut"
+            data-segment-stroke-color="#222"
+            data-value="[{ value: 330, color: '#1ca8dd', label: 'Recurring' }, { value: 30, color: '#1bc98e', label: 'New' }]">
+          </canvas>
+        </div>
+        <strong class="text-muted">Revenue</strong>
+        <h3>New vs Recurring</h3>
+      </div>
+      <div class="col-sm-4">
+        <div class="c-w-lg m-x-auto">
+          <canvas
+            class="ex-graph"
+            width="200" height="200"
+            data-chart="doughnut"
+            data-segment-stroke-color="#222"
+            data-value="[{ value: 100, color: '#42a5f5', label: 'Referrals' }, { value: 260, color: '#1bc98e', label: 'Direct' }]">
+          </canvas>
+        </div>
+        <strong class="text-muted">Traffic</strong>
+        <h3>Direct vs Referrals</h3>
+      </div>
+    </div>
+  </div>
+</div>

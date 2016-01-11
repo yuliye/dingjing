@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head><% include ../partials/bs_head.ejs %></head>
+
+
+<body class="with-top-navbar">
+  <% include ../partials/bs_menu.ejs %>   
+
+  <div class="container-fluid container-fluid-spacious">
+    <div class="dashhead m-t-md">
+  <div class="dashhead-titles">
+    <h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6>
+    <h2 class="dashhead-title">条件搜索</h2>
+  </div>
+</div>
+<div class="row form">
+  <div class="form-group col-md-5">
+    <div class="hr-divider m-t">
+      <h3 class="hr-divider-content hr-divider-heading">时间条件</h3>
+    </div>
+
+    <div class="p-a">
+    <div class="btn-toolbar-item input-with-icon m-b m-r">
+      <input type="text" class="form-control" data-provide="datepicker" placeholder="起始日期">
+      <span class="icon icon-calendar"></span>
+    </div>
+
+    <div class="btn-toolbar-item input-with-icon m-b m-r">
+      <input type="text" class="form-control" data-provide="datepicker" placeholder="结束日期">
+      <span class="icon icon-calendar"></span>
+    </div>
+  </div>
+
+  <div class="hr-divider m-t">
+      <h3 class="hr-divider-content hr-divider-heading">属性条件</h3>
+  </div>
+    <div class="p-t">
+    <div class="col-xs-6 col-sm-6 col-md-6">
+      <div class="m-b">
+        复合年回报率：
+      </div>
+    <div class="flextable m-b">
+      <div class="flextable-item">
+        <select class="custom-select custom-select-sm">
+          <option>Default</option>
+          <option>First option</option>
+          <option>Another option</option>
+          <option>Alternative</option>
+          <option>Last one</option>
+        </select>
+      </div>
+    </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6">
+      <div class="m-b">
+        最大回撤：
+      </div>
+    <div class="flextable m-b">
+      <div class="flextable-item">
+        <select class="custom-select custom-select-sm">
+          <option>Default</option>
+          <option>First option</option>
+          <option>Another option</option>
+          <option>Alternative</option>
+          <option>Last one</option>
+        </select>
+      </div>
+    </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6">
+      <div class="m-b">
+        行业侧重：
+      </div>
+    <div class="flextable m-b">
+      <div class="flextable-item">
+        <select class="custom-select custom-select-sm">
+          <option>Default</option>
+          <option>First option</option>
+          <option>Another option</option>
+          <option>Alternative</option>
+          <option>Last one</option>
+        </select>
+      </div>
+    </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6">
+      <div class="m-b">
+        投资者要求：
+      </div>
+    <div class="flextable m-b">
+      <div class="flextable-item">
+        <select class="custom-select custom-select-sm">
+          <option>Default</option>
+          <option>First option</option>
+          <option>Another option</option>
+          <option>Alternative</option>
+          <option>Last one</option>
+        </select>
+      </div>
+    </div>
+    </div>
+    <div class="col-md-12">
+      <div class="m-b">
+        资产规模：
+      </div>
+    <div class="flextable m-b">
+      <div class="flextable-item">
+        <select class="custom-select custom-select-sm">
+          <option>Default</option>
+          <option>First option</option>
+          <option>Another option</option>
+          <option>Alternative</option>
+          <option>Last one</option>
+        </select>
+          &nbsp;&nbsp;到&nbsp;&nbsp;
+        <select class="custom-select custom-select-sm">
+          <option>Default</option>
+          <option>First option</option>
+          <option>Another option</option>
+          <option>Alternative</option>
+          <option>Last one</option>
+        </select>
+      </div>
+    </div>
+    </div>
+    <div class="col-md-12">
+      <div class="m-b">
+        最低投资：
+      </div>
+    <div class="flextable m-b">
+      <div class="flextable-item">
+        <select class="custom-select custom-select-sm">
+          <option>Default</option>
+          <option>First option</option>
+          <option>Another option</option>
+          <option>Alternative</option>
+          <option>Last one</option>
+        </select>
+        &nbsp;&nbsp;到&nbsp;&nbsp;
+        <select class="custom-select custom-select-sm">
+          <option>Default</option>
+          <option>First option</option>
+          <option>Another option</option>
+          <option>Alternative</option>
+          <option>Last one</option>
+        </select>
+      </div>
+    </div>
+    </div>
+    </div>
+  </div>
+  <div class="form-group col-md-7">
+  <div class="hr-divider m-t">
+  <h3 class="hr-divider-content hr-divider-heading">类别条件</h3>
+  </div>
+ 
+    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+    <div class="hr-divider m-t">
+      <h3 class="hr-divider-content hr-divider-heading">投资策略</h3>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Arbitrage
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Counter-Trend
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Fundamental
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Momentum
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Option-Purchasing
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Option-Spreads
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Option-Writing
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Pattern-Recognition
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Seasonal /Cyclical
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Spreading /Hedging
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Technical
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Trend-Following
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Other
+      </label>
+    </div>
+    </div>  
+    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+    <div class="hr-divider m-t">
+      <h3 class="hr-divider-content hr-divider-heading">决策类型</h3>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Discretionary
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Systematic
+      </label>
+    </div>
+    <div class="hr-divider m-t">
+      <h3 class="hr-divider-content hr-divider-heading">基金组成</h3>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Currency Futures
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Currency FX
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Industrial Metals
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Precious Metals
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Energy
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Grains
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Interest Rates
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Livestock
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Softs
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        SSF
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Stock Indices
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        VIX
+      </label>
+    </div>
+    <div class="checkbox custom-control custom-checkbox p-x">
+      <label>
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        Other
+      </label>
+    </div>
+    </div> 
+  
+  </div>
+  <div class="form-group text-center col-xs-12 col-sm-12 col-md-12 m-b">
+    <div class="hr-divider m-b">
+      <h3 class="hr-divider-content hr-divider-heading"></h3>
+    </div>
+    <a href="/users/list">
+      <button type="button" class="btn btn-lg btn-primary">立即搜索</button>
+    </a>
+  </div>
+</div>
+</div>
+
+  <% include ../partials/bs_foot.ejs %>
+  </body>
+</html>

@@ -1,10 +1,13 @@
 var express = require('express');
 var stormpath = require('express-stormpath');
+var client = require('twilio')('ACca3d316eecc3ee8aa422c1670f0b9cd4','c53e6369e7979242648b0903f5973df2'); 
 var app = express();
 
+/*
 app.use(stormpath.init(app, {
   website: true
 }));
+*/
 
 app.set('port', (process.env.PORT || 8080));
 
@@ -18,7 +21,22 @@ app.get('/', function(request, response) {
   response.render('pages/landing');
 });
 
+code = '1122334'
 
+app.get('/tw',function(request, response) {
+  client.sendMessage({
+    to: '+14155132523',
+    from: '+14506007320',
+    body: code
+  }, function(err,data){
+    if(err) 
+      console.log(err);
+    console.log(data);
+  });
+  response.render('pages/tw_reg',{
+    code: code
+  });
+});
 
 
 app.get('/test1', function(request, response) {
@@ -73,6 +91,10 @@ app.get('/test3', function(request, response) {
   response.render('pages/bs_search_view');
 });
 
+app.get('/home', function(request, response) {
+  response.render('pages/bs_home_view');
+});
+
 app.get('/userlogin', function(request, response) {
   response.render('pages/login');
 });
@@ -93,8 +115,26 @@ app.get('/public/:name?', function(request, response) {
   response.render('pages/short_header',{title:request.params.name});
 });
 
+app.get('/tw_login', function(request, response) {
+  response.render('pages/tw_login');
+});
+
+app.get('/tw_reg', function(request, response) {
+  response.render('pages/tw_reg',{
+    code: ''
+  });
+});
+
+/*
 app.on('stormpath.ready', function() {
   app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
   });
-});  
+});
+*/  
+
+
+  app.listen(app.get('port'), function() {
+    console.log('Node app is running on port', app.get('port'));
+  });
+  

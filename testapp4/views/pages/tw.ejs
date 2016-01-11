@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><% include ../partials/bs_head.ejs %>
+</head>
+<body class="with-top-navbar">
+  <% include ../partials/bs_menu.ejs %>  
+  <div class="container-fluid container-fluid-spacious">
+    <div class="dashhead m-t-md">
+      <div class="dashhead-titles">
+      <h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6>
+      <h2 class="dashhead-title">注册｜重设密码</h2>
+      </div>
+    </div>
+      <div class="hr-divider m-t">
+      <h3 class="hr-divider-content hr-divider-heading"></h3>
+    </div>
+    <div class="dj-container">
+    <div class="p-a">
+      <input type="text" class="form-control m-t" placeholder="您的手机号">
+     
+      <div class="flextable m-t">
+  <div class="flextable-item">
+      <button type="button" class="btn btn-primary-outline">发送短信认证
+      </button>
+  </div>
+  <div class="flextable-item flextable-primary">
+    <div class="btn-group">
+    <input type="text" class="form-control" placeholder="输入认证码">
+    </div>
+  </div>
+</div>
+    <input type="password" class="form-control m-t" placeholder="输入新密码">
+    <input type="password" class="form-control m-t" placeholder="再输入密码">
+    <a href="/users/home">
+    <button type="button" class="btn btn-block btn-primary m-y">注册｜重设密码</button>
+    </a>
+    </div>
+    </div>
+  </div>
+  <% include ../partials/bs_foot.ejs %>
+</body>
+</html>
