@@ -16,7 +16,8 @@
     </div>
     <div class="dj-container">
     <div class="p-a">
-      <input type="text" class="form-control m-t" placeholder="您的手机号" 
+    <form action="/tw" method="get">
+      <input type="text" class="form-control m-t" placeholder="您的手机号" name="username" 
       value=<%= code %> 
       <% if(code!='') {%>
          disabled
@@ -24,26 +25,39 @@
       >
       <div class="flextable m-t">
   <div class="flextable-item">
-    <a href="/users/tw">
-      <button type="button" class="btn btn-primary-outline"
+      <button type="button submit" class="btn btn-primary-outline"
       <% if(code!='') {%>
          disabled
       <% } %>
       >发送短信认证
       </button>
-    </a>
   </div>
   <div class="flextable-item flextable-primary">
     <div class="btn-group">
-    <input type="text" class="form-control" placeholder="输入认证码">
+    <input type="text" class="form-control" placeholder="输入认证码" name="code"
+      <% if(code=='') {%>
+         disabled
+      <% } %>
+    >
     </div>
   </div>
 </div>
-    <input type="password" class="form-control m-t" placeholder="输入新密码">
-    <input type="password" class="form-control m-t" placeholder="再输入密码">
-    <a href="/users/home">
-    <button type="button" class="btn btn-block btn-primary m-y">注册｜重设密码</button>
-    </a>
+    <input type="password" class="form-control m-t" placeholder="输入新密码" name="pass1"
+      <% if(code=='') {%>
+         disabled
+      <% } %>
+    >
+    <input type="password" class="form-control m-t" placeholder="再输入密码" name="pass2"
+      <% if(code=='') {%>
+         disabled
+      <% } %>
+    >
+    <button type="button submit" class="btn btn-block btn-primary m-y"
+      <% if(code=='') {%>
+         disabled
+      <% } %>
+    >注册｜重设密码</button>
+    </form>
     </div>
     </div>
   </div>

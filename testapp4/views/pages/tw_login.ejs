@@ -15,19 +15,32 @@
       <h3 class="hr-divider-content hr-divider-heading"></h3>
     </div>
     <div class="dj-container">
+    <form action="/login" method="post">
     <div class="p-a">
-      <input type="text" class="form-control m-t" placeholder="您的手机号">
-      <input type="password" class="form-control m-t" placeholder="请输入密码">
-    <div class="text-right">
-    <a href="/users/reg">忘记密码</a>
+      <input type="text" class="form-control m-t" placeholder="您的手机号" name="username">
+      <input type="password" class="form-control m-t" placeholder="请输入密码" name="password">
+    <div class="row">
+    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+    <div class="checkbox custom-control custom-checkbox">
+      <label>
+        <input type="checkbox" class="form-control" name="remember" value="yes">
+        <span class="custom-control-indicator"></span>
+        记住我
+      </label>
     </div>
-    <a href="/users/home">
-    <button type="button" class="btn btn-block btn-primary m-y">登录</button>
-    </a>
+    </div>
+    <div class="form-group col-xs-6 col-sm-6 col-md-6 text-right">
+    <div class="checkbox custom-control custom-checkbox">
+    <a href="/reg">忘记密码</a>
+    </div>
+    </div>
+    </div>
+    <button type="button submit" class="btn btn-block btn-primary m-b">登录</button>
      <div class="text-center">
-    还没有账户？<a href="/users/reg">立即开户</a>
+    还没有账户？<a href="/reg">立即开户</a>
     </div>
     </div>
+    </form>
     </div>
   </div>
   <% include ../partials/bs_foot.ejs %>

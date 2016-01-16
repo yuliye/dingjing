@@ -1,5 +1,5 @@
 var express = require('express');
-var client = require('twilio')('ACca3d316eecc3ee8aa422c1670f0b9cd4','c53e6369e7979242648b0903f5973df2'); 
+module.exports = function(passport,pool,dbconfig) { 
 var router = express.Router();
 
 
@@ -43,7 +43,7 @@ var pageIndex = [1, 5, 9]
 
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', isLoggedIn, function(req, res, next) {
   res.send('respond with a resource');
 });
 
@@ -66,31 +66,15 @@ router.get('/home', function(req, res) {
   res.render('pages/bs_home_view');
 });
 
-router.get('/login', function(req, res) {
-  res.render('pages/tw_login');
-});
+return router;
+};
+// route middleware to make sure
+function isLoggedIn(req, res, next) {
 
-router.get('/reg', function(req, res) {
-  res.render('pages/tw_reg',{
-    code: ''
-  });
-});
+  // if user is authenticated in the session, carry on
+  if (req.isAuthenticated())
+    return next();
 
-router.get('/tw',function(req, res) {
-  client.sendMessage({
-    to: '+14155132523',
-    from: '+14506007320',
-    body: code
-  }, function(err,data){
-    if(err) 
-      console.log(err);
-    console.log(data);
-  });
-  res.render('pages/tw_reg',{
-    code: code
-  });
-});
-
-
-
-module.exports = router;
+  // if they aren't redirect them to the home page
+  res.redirect('/');
+}

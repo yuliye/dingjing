@@ -5,8 +5,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+//newly added
+var session  = require('express-session');
+var passport = require('passport');
+var flash    = require('connect-flash');
+               
+var mysql = require('mysql');
+var dbconfig = require('./config/database');
+var pool = mysql.createPool(dbconfig.connection);
+
+require('./config/passport')(passport,pool,dbconfig); // pass passport for configuration
 
 var app = express();
 
@@ -21,6 +29,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// required for passport
+app.use(session({
+  secret: 'UtUw1688',
+  resave: true,
+  saveUninitialized: true
+ } )); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+var routes = require('./routes/index')(passport, pool, dbconfig);
+var users = require('./routes/users')(passport, pool, dbconfig);
 
 app.use('/', routes);
 app.use('/users', users);
