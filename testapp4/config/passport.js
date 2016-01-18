@@ -51,33 +51,34 @@ module.exports = function(passport, pool, dbconfig) {
         new LocalStrategy({
             // by default, local strategy uses username and password, we will override with email
             usernameField : 'username',
-            passwordField : 'password',
+            passwordField : 'code',
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
-        function(req, username, password, done) {
+        function(req, username, code, done) {
+          //console.log(req.body.password);
+          if(req.body.password!==req.body.repassword)
+            return done(null, false, req.flash('signupMessage', '密码不匹配!'));  
           pool.getConnection(function(err, connection) {
+            if (err)
+                return done(err)
             connection.query('USE ' + dbconfig.database);  
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            connection.query("SELECT * FROM User_Table WHERE Cell_Phone = ? ",[username], function(err, rows) {
+            connection.query("SELECT * FROM User_Table WHERE Cell_Phone = ? AND Code = ?",[username,code], function(err, rows) {
                 if (err)
                     return done(err);
-                if (rows.length) {
-                    return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+                if (!rows.length) {
+                    return done(null, false, req.flash('signupMessage', '验证码不匹配!'));
                 } else {
-                    // if there is no user with that username
-                    // create the user
-                    var newUserMysql = {
-                        username: username,
-                        password: bcrypt.hashSync(password, null, null)  // use the generateHash function in our user model
-                    };
-
-                    var insertQuery = "INSERT INTO users ( username, password ) values (?,?)";
-
-                    connection.query(insertQuery,[newUserMysql.username, newUserMysql.password],function(err, rows) {
-                        newUserMysql.id = rows.insertId;
-
-                        return done(null, newUserMysql);
+                    connection.query("UPDATE User_Table SET Password = ?, Status = 1 WHERE Cell_Phone = ?",
+                    [bcrypt.hashSync(req.body.password, null, null),username], function(err,result) {
+                        if(err)
+                            return done(err);
+                    });
+                    connection.query("SELECT * FROM User_Table WHERE Cell_Phone = ?",[username], function(err, rows) {
+                        if(err)
+                            return done(err);
+                        return done(null, rows[0]);
                     });
                 }
             });
@@ -108,13 +109,13 @@ module.exports = function(passport, pool, dbconfig) {
                 if (err)
                     return done(err);
                 if (!rows.length) {
-                    return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                    return done(null, false, req.flash('loginMessage', '登录错误！用户不存在。')); // req.flash is the way to set flashdata using connect-flash
                 }
 
                 // if the user is found but the password is wrong
-                //if (!bcrypt.compareSync(password, rows[0].password))
-                if(password !== rows[0].Password){
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+                if (!bcrypt.compareSync(password, rows[0].Password)){
+                //if(password !== rows[0].Password){
+                    return done(null, false, req.flash('loginMessage', '登录错误！密码不正确。')); // create the loginMessage and save it to session as flashdata
                 }
 
                 // all is well, return successful user

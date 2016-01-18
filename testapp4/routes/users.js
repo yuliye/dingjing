@@ -47,22 +47,23 @@ router.get('/', isLoggedIn, function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/detail', function(req, res) {
+router.get('/detail', isLoggedIn, function(req, res) {
   res.render('pages/bs_detail_view');
 });
 
-router.get('/list', function(req, res) {
+router.get('/list', isLoggedIn, function(req, res) {
   res.render('pages/bs_list_view',{
     header: header, 
     data: data, 
     pageIndex: pageIndex});
 });
 
-router.get('/search', function(req, res) {
+router.get('/search', isLoggedIn, function(req, res) {
   res.render('pages/bs_search_view');
 });
 
-router.get('/home', function(req, res) {
+router.get('/home', isLoggedIn, function(req, res) {
+  console.log(req.user);
   res.render('pages/bs_home_view');
 });
 

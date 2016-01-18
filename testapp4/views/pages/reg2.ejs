@@ -19,53 +19,28 @@
     <% if (message.length > 0) { %>
                 <div class="alert alert-danger"><%= message %></div>
     <% } %>
-    <form action="/tw" 
-      <% if(code=='') {%>
-         method="get"
-      <% } else {%>
-         method="post"
-      <% } %>
-    >
+    <form action="/reg2" method="post">
       <input type="text" class="form-control m-t" placeholder="您的手机号" name="username" 
-      value=<%= code %> 
-      <% if(code!='') {%>
-         readonly
-      <% } %>
-      >
+        value=<%= cellphone %> 
+        readonly>
       <div class="flextable m-t">
   <div class="flextable-item">
-      <button type="button submit" class="btn btn-primary-outline"
-      <% if(code!='') {%>
-         disabled
-      <% } %>
-      >发送短信认证
+      <button type="button submit" class="btn btn-primary-outline" disabled>
+      发送短信认证
       </button>
   </div>
   <div class="flextable-item flextable-primary">
     <div class="btn-group">
-    <input type="text" class="form-control" placeholder="输入认证码" name="code"
-      <% if(code=='') {%>
-         disabled
-      <% } %>
+    <input type="text" class="form-control" placeholder="输入验证码" name="code"
+      value=<%= code %> 
     >
     </div>
   </div>
 </div>
-    <input type="password" class="form-control m-t" placeholder="输入新密码" name="password"
-      <% if(code=='') {%>
-         disabled
-      <% } %>
-    >
-    <input type="password" class="form-control m-t" placeholder="再输入密码" name="repassword"
-      <% if(code=='') {%>
-         disabled
-      <% } %>
-    >
-    <button type="button submit" class="btn btn-block btn-primary m-y"
-      <% if(code=='') {%>
-         disabled
-      <% } %>
-    >注册｜重设密码</button>
+    <input type="password" class="form-control m-t" placeholder="输入新密码" name="password">
+    <input type="password" class="form-control m-t" placeholder="再输入密码" name="repassword">
+    <button type="button submit" class="btn btn-block btn-primary m-y">
+    注册｜重设密码</button>
     </form>
     </div>
     </div>
