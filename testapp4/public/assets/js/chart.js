@@ -69,7 +69,7 @@
 
       // Boolean - If we want to override with a hard coded scale
       scaleOverride: false,
-
+      //scaleOverride: true;
       // ** Required if scaleOverride is true **
       // Number - The number of steps in a hard coded scale
       scaleSteps: null,

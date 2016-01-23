@@ -12,7 +12,7 @@
 
   <div class="dashhead-titles">
     <h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6>
-    <h2 class="dashhead-title"><%= fundName %></h2>
+    <h2 class="dashhead-title">基金名称</h2>
   </div>
 
   <div class="btn-toolbar dashhead-toolbar p-y">
@@ -62,8 +62,8 @@
   <div class="col-sm-6 col-md-3">
     <div class="statcard statcard-primary p-a-md">
       <h1 class="statcard-number">
-        <%= rateData[0] %> 
-        <small class="delta-indicator delta-positive"><%= rateData[1] %></small>
+        27.4%
+        <small class="delta-indicator delta-positive">5.2%</small>
       </h1>
       <span class="statcard-desc">本年度回报＋上月回报</span>
     </div>

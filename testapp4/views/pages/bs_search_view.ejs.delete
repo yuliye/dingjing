@@ -6,7 +6,6 @@
 <body class="with-top-navbar">
   <% include ../partials/bs_menu.ejs %>   
 
-<form action="/users/searchlist" method="get">
   <div class="container-fluid container-fluid-spacious">
     <div class="dashhead m-t-md">
   <div class="dashhead-titles">
@@ -22,12 +21,12 @@
 
     <div class="p-a">
     <div class="btn-toolbar-item input-with-icon m-b m-r">
-      <input type="text" class="form-control" data-provide="datepicker" placeholder="起始日期" name="startTime">
+      <input type="text" class="form-control" data-provide="datepicker" placeholder="起始日期">
       <span class="icon icon-calendar"></span>
     </div>
 
     <div class="btn-toolbar-item input-with-icon m-b m-r">
-      <input type="text" class="form-control" data-provide="datepicker" placeholder="结束日期" name="endTime">
+      <input type="text" class="form-control" data-provide="datepicker" placeholder="结束日期">
       <span class="icon icon-calendar"></span>
     </div>
   </div>
@@ -42,16 +41,12 @@
       </div>
     <div class="flextable m-b">
       <div class="flextable-item">
-        <select class="custom-select custom-select-sm" name="compoundRate">
-          <option selected="selected" value="-1">任何回报</option>
-          <option value="100">大于100%</option>
-          <option value="80">大于80%</option>
-          <option value="50">大于50%</option>
-          <option value="30">大于30%</option>
-          <option value="15">大于15%</option>
-          <option value="10">大于10%</option>
-          <option value="5">大于5%</option>
-          <option value="0">大于0%</option>
+        <select class="custom-select custom-select-sm">
+          <option>Default</option>
+          <option>First option</option>
+          <option>Another option</option>
+          <option>Alternative</option>
+          <option>Last one</option>
         </select>
       </div>
     </div>
@@ -374,11 +369,12 @@
     <div class="hr-divider m-b">
       <h3 class="hr-divider-content hr-divider-heading"></h3>
     </div>
-      <button type="button submit" class="btn btn-lg btn-primary">立即搜索</button>
+    <a href="/users/list">
+      <button type="button" class="btn btn-lg btn-primary">立即搜索</button>
+    </a>
   </div>
 </div>
 </div>
-</form>
 
   <% include ../partials/bs_foot.ejs %>
   </body>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head><% include ../partials/bs_head.ejs %>
+  </head>
+
+
+<body class="with-top-navbar">
+  <% include ../partials/bs_menu.ejs %>   
+
+  <div class="container-fluid container-fluid-spacious">
+    <div class="dashhead m-t-md">
+  <div class="dashhead-titles">
+    <h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6>
+    <h2 class="dashhead-title">列表名称</h2>
+  </div>
+    </div>
+  <% include ../partials/table-combo3.ejs %>
+  </div>
+
+  <% include ../partials/bs_foot.ejs %>
+  </body>
+</html>
