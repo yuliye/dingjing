@@ -359,6 +359,8 @@ module.exports.combodetail =
 		graphData += "]" ;
 	        console.log(barOne);
 		console.log(barTwo);	
+
+
 		res.render('pages/bs_combo_detail_view',{
                         rateData : rateData,
                 	data: fiveYearData,
@@ -371,7 +373,7 @@ module.exports.combodetail =
 			fundid: fundid,
             index : index,
             showSave: 0,
-            combo: [[1,'uuu',500],[2,'bbb',600],[3,'aaa',700]]
+            combo: [['fund1',500],['fund2',600],['fund3',700]]
                 });
 
 	}

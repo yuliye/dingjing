@@ -91,6 +91,36 @@ router.get('/list',   isLoggedIn, function(req, res) {
 });
 
 
+router.get('/modifycombo', isLoggedIn, function(req, res){
+  pool.getConnection(function(err, connection) { 
+    connection.query('USE ' + dbconfig.database);
+    connection.query("SELECT Combo_ID FROM Combo_Table WHERE Combo_Name = ? AND User_ID = ?",[req.query.comboname, req.user.User_ID], function(err, rows){
+      if(err){
+        //err handling
+      }
+      else if(rows.length==0){
+        //new combo name
+        connection.query('INSERT INTO Combo_Table ( Combo_Name, User_ID ) values (?,?)', [req.query.comboname,req.user.User_ID], function(err, rows){
+          if(err){
+            //err handling
+          }
+          else {
+            connection.query('INSERT INTO Combo_Data_Table ( Combo_ID, Fund_ID, Amount ) values (?,?,?)', [rows.insertId,req.query.fundid,req.query.amount]);
+            console.log(rows.insertId);
+          }
+        });
+      }
+      else {
+        //old combo name
+        var id = rows[0].Combo_ID;
+        connection.query('Insert INTO Combo_Data_Table (Combo_ID, Fund_ID, Amount) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE Amount = ?', [id,req.query.fundid,req.query.amount,req.query.amount]);
+      }
+    });
+    connection.release();
+  }); 
+  res.redirect('combo');
+});
+
 router.get('/combodetail',  isLoggedIn, function(req, res) {
   var id = req.query['comboid'];
   var queryString = "SELECT Combo_ID Fund_ID, Combo_Name Fund_Name, Year, Month, round(sum(ret),2) Month_Return ";
