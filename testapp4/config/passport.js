@@ -55,7 +55,6 @@ module.exports = function(passport, pool, dbconfig) {
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, username, code, done) {
-          //console.log(req.body.password);
           if(req.body.password!==req.body.repassword)
             return done(null, false, req.flash('signupMessage', '密码不匹配!'));  
           pool.getConnection(function(err, connection) {

@@ -18,26 +18,9 @@
 
   <div class="btn-toolbar dashhead-toolbar p-y">
   <form action="collection" method="get">
-  <input type="hidden" class="form-control" name="fundid" 
-        value=<%= fundid %> 
-  >
-  <input type="hidden" class="form-control" name="hasSaved" 
-        value=<%= showSave %> 
-  >
-  <% if(showSave==0) { %>
-    <button class="btn btn-primary m-l" type="button submit">
-  <span class="icon icon-heart"></span>
-  收藏基金
-  </button>
-<% } if (showSave==1) { %>
-   <button class="btn btn-primary m-l" type="button submit">
-  <span class="icon icon-squared-cross"></span>
-  取消收藏
-  </button>
-<% } %>
     <button class="btn btn-primary m-l" type="button" data-toggle="modal" data-target="#saveModal">
-  <span class="icon icon-squared-plus"></span>
-  加入组合
+  <span class="icon icon-sound-mix"></span>
+  调整组合
 </button>
 
 <a href="tel:+14155132523">
@@ -55,30 +38,22 @@
         <h4 class="modal-title">加入组合</h4>
       </div>
       <div class="modal-body row">
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center m-b">
-        <strong>把基金 <%= fundName %> 加入</strong>
-        </div>
-      <div class="col-xs-6 col-sm-6 col-md-6">
-        <select class="custom-select" name="thelist" onChange="combo(this, 'theinput')" onMouseOut="comboInit(this, 'theinput')">
-          <option>新组合</option>
-          <% combo.forEach(function(row) { %>
-          <option><%= row %></option>
-          <% }); %>
-        </select>
-        </div>
+      <% combo.forEach(function(row) { %>
         <div class="col-xs-6 col-sm-6 col-md-6">
-        <input type="text" class="form-control" id="theinput" name="theinput" placeholder="组合名">
-        <div class="input-group m-t">
-      <div class="input-group-addon">$</div>
-
-      <input type="text" class="form-control" id="exampleInputAmount" placeholder="投资额">
-    </div>
+          <%= row[1] %>
         </div>
+        <div class="input-group col-xs-6 col-sm-6 col-md-6">
+          <div class="input-group-addon">$</div>
+          <input type="text" class="form-control" name=<%= row[0] %> placeholder="投资额"
+          value=<%= row[2] %>
+          >
+        </div>
+      <% }); %>  
       </div>
       <div class="modal-actions">
         <button type="button" class="btn-link modal-action" data-dismiss="modal">取消</button>
         <button type="button" class="btn-link modal-action" data-dismiss="modal">
-          <strong>添加</strong>
+          <strong>调整</strong>
         </button>
       </div>
     </div>
@@ -171,14 +146,13 @@
   <script type="text/javascript">
 function comboInit(thelist)
 {
-  theinput = document.getElementById(theinput); 
+  theinput = document.getElementById(theinput);  
   var idx = thelist.selectedIndex;
   var content = thelist.options[idx].innerHTML;
   if(idx == 0)
     content = "";
-  if(theinput.value == ""){
-    theinput.value = content;
-  }
+  if(theinput.value == "")
+    theinput.value = content; 
 }
 function combo(thelist, theinput)
 {
@@ -187,7 +161,7 @@ function combo(thelist, theinput)
   var content = thelist.options[idx].innerHTML;
   if(idx == 0)
     content = "";
-  theinput.value = content;
+  theinput.value = content; 
 }
 </script>
   </body>

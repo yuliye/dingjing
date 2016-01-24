@@ -8,34 +8,57 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand navbar-brand-emphasized" href="/users/home">
-          <span class="icon icon-leaf navbar-brand-icon"></span>
+          <span class="icon icon-home navbar-brand-icon"></span>
           鼎鲸证券－专户理财
         </a>
       </div>
+      <% if (index!=0) {%>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li class="active">
+          <li 
+          <% if (index==1) {%> 
+            class="active"
+          <% } %>
+          >
             <a href="/users/search">条件筛选</a>
           </li>
-          <li >
+          <li 
+          <% if (index==2) {%> 
+            class="active"
+          <% } %>
+          >
             <a href="/users/collection">我的收藏</a>
           </li>
-          <li >
+          <li 
+          <% if (index==3) {%> 
+            class="active"
+          <% } %>
+          >
             <a href="/users/combo">我的组合</a>
           </li>
-          <li >
+          <li 
+          <% if (index==4) {%> 
+            class="active"
+          <% } %>
+          >
             <a href="/">鼎鲸主页</a>
           </li>
-          <li >
-            <a href="/login">登出</a>
+          <li 
+          <% if (index==5) {%> 
+            class="active"
+          <% } %>
+          >
+            <a href="/logout">登出</a>
           </li>
         </ul>
-        <form class="form-inline navbar-form navbar-right">
-          <div class="input-with-icon">
-            <input class="form-control" type="text" placeholder="搜索基金...">
+        <form action="/users/text" method="get" class="form-inline navbar-form navbar-right">
+          <div class="input-with-icon" id="prefetch">
+            <input class="typeahead form-control" type="text" name="fundname" placeholder="搜索基金...">
             <span class="icon icon-magnifying-glass"></span>
           </div>
+          <button type="button submit" class="btn btn-sm btn-primary">GO!</button>
         </form>
       </div>
+      <% } %>
     </div>
   </nav>

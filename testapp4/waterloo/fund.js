@@ -1,5 +1,5 @@
 module.exports.result =
-	function(pool, dbconfig, url, values, header, pageIndex, res, type){
+	function(pool, dbconfig, url, values, header, pageIndex, res, type, index){
 		pool.getConnection(function(err, connection) {
               	        connection.query('USE ' + dbconfig.database);
                         connection.query(url,values, function(err, rows){
@@ -11,7 +11,8 @@ module.exports.result =
                 header: header,
                 data: data,
                 pagetype : type,
-                pageIndex: pageIndex});
+                pageIndex: pageIndex,
+                index: index});
             }
             else {
 		console.log(rows);
@@ -36,8 +37,9 @@ module.exports.result =
 		res.render('pages/bs_list_view',{
                 header: header,
                 data: data,
-		pagetype : type,
-                pageIndex: pageIndex});
+		        pagetype : type,
+                pageIndex: pageIndex,
+                index: index});
 
             }
 	
@@ -50,7 +52,7 @@ module.exports.result =
 };
 
 module.exports.detailresult =
-        function(pool, dbconfig, url, values, header, pageIndex,req, res){
+        function(pool, dbconfig, url, values, header, pageIndex,req, res, index){
                 pool.getConnection(function(err, connection) {
                         connection.query('USE ' + dbconfig.database);
                         connection.query(url, values, function(err, rows){
@@ -64,17 +66,23 @@ module.exports.detailresult =
                         barOneData : barOne,
                         barTwoData : barTwo,
                         barLabel : barLab,
-                        fundName : fundName
+                        fundName : fundName,
+                        fundid : fundid,
+                        index: index,
+                        showSave: 0,
+                        combo: [[1,'uuu',500],[2,'bbb',600],[3,'aaa',700]]
 		});	
             }
             else {
 		var rateData = [ req.query['annret'],  req.query['lastret']];
+		//var rateData = [ '21.89%',  '6.13%'];
                 var len = rows.length;
 		var firstYear = rows[0].Year;
 		var lastYear = rows[len-1].Year;
 	
 		var numYear=lastYear-firstYear+1;
 		var fundName = rows[0].Fund_Name;
+		var fundid = rows[0].Fund_ID;
 		//
 		var barOneData = new Array(12);
 		var barTwoData = new Array(12);
@@ -169,7 +177,30 @@ module.exports.detailresult =
 		graphData += "]" ;
 	        console.log(barOne);
 		console.log(barTwo);	
-		res.render('pages/bs_detail_view',{
+
+
+		console.log(req.user.User_ID);
+        console.log(rows[0].Fund_ID);
+        connection.query("SELECT * FROM Saved_Fund_Table Where User_ID = ? AND Fund_ID = ?", [req.user.User_ID,rows[0].Fund_ID], function(err,rows){
+          console.log(rows.length);
+          var hasSaved = rows.length;
+          if(err)
+          	return done(err);
+          else {
+          	console.log('here');
+            connection.query("SELECT Combo_Name FROM Combo_Table Where User_ID = ?", [req.user.User_ID], function(err,rows){
+              if(err){
+              	//error handling
+              	console.log('err');
+              }
+              else {
+              	console.log('here');
+              	console.log(rows);
+              	var comboname = new Array(rows.length);
+              	for(i=0;i<rows.length;i++)
+              		comboname[i]=rows[i].Combo_Name;
+              	console.log(comboname);
+              	res.render('pages/bs_detail_view',{
                         rateData : rateData,
                 	data: fiveYearData,
 			dataLabel: dataLabel,
@@ -177,8 +208,170 @@ module.exports.detailresult =
 			barOneData : barOne,
 			barTwoData : barTwo,
 			barLabel : barLab,
-			fundName : fundName
+			fundName : fundName,
+			fundid: fundid,
+            index : index,
+            showSave: hasSaved,
+            combo: comboname
+                });
+              }
+            });
+          }
+        });
+	}
+        });
 
+        // connected! (unless `err` is set)
+        connection.release();
+      });
+
+};
+
+
+module.exports.combodetail =
+        function(pool, dbconfig, url, values, header, pageIndex,req, res, index){
+                pool.getConnection(function(err, connection) {
+                        connection.query('USE ' + dbconfig.database);
+                        connection.query(url, values, function(err, rows){
+            if (err)
+                return done(err);
+            if (!rows.length) {
+		res.render('pages/bs_combo_detail_view',{
+                        data: fiveYearData,
+                        dataLabel: dataLabel,
+                        graphData: graphData,
+                        barOneData : barOne,
+                        barTwoData : barTwo,
+                        barLabel : barLab,
+                        fundName : fundName,
+                        fundid : fundid,
+                        index: index,
+                        showSave: 0,
+                        combo: [[1,'uuu',500],[2,'bbb',600],[3,'aaa',700]]
+		});	
+            }
+            else {
+
+        console.log(req.user.User_ID);
+        console.log(rows[0].Fund_ID);
+
+        
+		var rateData = [ req.query['annret'],  req.query['lastret']];
+		//var rateData = [ '21.89%',  '6.13%'];
+                var len = rows.length;
+		var firstYear = rows[0].Year;
+		var lastYear = rows[len-1].Year;
+	
+		var numYear=lastYear-firstYear+1;
+		var fundName = rows[0].Fund_Name;
+		var fundid = rows[0].Fund_ID;
+		//
+		var barOneData = new Array(12);
+		var barTwoData = new Array(12);
+		var barLabel = new Array(12);
+	
+		var barlen=len-1;	
+		var month = rows[barlen].Month;
+		for( var i=11; i>=0; i--){
+		    if(barlen>=0){
+			barOneData[i]=rows[barlen].Month_Return;
+			}
+		     else{
+			barOneData[i]=0;
+			}
+		    if(barlen-12>=0){
+			barTwoData[i]=rows[barlen-12].Month_Return;
+			}
+		    else{
+			barTwoData[i]=0;
+			}
+		    barlen=barlen-1;
+		    barLabel[i]=month;
+		    month=month-1;
+		}		
+
+		var barOne="[";
+	        var barTwo="[";
+		var barLab="[";
+		var curTotal=1000;
+		var cur2Total=1000;
+		for(var i=0; i<12; i++){
+		  if(i!=0) { barOne += "," ;
+                                   barTwo += "," ;
+				barLab += ",";
+                                }
+
+                        barLab += "'"+barLabel[i] + "月" + "'" ;
+                        curTotal *=(1+barOneData[i]/100);
+			cur2Total *=(1+barTwoData[i]/100);
+                        barOne += curTotal.toFixed(0) ;
+			barTwo += cur2Total.toFixed(0);
+
+		}		
+		
+		barOne +="]";
+                barTwo +="]";
+                barLab +="]";
+
+                var data = new Array(numYear);
+		//alert(firtYear);
+                var next = 0;
+	        for( i=0; i<numYear; i++){
+		    data[i]=new Array(16);
+                     for(j=0; j<16;j++){
+                        data[i][j]="-";
+                        }
+		    var curYear = firstYear + i;
+		    data[i][0] = curYear;
+		    while(rows[next].Year == curYear){
+			data[i][rows[next].Month] = rows[next].Month_Return;		
+			next = next + 1;
+			if(next>=len) break;
+			}	
+		    
+	         }
+		var years = numYear;
+                if(numYear>5) years = 5;
+		var fiveYearData = new Array(years);
+		for(var i=0; i<years; i++){
+			fiveYearData[i] = new Array(16);
+			for(var j=0; j<16; j++){
+				fiveYearData[i][j] = data[numYear-1][j];
+			}
+			numYear--;
+		}
+		var dataLabel = "[";
+		var graphData = "["; 
+		next = len-12;
+		var amount=1000;
+		for(var k=0; k<12; k++){
+			 if(k!=0) { dataLabel += "," ;
+                                   graphData += "," ;
+                                }
+
+			dataLabel += "'"+rows[next].Year + "." + rows[next].Month+"'" ;
+			amount *=(1+rows[next].Month_Return/100);
+			graphData += amount.toFixed(0);
+
+			next = next+1;
+		}
+		dataLabel += "]" ;
+		graphData += "]" ;
+	        console.log(barOne);
+		console.log(barTwo);	
+		res.render('pages/bs_combo_detail_view',{
+                        rateData : rateData,
+                	data: fiveYearData,
+			dataLabel: dataLabel,
+			graphData: graphData,
+			barOneData : barOne,
+			barTwoData : barTwo,
+			barLabel : barLab,
+			fundName : fundName,
+			fundid: fundid,
+            index : index,
+            showSave: 0,
+            combo: [[1,'uuu',500],[2,'bbb',600],[3,'aaa',700]]
                 });
 
 	}

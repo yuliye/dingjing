@@ -28,14 +28,42 @@ router.get('/', isLoggedIn, function(req, res, next) {
   res.send('respond with a resource');
 });
 
+
+router.get('/text',  isLoggedIn, function(req, res) {
+  console.log(req.query.fundname);
+
+  pool.getConnection(function(err, connection) { 
+    connection.query('USE ' + dbconfig.database);
+    connection.query("SELECT * FROM Fund_Table WHERE Fund_Name = ?",[req.query.fundname], function(err, rows){
+      if(err){
+        //err handling
+      }
+      else if(rows.length==0){
+        res.redirect('home');
+      }
+      else {
+      id = rows[0].Fund_ID;
+      annret = ((rows[0].Annual_Return)*100).toFixed(2)+"%";
+      lastret = ((rows[0].Last_Month_Return)*100).toFixed(2)+"%";
+      res.redirect('detail?fundid='+id+'&annret='+annret+'&lastret='+lastret);
+      }
+    });
+    connection.release();
+  }); 
+  //res.render('pages/bs_detail_view',{
+  //  index: 1
+  //});
+});
+
 router.get('/detail',  isLoggedIn, function(req, res) {
-  var id = req.query['fundid'];
+  var id=req.query['fundid'];
   var queryString = "SELECT fd.Fund_ID, Fund_Name, Year, Month, Month_Return FROM ";
       queryString += " Fund_Data_Table fd, Fund_Table f  ";
       queryString += " WHERE fd.Fund_ID=f.Fund_ID AND fd.Fund_ID=? ";
       queryString += " ORDER BY Year, Month";
    var values = [id]; 
-   fetchData.detailresult(pool,dbconfig , queryString, values, header, pageIndex,req, res);
+   var index = 7;
+   fetchData.detailresult(pool,dbconfig , queryString, values, header, pageIndex,req, res, index);
    //res.render('pages/bs_detail_view');
 });
 
@@ -50,16 +78,16 @@ router.get('/combo',  isLoggedIn, function(req, res) {
    queryString += " WHERE ct.Combo_ID = cfi.Combo_ID AND ct.User_ID= ?"; 
   var type = "combodetail?comboid";
   var values = [req.user.User_ID];
-  fetchData.result(pool,dbconfig , queryString, values, header, pageIndex, res, type);
+  var index = 3;
+  fetchData.result(pool,dbconfig , queryString, values, header, pageIndex, res, type, index);
 });
-
-
 
 router.get('/list',   isLoggedIn, function(req, res) {
   var queryString = "SELECT Fund_ID, Fund_Name, Last_Month_Return, Annual_Return,Assets FROM Fund_Table";
   var type = "detail?fundid";
   var values = [];
-  fetchData.result(pool,dbconfig , queryString,values, header, pageIndex, res, type);
+  var index = 7;
+  fetchData.result(pool,dbconfig , queryString,values, header, pageIndex, res, type, index);
 });
 
 
@@ -72,17 +100,44 @@ router.get('/combodetail',  isLoggedIn, function(req, res) {
       queryString += " AND cf.Combo_ID=ct.Combo_ID and ct.Combo_ID=? ) temp ";
       queryString += " GROUP BY Year, Month ORDER BY  Year, Month";
    var values = [id];
-   fetchData.detailresult(pool,dbconfig , queryString, values, header, pageIndex, req,res);
+   var index = 7;
+   fetchData.combodetail(pool,dbconfig , queryString, values, header, pageIndex, req,res, index);
    //res.render('pages/bs_detail_view');
 });
 
 
 router.get('/collection',  isLoggedIn, function(req, res) {
+  if(req.query.fundid){
+    console.log(req.query.fundid);
+    console.log(req.user.User_ID);
+    pool.getConnection(function(err, connection) { 
+        if(err){
+          //err handling
+        }
+        else {
+          connection.query('USE ' + dbconfig.database);
+          connection.query('SELECT * FROM Saved_Fund_Table WHERE User_ID = ? AND Fund_ID = ?',[req.user.User_ID,req.query.fundid], function(err,rows){
+            console.log(rows.length);
+            console.log(req.query.hasSaved);
+            if(err){
+              //err handling
+            }
+            else if(rows.length ==0 && req.query.hasSaved==0){
+              connection.query('INSERT INTO Saved_Fund_Table ( User_ID, Fund_ID ) values (?,?)', [req.user.User_ID,req.query.fundid]);
+            }
+            else if(rows.length > 0 && req.query.hasSaved==1) {
+              connection.query('DELETE FROM Saved_Fund_Table WHERE User_ID = ? AND Fund_ID = ?',[req.user.User_ID,req.query.fundid]);
+            }
+          });
+        }
+    });  
+  }
   var queryString = "SELECT f.Fund_ID, Fund_Name, Last_Month_Return, Annual_Return,Assets FROM Fund_Table f, ";
   queryString += " Saved_Fund_Table sf WHERE f.Fund_ID=sf.Fund_ID AND sf.User_ID=?";
   var type = "detail?fundid";
   var values = [req.user.User_ID];
-  fetchData.result(pool,dbconfig , queryString,values, header, pageIndex, res, type);
+  var index = 2;
+  fetchData.result(pool,dbconfig , queryString,values, header, pageIndex, res, type, index);
 });
 
 router.get('/searchlist',  isLoggedIn, function(req, res) {
@@ -93,28 +148,41 @@ router.get('/searchlist',  isLoggedIn, function(req, res) {
     queryString += "STR_TO_DATE( ? , '%m/%d/%Y') AND STR_TO_DATE( ? , '%m/%d/%Y') GROUP BY Fund_ID ) sf ";
     queryString += "  WHERE ft.Fund_ID=sf.Fund_ID AND sf.cumRet > ? ";
     var values = [req.query.startTime, req.query.endTime, req.query.compoundRate/100+1];
-    fetchData.result(pool,dbconfig , queryString, values, header, pageIndex, res, type);
+    var index = 7;
+    fetchData.result(pool,dbconfig , queryString, values, header, pageIndex, res, type, index);
 });
 
-
+/*
 router.get('/detail', isLoggedIn, function(req, res) {
-  res.render('pages/bs_detail_view');
+  res.render('pages/bs_detail_view',{
+    index: 1
+  });
 });
 
 router.get('/list', isLoggedIn, function(req, res) {
   res.render('pages/bs_list_view',{
     header: header, 
     data: data, 
-    pageIndex: pageIndex});
+    pageIndex: pageIndex,
+    index: 1});
 });
-
+*/
 router.get('/search', isLoggedIn, function(req, res) {
-  res.render('pages/bs_search_view');
+  res.render('pages/bs_search_view',{
+    index: 1
+  });
 });
 
 router.get('/home', isLoggedIn, function(req, res) {
-  console.log(req.user);
-  res.render('pages/bs_home_view');
+  //console.log(req.user);
+  //res.render('pages/bs_home_view',{
+  //  index: 7
+  //});
+  var queryString = "SELECT Fund_ID, Fund_Name, Last_Month_Return, Annual_Return,Assets FROM Fund_Table";
+  var type = "detail?fundid";
+  var values = [];
+  var index = 7;
+  fetchData.result(pool,dbconfig , queryString,values, header, pageIndex, res, type, index);
 });
 
 return router;
@@ -127,5 +195,5 @@ function isLoggedIn(req, res, next) {
     return next();
 
   // if they aren't redirect them to the home page
-  res.redirect('/');
+  res.redirect('/login');
 }

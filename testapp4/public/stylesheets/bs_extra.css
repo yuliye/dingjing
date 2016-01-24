@@ -9,3 +9,8 @@
   width: 300px;
 }
 
+.typeahead{
+    padding-left: 30px;
+    color: #cfd2da !important;
+    border-color: transparent !important;
+}
