@@ -66,7 +66,7 @@ router.get('/detail',  isLoggedIn, function(req, res) {
 
 router.get('/combo',  isLoggedIn, function(req, res) {
   var queryString = "SELECT ct.Combo_ID Fund_ID, Combo_Name Fund_Name, ";
-   queryString +=" round(Last_Month_Return,2) Last_Month_Return, round(Annual_Return,2) Annual_Return, ";
+   queryString +=" round(COALESCE(Last_Month_Return,0),2) Last_Month_Return, round(COALESCE(Annual_Return,0),2) Annual_Return, ";
    queryString += " 50000 Assets FROM Combo_Table ct LEFT OUTER JOIN ";
    queryString += "(  SELECT Combo_ID, sum(Annual_Return*Percentage) Annual_Return , ";
    queryString += " sum(Last_Month_Return*Percentage) Last_Month_Return ";

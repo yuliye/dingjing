@@ -22,11 +22,14 @@ module.exports.result =
 			for(j=0; j<14; j++){
 				data[i][j] = 0;
 			}
+			//console.log(rows[i]);
 			data[i][0] = rows[i].Fund_Name;
 			//data[i][1] = ((rows[i].Last_Month_Return)*100).toFixed(2) + "%";
 			//data[i][2] = ((rows[i].Annual_Return)*100).toFixed(2)+"%";
-			data[i][1] = (rows[i].Last_Month_Return).toFixed(2) + "%";
-			data[i][2] = (rows[i].Annual_Return).toFixed(2)+"%";
+			//if(rows[i].Last_Month_Return!=='null')
+			  data[i][1] = (rows[i].Last_Month_Return).toFixed(2) + "%";
+			//if(rows[i].Annual_Return!=='null')
+			  data[i][2] = (rows[i].Annual_Return).toFixed(2)+"%";
 			data[i][3] = "32.8%";
 			data[i][4] = "16.8%";
 			data[i][5] = "100k";
