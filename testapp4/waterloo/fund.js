@@ -15,7 +15,6 @@ module.exports.result =
                 index: index});
             }
             else {
-		console.log(rows);
 		var len = rows.length;
 		var data = new Array(len);
 		for(i=0; i<len; i++){
@@ -24,8 +23,10 @@ module.exports.result =
 				data[i][j] = 0;
 			}
 			data[i][0] = rows[i].Fund_Name;
-			data[i][1] = ((rows[i].Last_Month_Return)*100).toFixed(2) + "%";
-			data[i][2] = ((rows[i].Annual_Return)*100).toFixed(2)+"%";
+			//data[i][1] = ((rows[i].Last_Month_Return)*100).toFixed(2) + "%";
+			//data[i][2] = ((rows[i].Annual_Return)*100).toFixed(2)+"%";
+			data[i][1] = (rows[i].Last_Month_Return).toFixed(2) + "%";
+			data[i][2] = (rows[i].Annual_Return).toFixed(2)+"%";
 			data[i][3] = "32.8%";
 			data[i][4] = "16.8%";
 			data[i][5] = "100k";
@@ -180,24 +181,18 @@ module.exports.detailresult =
 		graphData += "]" ;
 
         connection.query("SELECT * FROM Saved_Fund_Table Where User_ID = ? AND Fund_ID = ?", [req.user.User_ID,rows[0].Fund_ID], function(err,rows){
-          console.log(rows.length);
           var hasSaved = rows.length;
           if(err)
           	return done(err);
           else {
-          	console.log('here');
             connection.query("SELECT Combo_Name FROM Combo_Table Where User_ID = ?", [req.user.User_ID], function(err,rows){
               if(err){
               	//error handling
-              	console.log('err');
               }
               else {
-              	console.log('here');
-              	console.log(rows);
               	var comboname = new Array(rows.length);
               	for(i=0;i<rows.length;i++)
               		comboname[i]=rows[i].Combo_Name;
-              	console.log(comboname);
 
                 connection.query("SELECT Annual_Return, Last_Month_Return from Fund_Table WHERE Fund_ID=?",req.query['fundid'], function(err, rows){
             if (err)
@@ -209,9 +204,10 @@ module.exports.detailresult =
             else {
             	//console.log(rows);
             	rateData=[0,0];
-                rateData[0]=Math.round(rows[0].Annual_Return,-2);
-                rateData[1]=Math.round(rows[0].Last_Month_Return,-2);
-                console.log(rateData);
+            	rateData[0] = (rows[0].Annual_Return).toFixed(2)+'%';
+            	rateData[1] = (rows[0].Last_Month_Return).toFixed(2)+'%';
+                //rateData[0]=Math.round10(rows[0].Annual_Return,-2);
+                //rateData[1]=Math.round10(rows[0].Last_Month_Return,-2);
                 res.render('pages/bs_detail_view',{
                         rateData : rateData,
                 	data: fiveYearData,
@@ -271,8 +267,8 @@ module.exports.combodetail =
 
 
         
-		var rateData = [ req.query['annret'],  req.query['lastret']];
-		//var rateData = [ '21.89%',  '6.13%'];
+		//var rateData = [ req.query['annret'],  req.query['lastret']];
+		var rateData = [ '21.89%',  '6.13%'];
                 var len = rows.length;
 		var firstYear = rows[0].Year;
 		var lastYear = rows[len-1].Year;
@@ -371,10 +367,7 @@ module.exports.combodetail =
 			next = next+1;
 		}
 		dataLabel += "]" ;
-		graphData += "]" ;
-	        console.log(barOne);
-		console.log(barTwo);	
-
+		graphData += "]" ;	
 
 		res.render('pages/bs_combo_detail_view',{
                         rateData : rateData,

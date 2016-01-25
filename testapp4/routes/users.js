@@ -30,8 +30,6 @@ router.get('/', isLoggedIn, function(req, res, next) {
 
 
 router.get('/text',  isLoggedIn, function(req, res) {
-  console.log(req.query.fundname);
-
   pool.getConnection(function(err, connection) { 
     connection.query('USE ' + dbconfig.database);
     connection.query("SELECT Fund_ID FROM Fund_Table WHERE Fund_Name = ?",[req.query.fundname], function(err, rows){
@@ -43,7 +41,6 @@ router.get('/text',  isLoggedIn, function(req, res) {
       }
       else {
       id = rows[0].Fund_ID;
-      console.log(rows);
       res.redirect('detail?fundid='+id);
       }
     });
@@ -90,8 +87,6 @@ router.get('/list',   isLoggedIn, function(req, res) {
 });
 
 router.get('/deletecombo',  isLoggedIn, function(req, res) {
-    console.log(req.query.fundid);
-    console.log(req.user.User_ID);
     pool.getConnection(function(err, connection) { 
         if(err){
           //err handling
@@ -122,7 +117,6 @@ router.get('/add2combo', isLoggedIn, function(req, res){
           }
           else {
             connection.query('INSERT INTO Combo_Data_Table ( Combo_ID, Fund_ID, Amount ) values (?,?,?)', [rows.insertId,req.query.fundid,req.query.amount]);
-            console.log(rows.insertId);
             res.redirect('combo');
           }
         });
@@ -153,8 +147,6 @@ router.get('/combodetail',  isLoggedIn, function(req, res) {
 });
 
 router.get('/save',  isLoggedIn, function(req, res) {
-    console.log(req.query.fundid);
-    console.log(req.user.User_ID);
     pool.getConnection(function(err, connection) { 
         if(err){
           //err handling
@@ -162,8 +154,6 @@ router.get('/save',  isLoggedIn, function(req, res) {
         else {
           connection.query('USE ' + dbconfig.database);
           connection.query('SELECT * FROM Saved_Fund_Table WHERE User_ID = ? AND Fund_ID = ?',[req.user.User_ID,req.query.fundid], function(err,rows){
-            console.log(rows.length);
-            console.log(req.query.hasSaved);
             if(err){
               //err handling
             }
