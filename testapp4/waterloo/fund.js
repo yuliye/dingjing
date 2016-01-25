@@ -77,17 +77,6 @@ module.exports.detailresult =
             }
             else {
 	//	var rateData = [ req.query['annret'],  req.query['lastret']];
-		rateData=[0,0];
-                connection.query("SELECT Annual_Return, Last_Month_Return from Fund_Table WHERE Fund_ID=?",req.query['fundid'], function(err, rows){
-            if (err)
-                return done(err);
-            if (!rows.length) {
-            }
-            else {
-                rateData[0]=Math.round(rows[0].Annual_Return,2);
-                rateData[1]=Math.round(rows[0].Last_Month_Return,2);
-                }
-                });
 
 		//var rateData = [ '21.89%',  '6.13%'];
                 var len = rows.length;
@@ -209,7 +198,21 @@ module.exports.detailresult =
               	for(i=0;i<rows.length;i++)
               		comboname[i]=rows[i].Combo_Name;
               	console.log(comboname);
-              	res.render('pages/bs_detail_view',{
+
+                connection.query("SELECT Annual_Return, Last_Month_Return from Fund_Table WHERE Fund_ID=?",req.query['fundid'], function(err, rows){
+            if (err)
+            	//error handling
+                return done(err);
+            if (!rows.length) {
+            	//error handling
+            }
+            else {
+            	//console.log(rows);
+            	rateData=[0,0];
+                rateData[0]=Math.round(rows[0].Annual_Return,-2);
+                rateData[1]=Math.round(rows[0].Last_Month_Return,-2);
+                console.log(rateData);
+                res.render('pages/bs_detail_view',{
                         rateData : rateData,
                 	data: fiveYearData,
 			dataLabel: dataLabel,
@@ -222,6 +225,8 @@ module.exports.detailresult =
             index : index,
             showSave: hasSaved,
             combo: comboname
+                });
+                }
                 });
               }
             });
