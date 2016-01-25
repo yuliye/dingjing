@@ -59,8 +59,10 @@ module.exports.detailresult =
             if (err)
                 return done(err);
             if (!rows.length) {
+                 var rateData = [ req.query['annret'],  req.query['lastret']]; 
 		res.render('pages/bs_detail_view',{
                         data: fiveYearData,
+                        rateData : rateData,
                         dataLabel: dataLabel,
                         graphData: graphData,
                         barOneData : barOne,
@@ -74,7 +76,19 @@ module.exports.detailresult =
 		});	
             }
             else {
-		var rateData = [ req.query['annret'],  req.query['lastret']];
+	//	var rateData = [ req.query['annret'],  req.query['lastret']];
+		rateData=[0,0];
+                connection.query("SELECT Annual_Return, Last_Month_Return from Fund_Table WHERE Fund_ID=?",req.query['fundid'], function(err, rows){
+            if (err)
+                return done(err);
+            if (!rows.length) {
+            }
+            else {
+                rateData[0]=Math.round(rows[0].Annual_Return,2);
+                rateData[1]=Math.round(rows[0].Last_Month_Return,2);
+                }
+                });
+
 		//var rateData = [ '21.89%',  '6.13%'];
                 var len = rows.length;
 		var firstYear = rows[0].Year;
@@ -175,12 +189,7 @@ module.exports.detailresult =
 		}
 		dataLabel += "]" ;
 		graphData += "]" ;
-	        console.log(barOne);
-		console.log(barTwo);	
 
-
-		console.log(req.user.User_ID);
-        console.log(rows[0].Fund_ID);
         connection.query("SELECT * FROM Saved_Fund_Table Where User_ID = ? AND Fund_ID = ?", [req.user.User_ID,rows[0].Fund_ID], function(err,rows){
           console.log(rows.length);
           var hasSaved = rows.length;
@@ -236,14 +245,17 @@ module.exports.combodetail =
             if (err)
                 return done(err);
             if (!rows.length) {
+		var rateData = [ req.query['annret'],  req.query['lastret']];
+                var fundid = req.query['comboid'];
 		res.render('pages/bs_combo_detail_view',{
-                        data: fiveYearData,
-                        dataLabel: dataLabel,
-                        graphData: graphData,
-                        barOneData : barOne,
-                        barTwoData : barTwo,
-                        barLabel : barLab,
-                        fundName : fundName,
+                        rateData: rateData,
+                        data: [],
+                        dataLabel: ['2015.1','2015.2','2015.3','2015.4','2015.5','2015.6','2015.7','2015.8','2015.9','2015.10','2015.11','2015.12'],
+                        graphData: [1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000],
+                        barOneData : [],
+                        barTwoData : [],
+                        barLabel : [],
+                        fundName : "", 
                         fundid : fundid,
                         index: index,
                         showSave: 0,
@@ -252,8 +264,6 @@ module.exports.combodetail =
             }
             else {
 
-        console.log(req.user.User_ID);
-        console.log(rows[0].Fund_ID);
 
         
 		var rateData = [ req.query['annret'],  req.query['lastret']];

@@ -71,11 +71,11 @@ router.get('/detail',  isLoggedIn, function(req, res) {
 router.get('/combo',  isLoggedIn, function(req, res) {
   var queryString = "SELECT ct.Combo_ID Fund_ID, Combo_Name Fund_Name, ";
    queryString +=" round(Last_Month_Return,2) Last_Month_Return, round(Annual_Return,2) Annual_Return, ";
-   queryString += " 50000 Assets FROM Combo_Table ct, ";
+   queryString += " 50000 Assets FROM Combo_Table ct LEFT OUTER JOIN ";
    queryString += "(  SELECT Combo_ID, sum(Annual_Return*Percentage) Annual_Return , ";
    queryString += " sum(Last_Month_Return*Percentage) Last_Month_Return ";
    queryString += " FROM Fund_Table f, Combo_Fund_Info cf WHERE  f.Fund_ID=cf.Fund_ID group by Combo_ID ) cfi ";
-   queryString += " WHERE ct.Combo_ID = cfi.Combo_ID AND ct.User_ID= ?"; 
+   queryString += " ON ct.Combo_ID = cfi.Combo_ID WHERE ct.User_ID= ?"; 
   var type = "combodetail?comboid";
   var values = [req.user.User_ID];
   var index = 3;
@@ -127,9 +127,9 @@ router.get('/combodetail',  isLoggedIn, function(req, res) {
       queryString += "FROM ( SELECT  ct.Combo_ID, Combo_Name, cf.Fund_ID, Year, Month, ";
       queryString += " Month_Return*percentage ret " ;
       queryString += " FROM Fund_Data_Table ft, Combo_Fund_Info cf, Combo_Table ct WHERE cf.Fund_ID=ft.Fund_ID ";
-      queryString += " AND cf.Combo_ID=ct.Combo_ID and ct.Combo_ID=? ) temp ";
+      queryString += " AND cf.Combo_ID=ct.Combo_ID and ct.Combo_ID=? and ct.User_ID=? ) temp ";
       queryString += " GROUP BY Year, Month ORDER BY  Year, Month";
-   var values = [id];
+   var values = [id, req.user.User_ID];
    var index = 7;
    fetchData.combodetail(pool,dbconfig , queryString, values, header, pageIndex, req,res, index);
    //res.render('pages/bs_detail_view');

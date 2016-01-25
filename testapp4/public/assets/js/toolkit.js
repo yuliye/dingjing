@@ -4207,6 +4207,28 @@ $(function () {
         })
       }
 
+      var startin = attrData.value.indexOf("data") + 7;
+      var endin =  attrData.value.lastIndexOf("}") ;
+      var subData = attrData.value.substring(startin, endin-2) ;
+      var yaxisData= subData.split(",");
+
+      var yaxisMax = Math.max(parseInt(yaxisData ) );
+      var yaxisMin = Math.min(parseInt(yaxisData ) );
+
+      for( i=0; i<yaxisData.length; i++){
+                if( yaxisMax<parseInt( yaxisData[i] )){
+                        yaxisMax = parseInt(yaxisData[i] ) ;
+                }
+                if(  yaxisMin>parseInt( yaxisData[i] )){
+                        yaxisMin =  parseInt(yaxisData[i]);
+                }
+
+          }
+
+      var stepWidth = Math.round((yaxisMax-yaxisMin)/5);
+     if( yaxisMax == yaxisMin) {
+		stepWidth = 500;
+     }	
       Charts._cleanAttr(attrData)
 
       var options = $.extend({
@@ -4218,9 +4240,9 @@ $(function () {
         pointDot: false,
         tooltipTemplate: "<%= value %>",
         scaleOverride: true,
-        scaleSteps: 5,
-        scaleStepWidth: 200,
-        scaleStartValue: 600,
+        scaleSteps: 7,
+        scaleStepWidth: stepWidth,
+        scaleStartValue: yaxisMin - stepWidth,
         scaleLineColor: 'rgba(0,0,0,.05)',
         scaleGridLineColor: 'rgba(0,0,0,.05)',
         scaleFontColor: 'rgba(0,0,0,.4)',
