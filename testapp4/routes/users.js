@@ -34,7 +34,7 @@ router.get('/text',  isLoggedIn, function(req, res) {
 
   pool.getConnection(function(err, connection) { 
     connection.query('USE ' + dbconfig.database);
-    connection.query("SELECT * FROM Fund_Table WHERE Fund_Name = ?",[req.query.fundname], function(err, rows){
+    connection.query("SELECT Fund_ID FROM Fund_Table WHERE Fund_Name = ?",[req.query.fundname], function(err, rows){
       if(err){
         //err handling
       }
@@ -43,9 +43,8 @@ router.get('/text',  isLoggedIn, function(req, res) {
       }
       else {
       id = rows[0].Fund_ID;
-      annret = ((rows[0].Annual_Return)*100).toFixed(2)+"%";
-      lastret = ((rows[0].Last_Month_Return)*100).toFixed(2)+"%";
-      res.redirect('detail?fundid='+id+'&annret='+annret+'&lastret='+lastret);
+      console.log(rows);
+      res.redirect('detail?fundid='+id);
       }
     });
     connection.release();
@@ -100,7 +99,7 @@ router.get('/deletecombo',  isLoggedIn, function(req, res) {
         else {
           connection.query('USE ' + dbconfig.database);
           connection.query('DELETE FROM Combo_Table WHERE Combo_ID = ? AND User_ID = ?',[req.query.fundid,req.user.User_ID]);
-          connection.query('DELETE FROM Combo_Data_Table WHERE Combo_ID = ?',[req.query.fundid]);
+          //connection.query('DELETE FROM Combo_Data_Table WHERE Combo_ID = ?',[req.query.fundid]);
           res.redirect('combo'); 
         }
         connection.release();
