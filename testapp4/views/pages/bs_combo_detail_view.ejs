@@ -15,9 +15,15 @@
     <h2 class="dashhead-title"><%= fundName %></h2>
   </div>
 
-
   <div class="btn-toolbar dashhead-toolbar p-y">
-  <form action="collection" method="get">
+  <form action="deletecombo" method="get" class="saveForm">
+  <input type="hidden" class="form-control" name="fundid" 
+        value=<%= fundid %> 
+  >
+   <button class="btn btn-primary m-l saveButton" type="button submit">
+  <span class="icon icon-squared-cross"></span>
+  删除组合
+  </button>
     <button class="btn btn-primary m-l" type="button" data-toggle="modal" data-target="#saveModal">
   <span class="icon icon-sound-mix"></span>
   调整组合
@@ -29,6 +35,7 @@
   电话申购
 </button>
 </a>
+</form>
 
 <div class="modal" id="saveModal">
   <div class="modal-dialog modal-sm">

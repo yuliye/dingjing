@@ -90,8 +90,25 @@ router.get('/list',   isLoggedIn, function(req, res) {
   fetchData.result(pool,dbconfig , queryString,values, header, pageIndex, res, type, index);
 });
 
+router.get('/deletecombo',  isLoggedIn, function(req, res) {
+    console.log(req.query.fundid);
+    console.log(req.user.User_ID);
+    pool.getConnection(function(err, connection) { 
+        if(err){
+          //err handling
+        }
+        else {
+          connection.query('USE ' + dbconfig.database);
+          connection.query('DELETE FROM Combo_Table WHERE Combo_ID = ? AND User_ID = ?',[req.query.fundid,req.user.User_ID]);
+          connection.query('DELETE FROM Combo_Data_Table WHERE Combo_ID = ?',[req.query.fundid]);
+          res.redirect('combo'); 
+        }
+        connection.release();
+    }); 
+});
 
-router.get('/modifycombo', isLoggedIn, function(req, res){
+
+router.get('/add2combo', isLoggedIn, function(req, res){
   pool.getConnection(function(err, connection) { 
     connection.query('USE ' + dbconfig.database);
     connection.query("SELECT Combo_ID FROM Combo_Table WHERE Combo_Name = ? AND User_ID = ?",[req.query.comboname, req.user.User_ID], function(err, rows){
@@ -107,6 +124,7 @@ router.get('/modifycombo', isLoggedIn, function(req, res){
           else {
             connection.query('INSERT INTO Combo_Data_Table ( Combo_ID, Fund_ID, Amount ) values (?,?,?)', [rows.insertId,req.query.fundid,req.query.amount]);
             console.log(rows.insertId);
+            res.redirect('combo');
           }
         });
       }
@@ -114,11 +132,11 @@ router.get('/modifycombo', isLoggedIn, function(req, res){
         //old combo name
         var id = rows[0].Combo_ID;
         connection.query('Insert INTO Combo_Data_Table (Combo_ID, Fund_ID, Amount) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE Amount = ?', [id,req.query.fundid,req.query.amount,req.query.amount]);
+        res.redirect('combo');
       }
     });
     connection.release();
-  }); 
-  res.redirect('combo');
+  });
 });
 
 router.get('/combodetail',  isLoggedIn, function(req, res) {
@@ -135,9 +153,7 @@ router.get('/combodetail',  isLoggedIn, function(req, res) {
    //res.render('pages/bs_detail_view');
 });
 
-
-router.get('/collection',  isLoggedIn, function(req, res) {
-  if(req.query.fundid){
+router.get('/save',  isLoggedIn, function(req, res) {
     console.log(req.query.fundid);
     console.log(req.user.User_ID);
     pool.getConnection(function(err, connection) { 
@@ -154,14 +170,23 @@ router.get('/collection',  isLoggedIn, function(req, res) {
             }
             else if(rows.length ==0 && req.query.hasSaved==0){
               connection.query('INSERT INTO Saved_Fund_Table ( User_ID, Fund_ID ) values (?,?)', [req.user.User_ID,req.query.fundid]);
+              res.redirect('collection');
             }
             else if(rows.length > 0 && req.query.hasSaved==1) {
               connection.query('DELETE FROM Saved_Fund_Table WHERE User_ID = ? AND Fund_ID = ?',[req.user.User_ID,req.query.fundid]);
+              res.redirect('collection');
+            }
+            else {
+              //err handling
+              res.redirect('collection');
             }
           });
         }
+        connection.release();
     });  
-  }
+});
+
+router.get('/collection',  isLoggedIn, function(req, res) {
   var queryString = "SELECT f.Fund_ID, Fund_Name, Last_Month_Return, Annual_Return,Assets FROM Fund_Table f, ";
   queryString += " Saved_Fund_Table sf WHERE f.Fund_ID=sf.Fund_ID AND sf.User_ID=?";
   var type = "detail?fundid";
