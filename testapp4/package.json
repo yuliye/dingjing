@@ -20,6 +20,7 @@
     "passport-local": "^1.0.0",
     "serve-favicon": "~2.3.0",
     "speakeasy": "^1.0.4",
-    "twilio": "^2.8.0"
+    "twilio": "^2.8.0",
+    "underscore": "^1.8.3"
   }
 }

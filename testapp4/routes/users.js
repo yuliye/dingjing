@@ -1,4 +1,6 @@
 var express = require('express');
+var _ = require("underscore");
+
 module.exports = function(passport,pool,dbconfig) { 
 var router = express.Router();
 var fetchData = require('../waterloo/fund.js');
@@ -227,6 +229,17 @@ router.get('/home', isLoggedIn, function(req, res) {
   var values = [];
   var index = 7;
   fetchData.result(pool,dbconfig , queryString,values, header, pageIndex, res, type, index);
+});
+
+router.get('/compute', isLoggedIn, function(req, res) {
+  //only super user can run this
+  if(req.user.User_ID==8||req.user.User_ID==9){
+    _.each([1,2,3],console.log);
+    //admin.getData();
+    //admin.compute();
+    //admin.putDate();
+  }
+
 });
 
 return router;
