@@ -235,11 +235,18 @@ router.get('/compute', isLoggedIn, function(req, res) {
   //only super user can run this
   if(req.user.User_ID==8||req.user.User_ID==9){
     _.each([1,2,3],console.log);
-    //admin.getData();
-    //admin.compute();
-    //admin.putDate();
+    //robot.getData();
+    //robot.compute();
+    //robot.putDate();
   }
 
+});
+
+router.get('/test', isLoggedIn, function(req, res) {
+  //console.log(req.user);
+  res.render('pages/bs_home_view',{
+    index: 7
+  });
 });
 
 return router;

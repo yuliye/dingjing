@@ -35,7 +35,7 @@
   取消收藏
   </button>
 <% } %>
-    <button class="btn btn-primary btn m-l m-t" type="button" data-toggle="modal" data-target="#saveModal">
+    <button class="btn btn-primary btn m-l m-t" type="button" data-toggle="modal" data-target="#saveModal" data-backdrop="static" data-keyboard="false">
   <span class="icon icon-squared-plus"></span>
   加入组合
 </button>
@@ -50,7 +50,7 @@
 <div class="modal" id="saveModal">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
-    <form action="add2combo" method="get" class="comboForm">
+    <form action="add2combo" method="get" class="comboForm" onsubmit="return checkForm(this);">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">加入组合</h4>
@@ -72,14 +72,14 @@
         <div class="input-group m-t">
       <div class="input-group-addon">$</div>
 
-      <input type="text" class="form-control" name="amount" placeholder="投资额">
+      <input type="text" class="form-control" id="amount" name="amount" placeholder="投资额">
       <input type="hidden" class="form-control" name="fundid" value=<%= fundid %>>
     </div>
         </div>
       </div>
       <div class="modal-actions">
         <button type="button" class="btn-link modal-action" data-dismiss="modal">取消</button>
-        <button type="button submit" class="btn-link modal-action comboButton" data-dismiss="modal">
+        <button type="button submit" class="btn-link modal-action comboButton">
           <strong>添加</strong>
         </button>
       </div>
@@ -198,6 +198,19 @@ $('button.saveButton').click( function() {
 $('button.comboButton').click( function() {
         $('form.comboForm').submit();
 });
+</script>
+<script type="text/javascript">
+  function checkForm(form){
+    if(form.comboname.value =="") {
+        form.comboname.placeholder="不能为空！";
+        return false;
+    }
+    if(isNaN(form.amount.value) || form.amount.value == "" || form.amount.value<=0) {
+        form.amount.value="";
+        form.amount.placeholder="数目不对！";
+        return false;
+    }
+  }
 </script>
   </body>
 </html>
