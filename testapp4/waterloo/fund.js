@@ -167,21 +167,50 @@ module.exports.detailresult =
 		}
 		var dataLabel = "[";
 		var graphData = "["; 
-		next = len-12;
+		next = len-13;
+		var k=0;
+		if( next<0){
+			var tempYear=rows[0].Year;
+			var tempMonth=rows[0].Month;
+			if(tempMonth+next<=0){
+				tempYear = tempYear-1;
+				tempMonth = tempMonth+next+12;
+			}
+			while(next<0){
+				if(k!=0) { dataLabel += "," ;
+                                   graphData += "," ;
+                                }
+				dataLabel += "'"+tempYear + "." + tempMonth+"'" ;
+                                graphData += 1000;
+
+                       		 next = next+1;
+				 k=k+1;
+				 tempMonth=tempMonth+1;
+				if( tempMonth>12){
+					tempMonth=1;
+					tempYear=tempYear+1;
+				}
+
+
+			}
+		}
 		var amount=1000;
-		for(var k=0; k<12; k++){
+		for( ; k<13; k++){
 			 if(k!=0) { dataLabel += "," ;
                                    graphData += "," ;
                                 }
 
 			dataLabel += "'"+rows[next].Year + "." + rows[next].Month+"'" ;
 			amount *=(1+rows[next].Month_Return/100);
+			if(k==0) amount=1000;
 			graphData += amount.toFixed(0);
 
 			next = next+1;
 		}
 		dataLabel += "]" ;
 		graphData += "]" ;
+		console.log(graphData);
+		console.log(dataLabel);
 
         connection.query("SELECT * FROM Saved_Fund_Table Where User_ID = ? AND Fund_ID = ?", [req.user.User_ID,rows[0].Fund_ID], function(err,rows){
           var hasSaved = rows.length;
@@ -356,19 +385,47 @@ module.exports.combodetail =
 		}
 		var dataLabel = "[";
 		var graphData = "["; 
-		next = len-12;
+		next = len-13;
+		 var k=0;
+                if( next<0){
+                        var tempYear=rows[0].Year;
+                        var tempMonth=rows[0].Month;
+                        if(tempMonth+next<=0){
+                                tempYear = tempYear-1;
+                                tempMonth = tempMonth+next+12;
+                        }
+                        while(next<0){
+                                if(k!=0) { dataLabel += "," ;
+                                   graphData += "," ;
+                                }
+                                dataLabel += "'"+tempYear + "." + tempMonth+"'" ;
+                                graphData += 1000;
+
+                                 next = next+1;
+                                 k=k+1;
+                                 tempMonth=tempMonth+1;
+                                if( tempMonth>12){
+                                        tempMonth=1;
+                                        tempYear=tempYear+1;
+                                }
+
+
+                        }
+                }
+
 		var amount=1000;
-		for(var k=0; k<12; k++){
-			 if(k!=0) { dataLabel += "," ;
+	         for( ; k<13; k++){
+                         if(k!=0) { dataLabel += "," ;
                                    graphData += "," ;
                                 }
 
-			dataLabel += "'"+rows[next].Year + "." + rows[next].Month+"'" ;
-			amount *=(1+rows[next].Month_Return/100);
-			graphData += amount.toFixed(0);
+                        dataLabel += "'"+rows[next].Year + "." + rows[next].Month+"'" ;
+                        amount *=(1+rows[next].Month_Return/100);
+                        if(k==0) amount=1000;
+                        graphData += amount.toFixed(0);
 
-			next = next+1;
-		}
+                        next = next+1;
+                }
 		dataLabel += "]" ;
 		graphData += "]" ;	
 
