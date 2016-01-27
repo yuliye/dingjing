@@ -1,10 +1,9 @@
 var express = require('express');
-var _ = require("underscore");
 
 module.exports = function(passport,pool,dbconfig) { 
 var router = express.Router();
 var fetchData = require('../waterloo/fund.js');
-
+var robot = require('../waterloo/robot.js');
 
 code = '1122334'
 
@@ -231,15 +230,14 @@ router.get('/home', isLoggedIn, function(req, res) {
   fetchData.result(pool,dbconfig , queryString,values, header, pageIndex, res, type, index);
 });
 
-router.get('/compute', isLoggedIn, function(req, res) {
+//router.get('/compute', isLoggedIn, function(req, res) {
   //only super user can run this
-  if(req.user.User_ID==8||req.user.User_ID==9){
-    _.each([1,2,3],console.log);
-    //robot.getData();
-    //robot.compute();
-    //robot.putDate();
-  }
-
+  //if(req.user.User_ID==8||req.user.User_ID==9){
+router.get('/compute', function(req, res) {
+    robot.updateAllFund(pool, dbconfig);
+ // } else {
+ //   res.redirect('home');
+ // }
 });
 
 router.get('/test', isLoggedIn, function(req, res) {
