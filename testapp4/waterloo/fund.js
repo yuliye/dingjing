@@ -428,7 +428,28 @@ module.exports.combodetail =
                 }
 		dataLabel += "]" ;
 		graphData += "]" ;	
-
+	
+	    var comFunUrl = "SELECT cdt.Fund_ID fid, Fund_Name, Annual_Return, Last_Month_Return FROM ";
+		comFunUrl += " Fund_Table ft, Combo_Data_Table cdt ";
+		comFunUrl += " WHERE ft.Fund_ID=cdt.Combo_ID AND cdt.Combo_ID=?";	
+            connection.query( comFunUrl, req.query['comboid'], 
+                              function(err, rows){
+            if (err)
+                //error handling
+                return done(err);
+            if (!rows.length) {
+                //error handling
+            }
+	    else{
+		var comLen = rows.length;
+		var comFunData = new Array(4); 
+		for( var j=0; j<4; j++){ comFunData[j] = new Array(comLen);}
+		for( var i=0; i<comLen; i++){
+			comFunID[i][0] = rows[i].fid;
+			comFunName[i][1] = rows[i].Fund_Name;
+			comFunMonth[i][2] = rows[i].Last_Month_Return;
+			comFunAnual[i][3] = rows[i].Annual_Return;
+		} 		
 		res.render('pages/bs_combo_detail_view',{
                         rateData : rateData,
                 	data: fiveYearData,
@@ -439,13 +460,17 @@ module.exports.combodetail =
 			barLabel : barLab,
 			fundName : fundName,
 			fundid: fundid,
-            index : index,
-            showSave: 0,
-            combo: [['fund1',500],['fund2',600],['fund3',700]]
+                        index : index,
+                        showSave: 0,
+			comFunData: comFunData,
+                        combo: [['fund1',500],['fund2',600],['fund3',700]]
                 });
 
 	}
         });
+	}
+	});
+	
 
         // connected! (unless `err` is set)
         connection.release();
