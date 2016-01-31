@@ -81,7 +81,7 @@ module.exports.fundObj= function(data){
 
   //public facing function to get all the data
   //basic stats including fund id and name
-  //last month, last year return, dd and wm, caror, y2d
+  //last month, last year return, dd and wm, caror, year2date
   fundData.getbasic = function(){
     return [lastm[0],lastm[2],100*(_.last(mretc)[1]-1),dd,ydd,caror,fdd, y2date];
   };

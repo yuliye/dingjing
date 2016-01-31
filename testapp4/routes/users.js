@@ -1,11 +1,13 @@
 var express = require('express');
-var formidable = require('formidable');
+//var formidable = require('formidable');
+
 
 
 module.exports = function(passport,pool,dbconfig) { 
 var router = express.Router();
 var fetchData = require('../waterloo/fund.js');
 var robot = require('../waterloo/robot.js');
+//router.use(bodyParser.json())
 
 code = '1122334'
 
@@ -63,11 +65,12 @@ router.get('/searchfun',  isLoggedIn, function(req, res) {
 
 router.post('/addfundtocombo', function(req, res) {
 	console.log(req.body);
-	var form = new formidable.IncomingForm();
-	form.parse(req, function(err,fields, files){
-		console.log("No there");
-		console.log( fields );	
-	});
+
+	//var form = new formidable.IncomingForm();
+	//form.parse(req, function(err,fields, files){
+	//	console.log("No there");
+	//	console.log( fields );	
+	//});
 //	res.write("You sent the name ");
 //	res.end();
 
@@ -278,13 +281,16 @@ router.get('/home', isLoggedIn, function(req, res) {
   fetchData.result(pool,dbconfig , queryString,values, header, pageIndex, res, type, index);
 });
 
-//router.get('/compute', isLoggedIn, function(req, res) {
+router.get('/compute', isLoggedIn, function(req, res) {
   //only super user can run this
-  //if(req.user.User_ID==8||req.user.User_ID==9){
-router.get('/compute', function(req, res) {
+  if(req.user.User_ID==8){
+//router.get('/compute', function(req, res) {
   var queryString = "SELECT * FROM Fund_Data_Table ";
   var values = [];
   robot.updateAllFund(pool, dbconfig, req, res, queryString, values);
+  } else {
+    //go to err page
+  }
 });
 
 router.get('/test', isLoggedIn, function(req, res) {
@@ -294,8 +300,20 @@ router.get('/test', isLoggedIn, function(req, res) {
   });
 });
 
+//****************important*******************************
+//****************important*******************************
+//****************important*******************************
+//****************important*******************************
+//****************important*******************************
+//jeff, please read starting from here and take a look at 
+//the following five routes, and then dive deep into 
+//the robot class and fundobj class, all data now is returned
+//from fundobj class, and robot class will use it to render 
+//the papge, please modify all the detail view and list view
+//with that data.
+
 //fund detail page
-router.get('/fdetail', function(req, res) {
+router.get('/fdetail', isLoggedIn, function(req, res) {
   var queryString = "SELECT f.Fund_ID Fund_ID, Fund_Name, COALESCE(Year,0) Year, ";
       queryString += " COALESCE(Month,0) Month, COALESCE(Month_Return,0) Month_Return FROM ";
       queryString += " Fund_Table f LEFT OUTER JOIN Fund_Data_Table fd ";
@@ -305,7 +323,7 @@ router.get('/fdetail', function(req, res) {
 });
 
 //combo detail page
-router.get('/cdetail', function(req, res) {
+router.get('/cdetail', isLoggedIn, function(req, res) {
   var queryString = "SELECT Combo_ID Fund_ID, Combo_Name Fund_Name, yr Year, mn Month, sum(ret)/sum(pct) Month_Return ";
       queryString += "FROM ( SELECT  ct.Combo_ID, Combo_Name, COALESCE(cf.Fund_ID,-1), COALESCE(Year,0) yr, COALESCE(Month,0) mn, ";
       queryString += " COALESCE(Month_Return,0)*COALESCE(Amount,0) ret, COALESCE(Amount,1) pct " ;
@@ -313,13 +331,13 @@ router.get('/cdetail', function(req, res) {
       queryString += " ON ct.Combo_ID=cf.Combo_ID LEFT OUTER JOIN Fund_Data_Table ft ";
       queryString += " ON cf.Fund_ID=ft.Fund_ID WHERE ct.Combo_ID=? AND ct.User_ID=?) temp ";
       queryString += " GROUP BY Combo_ID, Combo_Name, Year, Month";
-  //var values = [req.query.comboid, req.user.User_ID]; 
-  var values = [req.query.comboid, 8]; 
+  var values = [req.query.comboid, req.user.User_ID]; 
+  //var values = [req.query.comboid, 8]; 
   robot.fetchOneCombo(pool, dbconfig, req, res, queryString, values);
 });
 
 //combo list page
-router.get('/clist', function(req, res) {
+router.get('/clist', isLoggedIn, function(req, res) {
   var queryString = "SELECT Combo_ID Fund_ID, Combo_Name Fund_Name, yr Year, mn Month, sum(ret)/sum(pct) Month_Return ";
       queryString += "FROM ( SELECT  ct.Combo_ID, Combo_Name, COALESCE(cf.Fund_ID,-1), COALESCE(Year,0) yr, COALESCE(Month,0) mn, ";
       queryString += " COALESCE(Month_Return,0)*COALESCE(Amount,0) ret, COALESCE(Amount,1) pct " ;
@@ -327,13 +345,13 @@ router.get('/clist', function(req, res) {
       queryString += " ON ct.Combo_ID=cf.Combo_ID LEFT OUTER JOIN Fund_Data_Table ft ";
       queryString += " ON cf.Fund_ID=ft.Fund_ID WHERE ct.User_ID=? ) temp ";
       queryString += " GROUP BY Combo_ID, Combo_Name, Year, Month";
-  //var values = [req.user.User_ID]; 
-  var values = [8]; 
+  var values = [req.user.User_ID]; 
+  //var values = [8]; 
   robot.fetchComboList(pool, dbconfig, req, res, queryString, values);
 });
 
 //full fund list
-router.get('/flist', function(req, res) {
+router.get('/flist', isLoggedIn, function(req, res) {
   var queryString = " SELECT f.Fund_ID Fund_ID, Fund_Name, COALESCE(Year,0) Year, ";
       queryString += " COALESCE(Month,0) Month, COALESCE(Month_Return,0) Month_Return FROM ";
       queryString += " Fund_Table f LEFT OUTER JOIN Fund_Data_Table fd ";
@@ -343,14 +361,14 @@ router.get('/flist', function(req, res) {
 });
 
 //saved fund list
-router.get('/slist', function(req, res) {
+router.get('/slist', isLoggedIn, function(req, res) {
   var queryString = " SELECT s.Fund_ID Fund_ID, Fund_Name, COALESCE(Year,0) Year, ";
       queryString += " COALESCE(Month,0) Month, COALESCE(Month_Return,0) Month_Return FROM ";
       queryString += " Saved_Fund_Table s JOIN Fund_Table f ON s.Fund_ID=f.Fund_ID ";
       queryString += " LEFT OUTER JOIN Fund_Data_Table fd ON s.Fund_ID=fd.Fund_ID ";
       queryString += " WHERE s.User_ID =? ";
-  //var values = [req.user.User_ID]; 
-  var values = [8]; 
+  var values = [req.user.User_ID]; 
+  //var values = [8]; 
   robot.fetchFundList(pool, dbconfig, req, res, queryString, values);
 });
 

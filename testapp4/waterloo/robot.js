@@ -103,7 +103,7 @@ module.exports.fetchOneCombo = function (pool, dbconfig, req, res, queryString, 
         //err handling
       }
       else{
-        //console.log(rows);
+        console.log(rows);
         var robCombo = helper.fundObj(_.map(rows, function(row){ return [[row.Fund_ID,row.Fund_Name],(row.Month-1)+12*row.Year,row.Month_Return]}));
         //now you have a object that knows everything
         console.log(robCombo.getbasic());
