@@ -15,18 +15,29 @@
     <h2 class="dashhead-title"><%= fundName %></h2>
   </div>
 
+
   <div class="btn-toolbar dashhead-toolbar p-y">
-  <form action="deletecombo" method="get" class="saveForm">
+  <form action="save" method="get" class="saveForm">
   <input type="hidden" class="form-control" name="fundid" 
         value=<%= fundid %> 
   >
-   <button class="btn btn-primary m-l m-t saveButton" type="button submit">
-  <span class="icon icon-squared-cross"></span>
-  删除组合
+  <input type="hidden" class="form-control" name="hasSaved" 
+        value=<%= showSave %> 
+  >
+  <% if(showSave==0) { %>
+    <button class="btn btn-primary btn m-l m-t saveButton" type="button submit">
+  <span class="icon icon-heart"></span>
+  收藏基金
   </button>
-    <button class="btn btn-primary m-l m-t" type="button" data-toggle="modal" data-target="#saveModal">
-  <span class="icon icon-sound-mix"></span>
-  调整组合
+<% } if (showSave==1) { %>
+   <button class="btn btn-primary btn m-l m-t saveButton" type="button submit">
+  <span class="icon icon-squared-cross"></span>
+  取消收藏
+  </button>
+<% } %>
+    <button class="btn btn-primary btn m-l m-t" type="button" data-toggle="modal" data-target="#saveModal" data-backdrop="static" data-keyboard="false">
+  <span class="icon icon-squared-plus"></span>
+  加入组合
 </button>
 
 <a href="tel:+14155132523">
@@ -36,37 +47,47 @@
 </button>
 </a>
 </form>
-
 <div class="modal" id="saveModal">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
+    <form action="add2combo" method="get" class="comboForm" onsubmit="return checkForm(this);">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">调整组合</h4>
+        <h4 class="modal-title">加入组合</h4>
       </div>
       <div class="modal-body row">
-      <% combo.forEach(function(row) { %>
-        <div class="col-xs-7 col-sm-7 col-md-7 m-b">
-          <%= row[0] %>
+        <div class="col-xs-12 col-sm-12 col-md-12 text-center m-b">
+        <strong>把基金 <%= fundName %> 加入</strong>
         </div>
-        <div class="input-group col-xs-4 col-sm-4 col-md-4 m-b">
-          <div class="input-group-addon">$</div>
-          <input type="text" class="form-control" placeholder="投资额"
-          value=<%= row[1] %>
-          >
+      <div class="col-xs-6 col-sm-6 col-md-6">
+        <select class="custom-select" name="thelist" onChange="combo(this, 'comboname')" onMouseOut="comboInit(this, 'comboname')">
+          <option>新组合</option>
+          <% combo.forEach(function(row) { %>
+          <option><%= row %></option>
+          <% }); %>
+        </select>
         </div>
-      <% }); %>  
+        <div class="col-xs-6 col-sm-6 col-md-6">
+        <input type="text" class="form-control" id="comboname" name="comboname" placeholder="组合名">
+        <div class="input-group m-t">
+      <div class="input-group-addon">$</div>
+
+      <input type="text" class="form-control" id="amount" name="amount" placeholder="投资额">
+      <input type="hidden" class="form-control" name="fundid" value=<%= fundid %>>
+    </div>
+        </div>
       </div>
       <div class="modal-actions">
         <button type="button" class="btn-link modal-action" data-dismiss="modal">取消</button>
-        <button type="button" class="btn-link modal-action" data-dismiss="modal">
-          <strong>调整</strong>
+        <button type="button submit" class="btn-link modal-action comboButton">
+          <strong>添加</strong>
         </button>
       </div>
+    </form>
     </div>
   </div>
 </div>
-</form>
+
   </div>
 
     </div>
@@ -148,49 +169,77 @@
 
   <% include ../partials/table-large15.ejs %>
   </div>
-<div>
   <% include ../partials/combo-fund-list.ejs %>
-</div>
 
   <% include ../partials/bs_foot.ejs %>
-  <script type="text/javascript">
-function comboInit(thelist)
-{
-  theinput = document.getElementById(theinput);  
-  var idx = thelist.selectedIndex;
-  var content = thelist.options[idx].innerHTML;
-  if(idx == 0)
-    content = "";
-  if(theinput.value == "")
-    theinput.value = content; 
-}
-function combo(thelist, theinput)
-{
-  theinput = document.getElementById(theinput);  
-  var idx = thelist.selectedIndex;
-  var content = thelist.options[idx].innerHTML;
-  if(idx == 0)
-    content = "";
-  theinput.value = content; 
-}
+
+
+<script type='text/javascript'
+  src='http://code.jquery.com/jquery-1.10.1.js'></script>
+<link rel="stylesheet" type="text/css"
+  href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+  href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+<script type='text/javascript'
+  src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css"
+  href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+<script type='text/javascript'>
+
 
 $(function(){
-    $("table#combfund_remove").on("click", ".remove", function () {
+    $("table#comfund_remove").on("click", ".remove", function () {
         $(this).closest('tr').remove();
     });
 });
 
-$(function() {
-	$(".searchFun").submit(function(event) {
-		event.preventDefault();
-                var formURL = $(this).attr("action");
-		var fName = "fundname="+$("#fundname").val();
-		$.get( formURL, fName, function(data, status){
-			$("#combfund_remove > tbody").append(data);
-			
-		} );
-		});
+
+
+</script>
+
+
+
+
+  <script type="text/javascript">
+function comboInit(thelist)
+{
+  comboname = document.getElementById(comboname); 
+  var idx = thelist.selectedIndex;
+  var content = thelist.options[idx].innerHTML;
+  if(idx == 0)
+    content = "";
+  if(comboname.value == ""){
+    comboname.value = content;
+  }
+}
+function combo(thelist, comboname)
+{
+  comboname = document.getElementById(comboname);  
+  var idx = thelist.selectedIndex;
+  var content = thelist.options[idx].innerHTML;
+  if(idx == 0)
+    content = "";
+  comboname.value = content;
+}
+$('button.saveButton').click( function() {
+        $('form.saveForm').submit();
 });
+$('button.comboButton').click( function() {
+        $('form.comboForm').submit();
+});
+</script>
+<script type="text/javascript">
+  function checkForm(form){
+    if(form.comboname.value =="") {
+        form.comboname.placeholder="不能为空！";
+        return false;
+    }
+    if(isNaN(form.amount.value) || form.amount.value == "" || form.amount.value<=0) {
+        form.amount.value="";
+        form.amount.placeholder="数目不对！";
+        return false;
+    }
+  }
 </script>
   </body>
 </html>

@@ -429,9 +429,9 @@ module.exports.combodetail =
 		dataLabel += "]" ;
 		graphData += "]" ;	
 	
-	    var comFunUrl = "SELECT cdt.Fund_ID fid, Fund_Name, Annual_Return, Last_Month_Return FROM ";
+	    var comFunUrl = "SELECT cdt.Fund_ID fid, Fund_Name, Annual_Return, Last_Month_Return, Amount FROM ";
 		comFunUrl += " Fund_Table ft, Combo_Data_Table cdt ";
-		comFunUrl += " WHERE ft.Fund_ID=cdt.Combo_ID AND cdt.Combo_ID=?";	
+		comFunUrl += " WHERE ft.Fund_ID=cdt.Fund_ID AND cdt.Combo_ID=?";	
             connection.query( comFunUrl, req.query['comboid'], 
                               function(err, rows){
             if (err)
@@ -441,14 +441,16 @@ module.exports.combodetail =
                 //error handling
             }
 	    else{
+		console.log(rows);
 		var comLen = rows.length;
-		var comFunData = new Array(4); 
-		for( var j=0; j<4; j++){ comFunData[j] = new Array(comLen);}
+		var comFunData = new Array(comLen); 
+		for( var j=0; j<comLen; j++){ comFunData[j] = new Array(5);}
 		for( var i=0; i<comLen; i++){
-			comFunID[i][0] = rows[i].fid;
-			comFunName[i][1] = rows[i].Fund_Name;
-			comFunMonth[i][2] = rows[i].Last_Month_Return;
-			comFunAnual[i][3] = rows[i].Annual_Return;
+			comFunData[i][0] = rows[i].fid;
+			comFunData[i][1] = rows[i].Fund_Name;
+			comFunData[i][2] = rows[i].Last_Month_Return.toFixed(2);
+			comFunData[i][3] = rows[i].Annual_Return.toFixed(2);
+			comFunData[i][4] = rows[i].Amount.toFixed(2);
 		} 		
 		res.render('pages/bs_combo_detail_view',{
                         rateData : rateData,

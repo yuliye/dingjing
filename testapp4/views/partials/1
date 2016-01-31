@@ -1,0 +1,78 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+     <thead>
+      <tr>
+        <th class="aligncenter">
+         基金名
+        </th>
+        </th>
+        <th class="aligncenter">
+          全年回报
+        </th>
+        <th class="aligncenter">
+          上月回报
+        </th>
+	 <th class="aligncenter">
+          调整金额
+         </div>
+        <th class="aligncenter">
+         取消/加入
+        </th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Fund One</td>
+        <td>21%</td>
+        <td class="aligncenter">
+               5%
+        </td>
+	<td>
+		$5000
+	</td> 
+         <td class="aligncenter">
+                 <div class="checkbox custom-control custom-checkbox p-x">
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+	</td>
+      </tr>
+	 <tr>
+        <td>Fund One</td>
+        <td>21%</td>
+        <td class="aligncenter">
+               5%
+        </td>
+        <td>
+                $5000
+        </td>
+         <td class="aligncenter">
+                 <div class="checkbox custom-control custom-checkbox p-x">
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        </td>
+      </tr>
+
+	 <tr>
+        <td>Fund One</td>
+        <td>21%</td>
+        <td class="aligncenter">
+               5%
+        </td>
+        <td>
+                         <div class="input-group-addon">$</div>
+                         <input type="text" id="amount" name="amount" placeholder="投资额">
+ 
+        </td>
+         <td class="aligncenter">
+                 <div class="checkbox custom-control custom-checkbox p-x">
+        <input type="checkbox">
+        <span class="custom-control-indicator"></span>
+        </td>
+      </tr>
+	
+    </tbody>
+  </table>
+</div>
+

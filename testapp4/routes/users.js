@@ -1,4 +1,6 @@
 var express = require('express');
+var formidable = require('formidable');
+
 
 module.exports = function(passport,pool,dbconfig) { 
 var router = express.Router();
@@ -29,6 +31,47 @@ router.get('/', isLoggedIn, function(req, res, next) {
   res.send('respond with a resource');
 });
 
+
+router.get('/searchfun',  isLoggedIn, function(req, res) {
+  pool.getConnection(function(err, connection) {
+    connection.query('USE ' + dbconfig.database);
+    connection.query("SELECT Fund_ID, Fund_Name, Annual_Return,Last_Month_Return FROM Fund_Table WHERE Fund_Name = ?",[req.query.fundname], function(err, rows){
+      if(err){
+        //err handling
+      }
+      else if(rows.length==0){
+		
+      }
+      else {
+	var addrowdata = new Array(5);
+	addrowdata[0]=rows[0].Fund_ID;
+	addrowdata[1]=rows[0].Fund_Name;
+	addrowdata[2]=(rows[0].Annual_Return).toFixed(2);
+        addrowdata[3]=(rows[0].Last_Month_Return).toFixed(2);
+	addrowdata[4]=0;
+      res.render('partials/combo-addfund-list', {
+		addrowdata : addrowdata 
+	});
+      }
+    });
+    connection.release();
+  });
+  //res.render('pages/bs_detail_view',{
+  //  index: 1
+  //});
+});
+
+router.post('/addfundtocombo', function(req, res) {
+	console.log(req.body);
+	var form = new formidable.IncomingForm();
+	form.parse(req, function(err,fields, files){
+		console.log("No there");
+		console.log( fields );	
+	});
+//	res.write("You sent the name ");
+//	res.end();
+
+});
 
 router.get('/text',  isLoggedIn, function(req, res) {
   pool.getConnection(function(err, connection) { 

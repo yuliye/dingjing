@@ -1,0 +1,80 @@
+<div class="table-full">
+ <div class="table-responsive">
+ <form action="add2combo" method="get" class="comboForm" onsubmit="return checkForm(this);">
+<table id="comboex" class="table tablesorter" data-sort="table">
+    <thead>
+      <tr>
+        <th class="aligncenter">
+	 <h2 class="dashhead-title">基金名</h2>
+        </th>
+        <th class="aligncenter">
+	 <div class="input-group m-t">
+          调整金额 
+	 </div>
+        </th>
+        <th class="aligncenter">
+          全年回报 
+        </th>
+        <th class="aligncenter">
+	  上月回报
+        </th>
+        <th class="aligncenter">
+	 取消/加入
+        </th>
+      </tr>
+
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td class="aligncenter">
+		Fund One
+        </td>
+	 <td class="aligncenter">
+		  <div class="input-group m-t">
+                         <div class="input-group-addon">$</div>
+                         <input type="text" id="amount" name="amount" placeholder="投资额">
+                  </div>
+
+        </td>
+         <td class="aligncenter">
+               23% 
+        </td>
+         <td class="aligncenter">
+               5% 
+        </td>
+	 <td class="aligncenter">
+		<div class="checkbox">
+                     <label><input type="checkbox" value="">Option 1</label>
+                </div>
+
+	</td>
+ 
+      </tr>
+    </tbody> 
+
+    <tfoot>
+      <tr>
+        <th></th>
+        <th class="pad-icon"  >
+          Total Value
+        </th>
+        <th></th>
+        <th></th>
+        <th class="aligncenter" data-bind=' text: totalQuantityText'>
+        </th>
+        <th class="aligncenter" data-bind='visible: $root.isAdditionalFields, text: totalCashValueText()'>
+        </th>
+        <th class="aligncenter" data-bind='visible: $root.isAdditionalFields, text: totalValue'>
+        </th>
+        <th></th>
+        <th data-bind='visible: $root.isAdditionalFields'></th>
+        <th></th>
+      </tr>
+    </tfoot>
+
+  </table>
+
+</form>
+</div>
+</div>
