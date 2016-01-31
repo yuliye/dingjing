@@ -21,7 +21,13 @@ module.exports.updateAllFund = function (pool, dbconfig, req, res, queryString, 
                 .value();
         //now you have a list of smart funds        
         for(k in robFunds){
-          console.log(robFunds[k].getbasic());
+          var tmp=robFunds[k].getbasic();
+          console.log(tmp);
+          var updateQuery = "UPDATE Fund_Table SET Annual_Return = ?, ";
+              updateQuery+= "Last_Month_Return = ?, CAROR = ?, Worst_DD = ?, ";
+              updateQuery+= "Year2Date = ? WHERE Fund_ID = ?";
+          var updateValue = [tmp[2],tmp[1],tmp[5],tmp[6],tmp[7],tmp[0]];
+          connection.query(updateQuery, updateValue);
         }
       }
     });

@@ -60,12 +60,14 @@ module.exports.fundObj= function(data){
   var annret = {}; //annual return array
   var annydd = {}; //annual low mark array
   var annndd = {}; //annual drawdown array
+  var y2date = 0;
   for (var key in anndata){
   	var tmpcu = 1;
     var tmp = _.chain(anndata[key])
         .map(function(row){tmpcu*=(1+row[1]/100); return [row[0],tmpcu];})
         .value();
-    annret[key]=100*(_.last(tmp)[1]-1);
+    y2date=100*(_.last(tmp)[1]-1);
+    annret[key]=y2date; 
     annydd[key]=100*(_.min(tmp, function(row){return row[1];})[1]-1);
   } 
 
@@ -79,9 +81,9 @@ module.exports.fundObj= function(data){
 
   //public facing function to get all the data
   //basic stats including fund id and name
-  //last month, last year return, dd and wm, caror
+  //last month, last year return, dd and wm, caror, y2d
   fundData.getbasic = function(){
-    return [lastm[0],lastm[2],100*(_.last(mretc)[1]-1),dd,ydd,caror,fdd];
+    return [lastm[0],lastm[2],100*(_.last(mretc)[1]-1),dd,ydd,caror,fdd, y2date];
   };
 
   //last 12 month return data
