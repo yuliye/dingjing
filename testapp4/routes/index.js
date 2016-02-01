@@ -15,6 +15,10 @@ router.get('/', function(req, res) {
   res.render('pages/landing');
 });
 
+router.get('/new', function(req, res) {
+  res.render('pages/shome');
+});
+
 router.get('/login', function(req, res) {
   res.render('pages/tw_login', { 
     message: req.flash('loginMessage'),
