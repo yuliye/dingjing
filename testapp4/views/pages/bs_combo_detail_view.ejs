@@ -193,5 +193,23 @@ $(function() {
 });
 
 </script>
+<script type="text/javascript">
+
+  
+  function combocheckForm(form){
+    var formInput = $('#combfund_remove > tbody > tr');
+    var flag = 0;
+    formInput.find('input').each( function(){
+		var inputVal = $(this).val();
+    		if(isNaN(inputVal) || inputVal == "" || inputVal<=0) {
+				flag = 1;
+			$(this).val("请填写正确金额");
+		}
+    });
+    if( flag==1) {
+		return false;
+	} 
+  }
+</script>
   </body>
 </html>

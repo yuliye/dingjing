@@ -64,44 +64,16 @@ router.get('/searchfun',  isLoggedIn, function(req, res) {
 });
 
 router.post('/addfundtocombo', function(req, res) {
-	
-        var comID = req.body["comboid"];
-        pool.getConnection(function(err, connection) {
-    		connection.query('USE ' + dbconfig.database);
-	          connection.query( "DELETE FROM Combo_Data_Table WHERE Combo_ID = ? " ,comID, function(err, rows){
-     		 if(err){
-     			   //err handling
-      		}
-      		else if(rows.length==0){
-			res.redirect('cdetail?comboid='+comID);
-      			}
-      			else {
-			 for(var attrikey in req.body){
-          		     if( attrikey=="comboid") continue;
-				console.log(attrikey);
-                		var items = JSON.parse("["+req.body[attrikey] + "]");
-                		var totalAm = 0;
-                		for( var tLen=0; tLen<items.length; tLen++){
-                         		totalAm += items[tLen];
-                		}
+	console.log(req.body);
 
-		
-				connection.query( "INSERT INTO Combo_Data_Table (Combo_ID, Fund_ID, Amount ) VALUES (?,?,?)" ,
-					[comID,attrikey,totalAm], function(err, rows){
-	     	      			if(err){
-        					//err handling
-      					}
-      					else if(rows.length==0){
-      					}
-      					else {
-      					}
+	//var form = new formidable.IncomingForm();
+	//form.parse(req, function(err,fields, files){
+	//	console.log("No there");
+	//	console.log( fields );	
+	//});
+//	res.write("You sent the name ");
+//	res.end();
 
-    		    		}); 
-	        	}
-    		}});
-    		connection.release();
-		});
-		res.redirect('combodetail?comboid='+comID);
 });
 
 router.get('/text',  isLoggedIn, function(req, res) {

@@ -11,7 +11,7 @@
 <br/>
 <br/>
 <br/>
-<form action="addfundtocombo" method="post" id="addfund" class="addfund" enctype='application/json'>
+<form action="addfundtocombo" method="post" id="addfund" class="addfund" enctype='application/json' onsubmit="return combocheckForm(this);">
 <div class="table-responsive">
   <table class="table table-striped" id="combfund_remove">
      <thead>
@@ -43,7 +43,7 @@
         <td class="aligncenter"><%= row[3] %>%</td>
         <td class="aligncenter"><%= row[2] %>%</td>
         <td class="aligncenter">
-      	       <input id="inputdefault" name="<%= row[0] %>" type="text" value="<%= row[4] %>" width="50"/>
+      	       <input class="inputdefault" name="<%= row[0] %>" type="text" value="<%= row[4] %>" >
         </td > 
 	<td><button type="button" class="btn btn-danger remove show_tip">X</button></td>	
 
@@ -52,6 +52,7 @@
 	
     </tbody>
   </table>
+  <input type="hidden" name="comboid" value="<%= fundid %>"/>
  <button class="btn btn-success m-l m-t submit addfund" type="button submit"  id="addfundtocombo" >
     提交确认 
 </button>

@@ -64,44 +64,90 @@ router.get('/searchfun',  isLoggedIn, function(req, res) {
 });
 
 router.post('/addfundtocombo', function(req, res) {
+	var comID = req.body["comboid"];
+	for(var attrikey in req.body){
+	       if( attrikey=="comboid") continue;
 	
-        var comID = req.body["comboid"];
+		var items = JSON.parse("["+req.body[attrikey] + "]");
+		var totalAm = 0;
+		for( var tLen=0; tLen<items.length; tLen++){	
+			 totalAm += items[tLen];
+		}
+
+		/*for(var k=0; k<req.body[attrikey].length; k++){
+			totalAm+=parseFloat(req.body[attrikey][k], 10);	
+		}
+		console.log( totalAm); */
+/*	var formvalue =  JSON.stringify(req.body);
+	formvalue = formvalue.substring(1, formvalue.length-1);
+	console.log(formvalue);
+	//var resu = JSON.parse(arr.toString() );
+	var formstr = formvalue.split(",");
+	var len = formstr.length;
+	var comID = formstr[len-1].split(":")[1];
+	comID = comID.substring(1, comID.length-1);
+
+	var uniqueID = new Array(len-1);
+	var uniqueValue = new Array(len-1);
+	var uniqueLen = 0;
+	for(var i=0; i<len-1; i++){
+		var fundinfo = formstr[i].split(":");
+		console.log( fundinfo[0] + " and " + fundinfo[1]);
+		var tempID  = fundinfo[0].substring(1, fundinfo[0].length-1) ; 	
+	        	
+	        var tempValue = fundinfo[1].substring(1, fundinfo[1].length-1) ;
+		var flag = 1;
+		for(var j=0; j<uniqueLen; j++){
+			if( uniqueID[j]==tempID){
+				uniqueValue[j]+=tempValue;
+				flag = 0;
+				break;
+			}
+		}
+		if(flag==1){
+			uniqueID[uniqueLen] = tempID;
+			uniqueValue[uniqueLen]=tempValue;
+			uniqueLen +=1;
+		}
+
+	} */
+	
         pool.getConnection(function(err, connection) {
     		connection.query('USE ' + dbconfig.database);
-	          connection.query( "DELETE FROM Combo_Data_Table WHERE Combo_ID = ? " ,comID, function(err, rows){
-     		 if(err){
-     			   //err handling
-      		}
-      		else if(rows.length==0){
-			res.redirect('cdetail?comboid='+comID);
+	       connection.query( "DELETE FROM Combo_Data_Table WHERE Combo_ID = ? " ,comID, function(err, rows){
+      if(err){
+        //err handling
+      }
+      else if(rows.length==0){
+		console.log("lenth is 0 ");
+      }
+      else {
+		for(var i=0; i<uniqueLen; i++){
+
+		 connection.query( "INSERT INTO Combo_Data_Table (Combo_ID, Fund_ID, Amount ) VALUES (?,?,?)" ,
+                              [comID,attrikey,totalAm, function(err, rows){
+	     	      if(err){
+        			//err handling
+      			}
+      			else if(rows.length==0){
+                		console.log("lenth is  "+i);
       			}
       			else {
-			 for(var attrikey in req.body){
-          		     if( attrikey=="comboid") continue;
-				console.log(attrikey);
-                		var items = JSON.parse("["+req.body[attrikey] + "]");
-                		var totalAm = 0;
-                		for( var tLen=0; tLen<items.length; tLen++){
-                         		totalAm += items[tLen];
-                		}
+				
+      			}
+
+    		    });
+	        }
+      }
+
+    });
+    connection.release();
+  });
+	}
+
 
 		
-				connection.query( "INSERT INTO Combo_Data_Table (Combo_ID, Fund_ID, Amount ) VALUES (?,?,?)" ,
-					[comID,attrikey,totalAm], function(err, rows){
-	     	      			if(err){
-        					//err handling
-      					}
-      					else if(rows.length==0){
-      					}
-      					else {
-      					}
-
-    		    		}); 
-	        	}
-    		}});
-    		connection.release();
-		});
-		res.redirect('combodetail?comboid='+comID);
+res.redirect('combodetail?comboid='+comID);
 });
 
 router.get('/text',  isLoggedIn, function(req, res) {
