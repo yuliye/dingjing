@@ -162,9 +162,9 @@ select {
   content: "";
   display: block;
   position: absolute;
-  top: 30px;
+  top: 50px;
   width: 100%;
-  height: 360px;
+  height: 450px;
   background: rgba(0, 0, 0, 0.1);
 }
 .section.has-pattern .section-inner .container {
@@ -172,11 +172,11 @@ select {
 }
 .section.has-pattern .section-inner .container .content .content-inner {
   min-height: 390px;
-  max-width: 500px;
+  max-width: 640px;
   display: inline-block;
   margin: 0 auto;
-  margin-bottom: 30px;
-  padding-top: 75px;
+  margin-bottom: 0px;
+  padding-top: 0px;
   padding-bottom: 45px;
 }
 .section.has-pattern .section-inner .container .content .pe-icon {
@@ -544,7 +544,7 @@ select {
 }
 .navmenu,
 .navbar-offcanvas {
-  width: 240px;
+  width: 160px;
 }
 /* ====== Canvas ====== */
 .canvas-wrapper {
@@ -911,7 +911,7 @@ select {
   display: inline-block;
   margin: 0 auto;
   margin-bottom: 30px;
-  font-size: 14px;
+  font-size: 16px;
   text-transform: uppercase;
 }
 .footer .links li {
@@ -922,7 +922,7 @@ select {
   margin-right: 0;
 }
 .footer .links.legal-links {
-  font-size: 13px;
+  font-size: 14px;
   margin-left: 0;
 }
 .footer .links.legal-links li {
@@ -942,7 +942,7 @@ select {
   margin-bottom: 30px;
 }
 .footer .copyright {
-  font-size: 13px;
+  font-size: 14px;
   margin-bottom: 15px;
   display: block;
 }
@@ -2372,18 +2372,21 @@ select {
     margin: 0 auto;
   }
   .promo .arrow-holder {
-    display: none;
+    margin-top: 150px;
+    /*display: none;*/
   }
   .promo .owl-theme .owl-controls {
     margin-top: 15px;
   }
   .device-holder {
+    display: none !important;
+    /*
     background-image: none !important;
     width: 240px;
     height: 480px;
     display: inline-block;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 30px; */
   }
   .device-holder.iphone-holder .device-holder-inner {
     position: static;
@@ -2512,6 +2515,7 @@ select {
     background: rgba(0, 0, 0, 0.3);
   }
   .promo .arrow-holder {
+    margin-top: 100px;
     top: -30px;
   }
   .promo .intro-area {
@@ -2550,6 +2554,7 @@ select {
     margin-bottom: 0;
   }
   .promo .arrow-holder {
+    margin-top: 100px;
     top: -30px;
   }
   .promo .device-holder.iphone-holder.offset-top {

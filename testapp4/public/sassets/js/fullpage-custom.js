@@ -4,10 +4,10 @@ $(document).ready(function() {
 	/* Ref: https://github.com/alvarotrigo/fullPage.js */
         
     $('#fullpage').fullpage({
-		anchors: ['home', 'benefit1', 'benefit2', 'benefit3', 'benefit4', 'download'],
+		anchors: ['home', 'benefit1', 'benefit2', 'benefit3'],
 		navigation: true,
 		navigationPosition: 'right',
-		navigationTooltips: ['Home', 'Benefit 1', 'Benefit 2', 'Benefit 3', 'Benefit 4', 'Download'],
+		navigationTooltips: ['鼎鲸首页', '美股交易', '智能组合投资', '基金和个人专户'],
 		resize : false,
 		scrollBar: true,
 		autoScrolling: false,

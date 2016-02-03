@@ -11,11 +11,11 @@ router.get('/', function(req, res, next) {
 });
 */
 
-router.get('/', function(req, res) {
+router.get('/old', function(req, res) {
   res.render('pages/landing');
 });
 
-router.get('/new', function(req, res) {
+router.get('/', function(req, res) {
   res.render('pages/shome');
 });
 
