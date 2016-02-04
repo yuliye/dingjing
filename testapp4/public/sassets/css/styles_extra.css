@@ -26,6 +26,10 @@ small {
   width: 320px;
 }
 
+.dj-black{
+  color: black !important;
+}
+
 .dj-section {
   padding:0px !important;
 }

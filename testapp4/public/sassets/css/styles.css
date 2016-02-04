@@ -294,6 +294,12 @@ select {
   display: block;
 }
 /* ======= Gradients ======= */
+.gradient-0 {
+  background-image: url("/images/bg1.jpg") !important; background-repeat: no-repeat !important;background-position: 50% 50% !important;
+  background-size: 100% 100%;
+  color: #fff;
+}
+
 .gradient-1 {
   background-image: -webkit-linear-gradient(110deg, #31c8b1 10%, #4ec7ff 90%), url("../images/background/diamond_upholstery.png");
   background-image: -moz-linear-gradient(110deg, #31c8b1 10%, #4ec7ff 90%), url("../images/background/diamond_upholstery.png");
@@ -408,10 +414,93 @@ select {
   background-blend-mode: multiply;
   color: #fff;
 }
+
+.gradient-10 {
+  background-image: -webkit-linear-gradient(110deg, #FBFBEF 10%, #F2F5A9 90%), url("../images/background/diamond_upholstery.png");
+  background-image: -moz-linear-gradient(110deg, #FBFBEF 10%, #F2F5A9 90%), url("../images/background/diamond_upholstery.png");
+  background-image: -o-linear-gradient(110deg, #FBFBEF 10%, #F2F5A9 90%), url("../images/background/diamond_upholstery.png");
+  background-image: linear-gradient(110deg, #FBFBEF 10%, #F2F5A9 90%), url("../images/background/diamond_upholstery.png");
+  background-image: -ms-linear-gradient(110deg, #FBFBEF 10%, #F2F5A9 90%);
+  /* IE 10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FBFBEF, endColorstr=#F2F5A9, GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
+  background-blend-mode: multiply;
+  color: #fff;
+}
+
+.gradient-11 {
+  background-image: -webkit-linear-gradient(110deg, #FFFFFF 10%, #FAFAFA 90%), url("../images/background/diamond_upholstery.png");
+  background-image: -moz-linear-gradient(110deg, #FFFFFF 10%, #FAFAFA 90%), url("../images/background/diamond_upholstery.png");
+  background-image: -o-linear-gradient(110deg, #FFFFFF 10%, #FAFAFA 90%), url("../images/background/diamond_upholstery.png");
+  background-image: linear-gradient(110deg, #FFFFFF 10%, #FAFAFA 90%), url("../images/background/diamond_upholstery.png");
+  background-image: -ms-linear-gradient(110deg, #FFFFFF 10%, #FAFAFA 90%);
+  /* IE 10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFF, endColorstr=#FAFAFA, GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
+  background-blend-mode: multiply;
+  color: #fff;
+}
+
+.gradient-11 {
+  background-image: -webkit-linear-gradient(110deg, #FFFFFF 10%, #FAFAFA 90%), url("../images/background/diamond_upholstery.png");
+  background-image: -moz-linear-gradient(110deg, #FFFFFF 10%, #FAFAFA 90%), url("../images/background/diamond_upholstery.png");
+  background-image: -o-linear-gradient(110deg, #FFFFFF 10%, #FAFAFA 90%), url("../images/background/diamond_upholstery.png");
+  background-image: linear-gradient(110deg, #FFFFFF 10%, #FAFAFA 90%), url("../images/background/diamond_upholstery.png");
+  background-image: -ms-linear-gradient(110deg, #FFFFFF 10%, #FAFAFA 90%);
+  /* IE 10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFF, endColorstr=#FAFAFA, GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
+  background-blend-mode: multiply;
+  color: #fff;
+}
+
+.gradient-12 {
+  background-image: -webkit-linear-gradient(110deg, #000000 10%, #000000 90%), url("../images/background/diamond_upholstery.png");
+  background-image: -moz-linear-gradient(110deg, #000000 10%, #000000 90%), url("../images/background/diamond_upholstery.png");
+  background-image: -o-linear-gradient(110deg, #000000 10%, #000000 90%), url("../images/background/diamond_upholstery.png");
+  background-image: linear-gradient(110deg, #000000 10%, #000000 90%), url("../images/background/diamond_upholstery.png");
+  background-image: -ms-linear-gradient(110deg, #000000 10%, #000000 90%);
+  /* IE 10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#000000, endColorstr=#000000, GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
+  background-blend-mode: multiply;
+  color: #fff;
+}
+
+.gradient-14 {
+  background-image: -webkit-linear-gradient(110deg, #FFC500 10%, #FFC500 90%), url("../images/background/diamond_upholstery.png");
+  background-image: -moz-linear-gradient(110deg, #FFC500 10%, #FFC500 90%), url("../images/background/diamond_upholstery.png");
+  background-image: -o-linear-gradient(110deg, #FFC500 10%, #FFC500 90%), url("../images/background/diamond_upholstery.png");
+  background-image: linear-gradient(110deg, #FFC500 10%, #FFC500 90%), url("../images/background/diamond_upholstery.png");
+  background-image: -ms-linear-gradient(110deg, #FFC500 10%, #FFC500 90%);
+  /* IE 10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFC500, endColorstr=#FFC500, GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
+  background-blend-mode: multiply;
+  color: #fff;
+}
+
+.gradient-15 {
+  background: #FFC500; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#FFC500, #FFC500); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#FFC500, #FFC500); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#FFC500, #FFC500); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#FFC500, #FFC500); /* Standard syntax */
+}
+
+.gradient-w {
+  background: #FFFFFF; /* For browsers that do not support gradients */
+}
+
+.gradient-b {
+  background: #000000; /* For browsers that do not support gradients */
+}
+
 /* ======= Nav ======== */
 .navmenu {
   z-index: 10;
-  background: #233039;
+  /*background: #233039;*/
+  background: #000000;
   color: #fff;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -428,7 +517,10 @@ select {
   font-size: 14px;
 }
 .navmenu .nav-item a {
-  color: rgba(255, 255, 255, 0.4);
+  /*color: rgba(255, 255, 255, 0.4);*/
+  color: white;
+  font-size: 16px;
+  font-weight: 900;
   display: block;
 }
 .navmenu .nav-item a:hover {
@@ -438,14 +530,16 @@ select {
   color: #fff;
 }
 .navmenu .nav-item:hover {
-  background: #2d3d49;
+  /*background: #233039;*/
+  background: #000000;
   cursor: pointer;
 }
 .navmenu .nav-item:hover a {
   color: #fff;
 }
 .navmenu .nav-item.dropdown.open {
-  background: #2d3d49;
+  /*background: #233039;*/
+  background: #000000;
 }
 .navmenu .nav-item.dropdown.open .dropdown-toggle {
   margin-bottom: 10px;
@@ -456,7 +550,8 @@ select {
 .navmenu .nav-item.dropdown .dropdown-menu {
   z-index: auto;
   position: static;
-  background: #2d3d49;
+  /*background: #233039;*/
+  background: #000000;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   -ms-border-radius: 0;
@@ -478,13 +573,16 @@ select {
   text-transform: none;
 }
 .navmenu .nav-item.dropdown .dropdown-menu li a {
-  color: rgba(255, 255, 255, 0.5);
+  /*color: rgba(255, 255, 255, 0.5);*/
+  color: white;
   padding: 10px 0;
 }
 .navmenu .nav-item.dropdown .dropdown-menu li a:hover,
 .navmenu .nav-item.dropdown .dropdown-menu li a:focus {
   color: #fff;
-  background: #364b59;
+  /*background: #233039;*/
+  background: #000000;
+
 }
 .navmenu .social-icons {
   display: inline-block;
@@ -544,7 +642,7 @@ select {
 }
 .navmenu,
 .navbar-offcanvas {
-  width: 160px;
+  width: 200px;
 }
 /* ====== Canvas ====== */
 .canvas-wrapper {
@@ -897,8 +995,11 @@ select {
 .footer {
   padding-top: 30px;
   padding-bottom: 30px;
-  background: #364b59;
+  /*background: #364b59;*/
+  background: black;
   color: rgba(255, 255, 255, 0.6);
+  font-weight: 900 !important;
+
 }
 .footer a {
   color: rgba(255, 255, 255, 0.6);
@@ -911,7 +1012,7 @@ select {
   display: inline-block;
   margin: 0 auto;
   margin-bottom: 30px;
-  font-size: 16px;
+  font-size: 15px;
   text-transform: uppercase;
 }
 .footer .links li {
@@ -922,8 +1023,9 @@ select {
   margin-right: 0;
 }
 .footer .links.legal-links {
-  font-size: 14px;
+  font-size: 16px;
   margin-left: 0;
+  font-weight: 900;
 }
 .footer .links.legal-links li {
   margin-right: 0;
