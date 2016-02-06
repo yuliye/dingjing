@@ -19,6 +19,10 @@ router.get('/', function(req, res) {
   res.render('pages/shome');
 });
 
+router.get('/trade', function(req, res) {
+  res.render('pages/sh1');
+});
+
 router.get('/login', function(req, res) {
   res.render('pages/tw_login', { 
     message: req.flash('loginMessage'),

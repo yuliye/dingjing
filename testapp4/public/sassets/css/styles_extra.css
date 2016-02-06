@@ -26,6 +26,21 @@ small {
   width: 320px;
 }
 
+.dj-container-bd { 
+  display: block;
+  margin: 0 auto;
+  padding: 20px;
+  width: 320px;
+  height: 324px;
+  border-style: solid;
+  border-width: 1px;
+
+}
+
+.dj-text-sm { 
+  font-size: 14px !important;
+}
+
 .dj-black{
   color: black !important;
 }
@@ -46,6 +61,19 @@ small {
   height: 260px !important; 
 }
 
+.dj-y {
+  margin: 5px 0px 5px 0px; 
+}
+
+.btn-dj {
+  padding: 9px 10px;
+  border-color: white;
+  border-style: solid;
+  border-width: 1px;
+  opacity: 0.6;
+  background-color: #754fa5;
+
+}
 
 .flip {
   -webkit-perspective: 800;
@@ -109,7 +137,7 @@ small {
   background-color:rgba(0, 0, 0, 0);
   border-style: solid;
   border-width: 1px;
-  font-size: 14px;
+  font-size: 16px;
   padding: 10px 5px;
     
   transform:rotatey(-180deg);
