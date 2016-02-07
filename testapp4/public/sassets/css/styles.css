@@ -519,8 +519,38 @@ select {
 }
 
 .gradient-b {
-  background: #000000; /* For browsers that do not support gradients */
+  background: #000000; /* #252830; /* For browsers that do not support gradients */
 }
+
+.gradient-bg {
+  background-image: -webkit-linear-gradient(110deg, #FFC500 10%, #000000 90%), url("../images/background/happy-bee.png");
+  background-image: -moz-linear-gradient(110deg, #FFC500 10%, #000000 90%), url("../images/background/happy-bee.png");
+  background-image: -o-linear-gradient(110deg, #FFC500 10%, #000000 90%), url("../images/background/happy-bee.png");
+  background-image: linear-gradient(110deg, #FFC500 10%, #000000 90%), url("../images/background/happy-bee.png");
+  background-image: -ms-linear-gradient(110deg, #FFC500 10%, #000000 90%);
+  /* IE 10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFC500, endColorstr=#000000, GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
+  background-blend-mode: multiply;
+  color: #fff;
+}
+
+.gradient-bs {
+  background: radial-gradient(#424242,#000000);
+  /*background: #466368;
+  background: radial-gradient(#648880, #293f50);
+  background: linear-gradient(45deg, #020031 0%,#6d3353 100%);
+  background: radial-gradient(#020031 0%,#6d3353 100%);*/
+}
+
+.gradient-ws {
+  background: radial-gradient(#FFFFFF,#FFC500);
+  /*background: #466368;
+  background: radial-gradient(#648880, #293f50);
+  background: linear-gradient(45deg, #020031 0%,#6d3353 100%);
+  background: radial-gradient(#020031 0%,#6d3353 100%);*/
+}
+
 
 /* ======= Nav ======== */
 .navmenu {

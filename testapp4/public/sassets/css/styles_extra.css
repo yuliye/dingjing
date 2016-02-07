@@ -17,7 +17,7 @@ small {
 
 .dj-centered{
     float: none;
-    margin: 0 auto;
+    margin: 0px auto;
 }
 
 .dj-container { 
@@ -28,17 +28,17 @@ small {
 
 .dj-container-bd { 
   display: block;
-  margin: 0 auto;
+  margin: 0px auto;
   padding: 20px;
-  width: 320px;
-  height: 324px;
+  width: 280px;
+  height: 320px;
   border-style: solid;
   border-width: 1px;
 
 }
 
 .dj-text-sm { 
-  font-size: 14px !important;
+  font-size: 13px !important;
 }
 
 .dj-black{
@@ -63,6 +63,13 @@ small {
 
 .dj-y {
   margin: 5px 0px 5px 0px; 
+}
+
+.dj-w {
+  display: block;
+  margin: 0px auto;
+  width: 280px;
+  padding: 0px; 
 }
 
 .btn-dj {
@@ -137,8 +144,8 @@ small {
   background-color:rgba(0, 0, 0, 0);
   border-style: solid;
   border-width: 1px;
-  font-size: 16px;
-  padding: 10px 5px;
+  font-size: 15px;
+  padding: 10px 15px;
     
   transform:rotatey(-180deg);
   -ms-transform:rotatey(-180deg); /* IE 9 */
@@ -158,3 +165,35 @@ small {
    width: 100%;
   }
 }
+
+.navbar {
+  background-color: black;
+}
+
+.navbar-brand {
+  float: left;
+  padding: 9px 15px;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  position: relative;
+  z-index: 10;
+  display: inline-block;
+}
+
+.navbar-brand:hover,
+.navbar-brand:focus {
+  text-decoration: none;
+}
+.navbar-brand > img {
+  display: block;
+}
+
+.navbar-brand > strong {
+  color: white;
+  font-weight: 700;
+  font-size:24px;
+}
+
+
