@@ -6,28 +6,28 @@ $(document).ready(function() {
 		messages: {
 		
 		    firstname: {
-    			required: 'Please enter your first name' //You can customise this message
+    			required: '请输入你的名' //You can customise this message
 			},
 			lastname: {
-    			required: 'Please enter your last name' //You can customise this message
+    			required: '请输入你的姓' //You can customise this message
 			},
 			email: {
-				required: 'Please enter your email' //You can customise this message
+				required: '请输入你的邮箱' //You can customise this message
 			},	
 			number: {
-				required: 'Please enter your number' //You can customise this message
+				required: '请输入你的手机号码' //You can customise this message
 			},		
 			message: {
-				required: 'Please enter your message' //You can customise this message
+				required: '请输入你想发给我们的消息' //You can customise this message
 			}, 			
 			reason: {
-				required: 'Please select your reason' //You can customise this message
+				required: '请输入你联系我们的原因' //You can customise this message
 			}, 	
 			name: {
-    			required: 'Please enter your name' //You can customise this message
+    			required: '请输入你的名字' //You can customise this message
 			},		
 			comment: {
-				required: 'Please enter your comment' //You can customise this message
+				required: '请输入你的建议' //You can customise this message
 			}
 						
 		}
