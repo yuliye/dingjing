@@ -19,9 +19,9 @@ router.get('/', function(req, res) {
   res.render('pages/shome');
 });
 
-router.get('/trade', function(req, res) {
+/*router.get('/trade', function(req, res) {
   res.render('pages/sh1');
-});
+});*/
 
 router.get('/login', function(req, res) {
   res.render('pages/tw_login', { 
@@ -209,6 +209,10 @@ router.get('/logout', function(req, res) {
 
 router.get('/public/:name?', function(req, res) {
   res.render('pages/short_header',{title:req.params.name});
+});
+
+router.get('/:name?', function(req, res) {
+  res.render('pages/spage',{page:req.params.name});
 });
 
 return router;

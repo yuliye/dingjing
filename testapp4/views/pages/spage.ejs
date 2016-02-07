@@ -4,12 +4,20 @@
 <!--[if !IE]><!--> <html lang="zh"> <!--<![endif]-->  
 <% include ../partials/shead.ejs %>
 
-<body class="homepage">       
+<body>       
     
     <% include ../partials/smenu.ejs %>
 
-    <div class="canvas-wrapper">    
-      <% include ../partials/sm1.ejs %>  
+    <div class="canvas-wrapper">
+      <% if(page=='trade') { %>   
+         <% include ../partials/strade.ejs%>
+      <% } else if (page=='contact') { %>   
+         <% include ../partials/smain.ejs%>
+      <% } else if (page=='smart') { %>   
+         <% include ../partials/ssmart.ejs%>
+      <% } else { %>
+         <% include ../partials/smain.ejs%>
+      <% } %>
       <% include ../partials/sfooter.ejs %>
     </div><!--//canvas-wrapper-->
      
