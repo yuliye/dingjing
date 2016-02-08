@@ -14,7 +14,7 @@
       <% data.forEach(function(row) { %>
         <tr>
           <td><input type="checkbox" class="select-row"></td>
-          <td><a href="/users/<%= pagetype %>=<%= row[13] %>"><%= row[0] %></a></td>
+          <td><a href="/users/<%= pagetype %>=<%= row[1] %>"><%= row[0] %></a></td>
           <% for(var i=start; i<start+4; i++) { %>
             <td><%= row[i] %></td>
           <% } %>

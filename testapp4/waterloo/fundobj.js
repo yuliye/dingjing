@@ -7,7 +7,7 @@ module.exports.fundObj= function(data){
 
   //last montho return
   var lastm = _.last(data);
-
+  
   //last 12 month return
   var mret = _.chain(data)
         .last(12)

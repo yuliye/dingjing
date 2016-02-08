@@ -101,7 +101,7 @@ router.post('/addfundtocombo', function(req, res) {
     		}});
     		connection.release();
 		});
-		res.redirect('combodetail?comboid='+comID);
+		res.redirect('cdetail?comboid='+comID);
 });
 
 router.get('/text',  isLoggedIn, function(req, res) {
@@ -265,7 +265,7 @@ router.get('/collection',  isLoggedIn, function(req, res) {
 });
 
 router.get('/searchlist',  isLoggedIn, function(req, res) {
-    var type = "detail?fundid";
+    var type = "fdetail?fundid";
     var queryString = "SELECT sf.Fund_ID, Fund_Name, Last_Month_Return, Annual_Return, Assets FROM Fund_Table ft, ";
     queryString += "(SELECT Fund_ID, exp(sum(log(1+Month_Return/100))) cumRet FROM Fund_Data_Table ";
     queryString += " WHERE STR_TO_DATE(concat('01/',Month, '/', Year), '%d/%m/%Y') BETWEEN ";
@@ -302,11 +302,12 @@ router.get('/home', isLoggedIn, function(req, res) {
   //res.render('pages/bs_home_view',{
   //  index: 7
   //});
-  var queryString = "SELECT Fund_ID, Fund_Name, Last_Month_Return, Annual_Return,Assets FROM Fund_Table";
+  /*var queryString = "SELECT Fund_ID, Fund_Name, Last_Month_Return, Annual_Return,Assets FROM Fund_Table";
   var type = "detail?fundid";
   var values = [];
   var index = 7;
-  fetchData.result(pool,dbconfig , queryString,values, header, pageIndex, res, type, index);
+  fetchData.result(pool,dbconfig , queryString,values, header, pageIndex, res, type, index); */
+  res.redirect('/users/flist');
 });
 
 router.get('/compute', isLoggedIn, function(req, res) {
@@ -341,6 +342,7 @@ router.get('/test', isLoggedIn, function(req, res) {
 //with that data.
 
 //fund detail page
+
 router.get('/fdetail', isLoggedIn, function(req, res) {
   var queryString = "SELECT f.Fund_ID Fund_ID, Fund_Name, COALESCE(Year,0) Year, ";
       queryString += " COALESCE(Month,0) Month, COALESCE(Month_Return,0) Month_Return FROM ";
