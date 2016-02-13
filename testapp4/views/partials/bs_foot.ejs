@@ -10,9 +10,14 @@
     // execute/clear BS loaders for docs
     $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
 
-    window.onresize = function(event){
-        document.location.reload(true);
-    }
+    $(window).on('orientationchange', function(e) {
+     $.mobile.changePage(window.location.href, {
+        allowSamePageTransition: true,
+        transition: 'none',
+        reloadPage: true
+    });
+});
+
 </script>
 
 
