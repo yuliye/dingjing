@@ -1,6 +1,7 @@
 .table-mini3 > thead > tr:first-child > td, 
 .table-mini3 > tbody > tr:first-child > td {
   border: none;
+  width: 50%;
 }
 
 .dj-container { 

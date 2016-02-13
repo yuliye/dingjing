@@ -1,15 +1,14 @@
 
-<div class="col-xs-12 col-sm-12 col-md-12">	
- <form action="/users/searchfun" method="get" class="form-inline navbar-form navbar-left searchFun">
+
+ <form action="/users/searchfun" method="get" class="form-inline searchFun m-b">
           <div class="input-with-icon" id="prefetch">
             <input class="typeahead form-control" type="text" id="fundname" name="fundname" placeholder="添加基金...">
             <span class="icon icon-magnifying-glass"></span>
           </div>
           <button type="button submit" class="btn btn-sm btn-primary" >GO!</button>
  </form>
-</div>
 
-<div class="col-xs-12 col-sm-12 col-md-12 m-t">
+
 <form action="addfundtocombo" method="post" id="addfund" class="addfund" enctype='application/json' onsubmit="return combocheckForm(this);">
 <div class="table-responsive">
   <table class="table" id="combfund_remove">
@@ -42,7 +41,7 @@
         <td class="aligncenter"><%= row[3] %>%</td>
         <td class="aligncenter"><%= row[2] %>%</td>
         <td class="aligncenter">
-              <div class="input-with-icon">
+              <div class="input-with-icon" style="width: 150px">
       	       <input class="input form-control" name="<%= row[0] %>" type="text" value="<%= row[4] %>" >
                <span class="icon icon-credit"></span>
               </div>
@@ -52,13 +51,14 @@
       <% }); %>
     </tbody>
   </table>
-  <div class="col-xs-12 col-sm-12 col-md-12">
+  </div>
+
   <input type="hidden" name="comboid" value="<%= topData[0][0] %>">
  <button class="btn btn-primary submit addfund" type="button submit"  id="addfundtocombo" >
  <span class="icon icon-mouse"></span>
     提交确认 
 </button>
-</div>
+
 </form>
-</div>
+
 

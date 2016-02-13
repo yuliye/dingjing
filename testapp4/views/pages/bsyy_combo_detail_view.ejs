@@ -51,8 +51,8 @@
           </canvas>
     </div>
 </div>
-<div class="col-sm-8 col-md-8">
-  <div class="col-sm-12 col-md-6 m-t">
+<div class="col-sm-12 col-md-8">
+  <div class="col-sm-6 col-md-6 m-t">
     <div class="statcard statcard-primary p-a-md">
       <h1 class="statcard-number">
         <%= topData[8].toFixed(2)+"%" %> 
@@ -61,7 +61,7 @@
       <span class="statcard-desc">本年度回报＋上月回报</span>
     </div>
   </div>
-  <div class="col-sm-12 col-md-6 m-t">
+  <div class="col-sm-6 col-md-6 m-t">
     <table class="table table-mini3">
     <tbody>
       <tr>
@@ -79,7 +79,7 @@
     </tbody>
     </table> 
   </div>
-  <div class="col-sm-12 col-md-6 m-t">
+  <div class="col-sm-6 col-md-6 m-t">
     <table class="table table-mini3">
     <tbody>
       <tr>
@@ -101,7 +101,7 @@
     </tbody>
     </table> 
   </div>
-  <div class="col-sm-12 col-md-6 m-t">
+  <div class="col-sm-6 col-md-6 m-t">
     <table class="table table-mini3">
     <tbody>
       <tr>
@@ -190,6 +190,7 @@ $(function() {
     		if(isNaN(inputVal) || inputVal == "" || inputVal<=0) {
 				flag = 1;
 			$(this).val("请填写正确金额");
+      //try to use placeholder
 		}
     });
     if( flag==1) {
