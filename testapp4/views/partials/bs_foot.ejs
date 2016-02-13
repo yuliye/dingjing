@@ -9,7 +9,7 @@
 <script>
     // execute/clear BS loaders for docs
     $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
-
+    /*
     window.onorientationchange = function() { 
         var orientation = window.orientation; 
             switch(orientation) { 
@@ -20,7 +20,8 @@
                 case -90: window.location.reload(); 
                 break; } 
     };
-
+    */
+    window.onorientationchange = function() { window.location.reload(); };
 </script>
 
 

@@ -141,8 +141,9 @@ module.exports.fetchOneCombo = function (pool, dbconfig, req, res, queryString, 
             if (!rows.length) {
                 //error handling
 		 var comFunData=[];
+     var bstat = [0,0,0,0];
 		 //rendEngine.onecombo( robCombo, temprows, res , comFunData);
-     rendEngine.combod( robCombo, res , comFunData, index);
+     rendEngine.combod( robCombo, res , comFunData, bstat, index);
             }
             else{
                 var comLen = rows.length;
