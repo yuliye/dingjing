@@ -10,13 +10,16 @@
     // execute/clear BS loaders for docs
     $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
 
-    $(window).on('orientationchange', function(e) {
-     $.mobile.changePage(window.location.href, {
-        allowSamePageTransition: true,
-        transition: 'none',
-        reloadPage: true
-    });
-});
+    window.onorientationchange = function() { 
+        var orientation = window.orientation; 
+            switch(orientation) { 
+                case 0: window.location.reload(); 
+                break; 
+                case 90: window.location.reload(); 
+                break; 
+                case -90: window.location.reload(); 
+                break; } 
+    };
 
 </script>
 
