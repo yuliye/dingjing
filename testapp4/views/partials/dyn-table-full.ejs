@@ -5,7 +5,7 @@
         <tr>
           <th><input type="checkbox" class="select-all" id="selectAll"></th>
           <th><%= header[0] %></th>
-          <% for(var i=start; i<start+4; i++) { %>
+          <% for(var i=start; i<start+leng; i++) { %>
             <th><%= header[i] %></th>
           <% } %>
         </tr>
@@ -14,9 +14,9 @@
       <% data.forEach(function(row) { %>
         <tr>
           <td><input type="checkbox" class="select-row"></td>
-          <td><a href="/users/<%= pagetype %>=<%= row[1] %>"><%= row[0] %></a></td>
-          <% for(var i=start; i<start+4; i++) { %>
-            <td><%= row[i] %></td>
+          <td><a href="/users/<%= pagetype %>=<%= row[0] %>"><%= row[1] %></a></td>
+          <% for(var i=start; i<start+leng; i++) { %>
+            <td><%= row[i+1] %></td>
           <% } %>
         </tr>
       <% }); %>

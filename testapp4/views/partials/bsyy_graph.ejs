@@ -1,0 +1,83 @@
+<div class="hr-divider m-y-md">
+  <ul class="nav nav-pills hr-divider-content hr-divider-nav" role="tablist">
+    <li class="active" role="presentation">
+      <a href="#sales" role="tab" data-toggle="tab" aria-controls="sales">基于$1K的增长</a>
+    </li>
+  </ul>
+</div>
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="sales">
+    <div class="ex-line-graphs">
+       <canvas
+        class="ex-line-graph"
+        width="600" height="400"
+        data-chart="line"
+        data-scale-line-color="transparent"
+        data-scale-grid-line-color="rgba(255,255,255,.05)"
+        data-scale-font-color="#a2a2a2"
+        data-labels= "<%= dataLabel %>"
+        data-value="[{fillColor: 'rgba(28,168,221,.03)', data: <%= graphData %> }]">
+      </canvas>
+    </div>
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="inventory">
+    <div class="ex-line-graphs">
+      <canvas
+        class="ex-line-graph"
+        width="600" height="400"
+        data-chart="bar"
+        data-scale-line-color="transparent"
+        data-scale-grid-line-color="rgba(255,255,255,.05)"
+        data-scale-font-color="#a2a2a2"
+        data-labels="['August','September','October','November','December','January','February']"
+        data-value="[{ label: 'First dataset', data: [1650, 1590, 1800, 1810, 1560, 1550, 1400] }, { label: 'Second dataset', data: [1280, 1480, 1400, 1190, 1860, 1270, 1900] }]">
+      </canvas>
+    </div>
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="profit">
+    <div class="row ex-graphs text-center">
+      <div class="col-sm-4">
+        <div class="c-w-lg m-x-auto">
+          <canvas
+            class="ex-graph"
+            width="200" height="200"
+            data-chart="doughnut"
+            data-segment-stroke-color="#222"
+            data-value="[{ value: 230, color: '#1ca8dd', label: '基金' }, { value: 130, color: '#1bc98e', label: '基金' }]">
+          </canvas>
+        </div>
+        <strong class="text-muted">基金</strong>
+        <h3>基金</h3>
+      </div>
+      <div class="col-sm-4">
+        <div class="c-w-lg m-x-auto">
+          <canvas
+            class="ex-graph"
+            width="200" height="200"
+            data-chart="doughnut"
+            data-segment-stroke-color="#222"
+            data-value="[{ value: 330, color: '#1ca8dd', label: '基金' }, { value: 30, color: '#1bc98e', label: '基金' }]">
+          </canvas>
+        </div>
+        <strong class="text-muted">基金</strong>
+        <h3>基金</h3>
+      </div>
+      <div class="col-sm-4">
+        <div class="c-w-lg m-x-auto">
+          <canvas
+            class="ex-graph"
+            width="200" height="200"
+            data-chart="doughnut"
+            data-segment-stroke-color="#222"
+            data-value="[{ value: 100, color: '#42a5f5', label: '基金' }, { value: 260, color: '#1bc98e', label: '基金' }]">
+          </canvas>
+        </div>
+        <strong class="text-muted">基金</strong>
+        <h3>基金</h3>
+      </div>
+    </div>
+  </div>
+</div>

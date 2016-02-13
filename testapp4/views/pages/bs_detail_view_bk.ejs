@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head><% include ../partials/bs_head.ejs %></head>
+
+
+<body class="with-top-navbar">
+  <% include ../partials/bs_menu.ejs %>   
+
+  <div class="container-fluid container-fluid-spacious">
+    <div class="dashhead m-t-md">
+
+
+  <div class="dashhead-titles">
+    <h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6>
+    <h2 class="dashhead-title"><%= fundName %></h2>
+  </div>
+
+
+  <div class="btn-toolbar dashhead-toolbar p-y">
+  <form action="save" method="get" class="saveForm">
+  <input type="hidden" class="form-control" name="fundid" 
+        value=<%= fundid %> 
+  >
+  <input type="hidden" class="form-control" name="hasSaved" 
+        value=<%= showSave %> 
+  >
+  <% if(showSave==0) { %>
+    <button class="btn btn-primary btn m-l m-t saveButton" type="button submit">
+  <span class="icon icon-heart"></span>
+  收藏基金
+  </button>
+<% } if (showSave==1) { %>
+   <button class="btn btn-primary btn m-l m-t saveButton" type="button submit">
+  <span class="icon icon-squared-cross"></span>
+  取消收藏
+  </button>
+<% } %>
+    <button class="btn btn-primary btn m-l m-t" type="button" data-toggle="modal" data-target="#saveModal" data-backdrop="static" data-keyboard="false">
+  <span class="icon icon-squared-plus"></span>
+  加入组合
+</button>
+
+<a href="tel:+14155132523">
+  <button class="btn btn-success m-l m-t" type="button">
+  <span class="icon icon-phone"></span>
+  电话申购
+</button>
+</a>
+</form>
+<div class="modal" id="saveModal">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+    <form action="add2combo" method="get" class="comboForm" onsubmit="return checkForm(this);">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">加入组合</h4>
+      </div>
+      <div class="modal-body row">
+        <div class="col-xs-12 col-sm-12 col-md-12 text-center m-b">
+        <strong>把基金 <%= fundName %> 加入</strong>
+        </div>
+      <div class="col-xs-6 col-sm-6 col-md-6">
+        <select class="custom-select" name="thelist" onChange="combo(this, 'comboname')" onMouseOut="comboInit(this, 'comboname')">
+          <option>新组合</option>
+          <% combo.forEach(function(row) { %>
+          <option><%= row %></option>
+          <% }); %>
+        </select>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+        <input type="text" class="form-control" id="comboname" name="comboname" placeholder="组合名">
+        <div class="input-group m-t">
+      <div class="input-group-addon">$</div>
+
+      <input type="text" class="form-control" id="amount" name="amount" placeholder="投资额">
+      <input type="hidden" class="form-control" name="fundid" value=<%= fundid %>>
+    </div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-link modal-action" data-dismiss="modal">取消</button>
+        <button type="button submit" class="btn-link modal-action comboButton">
+          <strong>添加</strong>
+        </button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+    </div>
+
+<div class="hr-divider m-t m-b-md">
+  <h3 class="hr-divider-content hr-divider-heading">基本情况一览</h3>
+</div>
+<div class="row statcard">
+  <div class="col-sm-6 col-md-3">
+    <div class="statcard statcard-primary p-a-md">
+      <h1 class="statcard-number">
+        <%= rateData[0] %> 
+        <small class="delta-indicator delta-positive"><%= rateData[1] %></small>
+      </h1>
+      <span class="statcard-desc">本年度回报＋上月回报</span>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-3">
+    <table class="table table-mini3">
+    <tbody>
+      <tr>
+        <td>最低投资</td>
+        <td>$100K</td>
+      </tr>
+      <tr>
+        <td>管理费用</td>
+        <td>2.00%</td>
+      </tr>
+      <tr>
+        <td>业绩提成</td>
+        <td>20.00%</td>
+      </tr>
+    </tbody>
+    </table> 
+  </div>
+  <div class="col-sm-6 col-md-3">
+    <table class="table table-mini3">
+    <tbody>
+      <tr>
+        <td>年化波动</td>
+        <td>35.02%</td>
+      </tr>
+      <tr>
+        <td>夏普比率</td>
+        <td>0.91</td>
+      </tr>
+      <tr>
+        <td>年复回报</td>
+        <td>25.66%</td>
+      </tr>
+    </tbody>
+    </table> 
+  </div>
+  <div class="col-sm-6 col-md-3">
+    <table class="table table-mini3">
+    <tbody>
+      <tr>
+        <td>资产规模</td>
+        <td>$40M</td>
+      </tr>
+      <tr>
+        <td>最大回撤</td>
+        <td>-10.54%</td>
+      </tr>
+      <tr>
+        <td>普标相关</td>
+        <td>0.13</td>
+      </tr>
+    </tbody>
+    </table> 
+  </div>
+</div>
+
+<% include ../partials/bs_graph.ejs %>
+
+<div class="hr-divider m-t-lg m-b-md">
+  <h3 class="hr-divider-content hr-divider-heading">最近五年数据</h3>
+</div>
+
+  <% include ../partials/table-large15.ejs %>
+  </div>
+
+  <% include ../partials/bs_foot.ejs %>
+  <script type="text/javascript">
+function comboInit(thelist)
+{
+  comboname = document.getElementById(comboname); 
+  var idx = thelist.selectedIndex;
+  var content = thelist.options[idx].innerHTML;
+  if(idx == 0)
+    content = "";
+  if(comboname.value == ""){
+    comboname.value = content;
+  }
+}
+function combo(thelist, comboname)
+{
+  comboname = document.getElementById(comboname);  
+  var idx = thelist.selectedIndex;
+  var content = thelist.options[idx].innerHTML;
+  if(idx == 0)
+    content = "";
+  comboname.value = content;
+}
+$('button.saveButton').click( function() {
+        $('form.saveForm').submit();
+});
+$('button.comboButton').click( function() {
+        $('form.comboForm').submit();
+});
+</script>
+<script type="text/javascript">
+  function checkForm(form){
+    if(form.comboname.value =="") {
+        form.comboname.placeholder="不能为空！";
+        return false;
+    }
+    if(isNaN(form.amount.value) || form.amount.value == "" || form.amount.value<=0) {
+        form.amount.value="";
+        form.amount.placeholder="数目不对！";
+        return false;
+    }
+  }
+</script>
+  </body>
+</html>

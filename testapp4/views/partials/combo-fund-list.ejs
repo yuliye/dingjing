@@ -1,19 +1,18 @@
-<div>
-<div>	
+
+<div class="col-xs-12 col-sm-12 col-md-12">	
  <form action="/users/searchfun" method="get" class="form-inline navbar-form navbar-left searchFun">
           <div class="input-with-icon" id="prefetch">
-            <input class="typeahead form-control" type="text" id="fundname" name="fundname" placeholder="搜索基金...">
+            <input class="typeahead form-control" type="text" id="fundname" name="fundname" placeholder="添加基金...">
             <span class="icon icon-magnifying-glass"></span>
           </div>
           <button type="button submit" class="btn btn-sm btn-primary" >GO!</button>
  </form>
 </div>
-<br/>
-<br/>
-<br/>
+
+<div class="col-xs-12 col-sm-12 col-md-12 m-t">
 <form action="addfundtocombo" method="post" id="addfund" class="addfund" enctype='application/json' onsubmit="return combocheckForm(this);">
 <div class="table-responsive">
-  <table class="table table-striped" id="combfund_remove">
+  <table class="table" id="combfund_remove">
      <thead>
       <tr>
         <th class="aligncenter">
@@ -30,7 +29,7 @@
           调整金额
 	</th>
 	 <th class="aligncenter">
-           取消
+           动作
         </th>
       </tr>
 
@@ -39,23 +38,27 @@
     <tbody>
 	 <% comFunData.forEach(function(row) { %>
 	 <tr>
-        <td class="aligncenter"><%= row[1] %></td>
+        <td class="aligncenter"><a href="/users/fdetail?fundid=<%= row[0] %>"><%= row[1] %></a></td>
         <td class="aligncenter"><%= row[3] %>%</td>
         <td class="aligncenter"><%= row[2] %>%</td>
         <td class="aligncenter">
-      	       <input class="inputdefault" name="<%= row[0] %>" type="text" value="<%= row[4] %>" >
+              <div class="input-with-icon">
+      	       <input class="input form-control" name="<%= row[0] %>" type="text" value="<%= row[4] %>" >
+               <span class="icon icon-credit"></span>
+              </div>
         </td > 
-	<td><button type="button" class="btn btn-danger remove show_tip">X</button></td>	
-
+	<td><button type="button" class="btn btn-danger remove show_tip">删除</button></td>	
       </tr>
       <% }); %>
-	
     </tbody>
   </table>
-  <input type="hidden" name="comboid" value="<%= fundid %>"/>
- <button class="btn btn-success m-l m-t submit addfund" type="button submit"  id="addfundtocombo" >
+  <div class="col-xs-12 col-sm-12 col-md-12">
+  <input type="hidden" name="comboid" value="<%= topData[0][0] %>">
+ <button class="btn btn-primary submit addfund" type="button submit"  id="addfundtocombo" >
+ <span class="icon icon-mouse"></span>
     提交确认 
 </button>
+</div>
 </form>
 </div>
-</div>
+

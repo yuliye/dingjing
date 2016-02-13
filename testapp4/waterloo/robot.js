@@ -36,7 +36,7 @@ module.exports.updateAllFund = function (pool, dbconfig, req, res, queryString, 
   });
 }
 
-module.exports.fetchOneFund = function (pool, dbconfig, req, res, queryString, values){
+module.exports.fetchOneFund = function (pool, dbconfig, req, res, queryString, values, index){
   pool.getConnection(function(err, connection) {
     connection.query('USE ' + dbconfig.database);
     connection.query(queryString, values, function(err, rows){
@@ -49,32 +49,30 @@ module.exports.fetchOneFund = function (pool, dbconfig, req, res, queryString, v
         //err handling
       }
       else{
-	var temprows = rows;
-        var robFund = helper.fundObj(_.map(rows, function(row){ return [[row.Fund_ID, row.Fund_Name], (row.Month-1)+12*row.Year, row.Month_Return]}));
+	//var temprows = rows;
+        var robFund = helper.fundObj(_.map(rows, function(row){ return [[row.Fund_ID, row.Fund_Name, row.Min_Invest, row.Mgmt_Fee, row.Perf_Fee], (row.Month-1)+12*row.Year, row.Month_Return, row.Month_Assets]}));
         //now you have a object that knows everything
-	var hasSaved=0;
+
 	connection.query("SELECT * FROM Saved_Fund_Table Where User_ID = ? AND Fund_ID = ?", 
 			[req.user.User_ID,rows[0].Fund_ID], function(err,rows){
-          hasSaved = rows.length;
+          var hasSaved = rows.length;
           if(err)
                 return done(err);
-	  else{
-		return hasSaved;
-		}
-	 });
-
-	 var comboname = [];		
-	 connection.query("SELECT Combo_Name FROM Combo_Table Where User_ID = ?", [req.user.User_ID], function(err,rows){
+	        else{
+              var comboname = [];    
+              connection.query("SELECT Combo_Name FROM Combo_Table Where User_ID = ?", [req.user.User_ID], function(err,rows){
               if(err){
                 //error handling
               }
               else {
                 for(i=0;i<rows.length;i++)
                         comboname.push(rows[i].Combo_Name);
-		rendEngine.onefund( robFund, temprows, res ,hasSaved, comboname);
-
-		}
-	  });
+                        //rendEngine.onefund(robFund, temprows, res ,hasSaved, comboname);
+                        rendEngine.fundd(robFund, res ,hasSaved, comboname, index);
+              }
+              });
+		      }
+	      });
       }
     });
     connection.release();
@@ -82,34 +80,38 @@ module.exports.fetchOneFund = function (pool, dbconfig, req, res, queryString, v
 }
 
 
-module.exports.fetchFundList = function (pool, dbconfig, req, res, queryString, values){
+module.exports.fetchFundList = function (pool, dbconfig, req, res, queryString, values, index){
   pool.getConnection(function(err, connection) {
     connection.query('USE ' + dbconfig.database);
     connection.query(queryString, values, function(err, rows){
     //connection.query(queryString, [3], function(err, rows){
       if(err){
-        //console.log(err);
+        console.log(err);
         //err handling
       } else if (!rows.length){
         console.log("no fund!");
+        rendEngine.fundlist([], res, index); 
         //err handling
       }
       else{
         var robFundList = _.chain(rows)
-                .map(function(row){ return [[row.Fund_ID,row.Fund_Name],(row.Month-1)+12*row.Year,row.Month_Return]})
+                .map(function(row){ return [[row.Fund_ID,row.Fund_Name, row.Min_Invest, row.Mgmt_Fee, row.Perf_Fee],(row.Month-1)+12*row.Year,row.Month_Return,row.Month_Assets]})
                 .groupBy(function(data){return data[0]})
                 .map(function(row){return helper.fundObj(row)})
                 .value();
 
         //now you have a object that knows everything
-	rendEngine.fundlist( robFundList, res ); 
+  /*for(k in robFundList){
+    console.log(robFundList[k].getbasic());
+  }*/
+	rendEngine.fundlist(robFundList, res, index); 
 	} 
     });
     connection.release();
   });  
 }
 
-module.exports.fetchOneCombo = function (pool, dbconfig, req, res, queryString, values){
+module.exports.fetchOneCombo = function (pool, dbconfig, req, res, queryString, values, index){
   //always compute on the fly
   pool.getConnection(function(err, connection) {
     connection.query('USE ' + dbconfig.database);
@@ -123,11 +125,12 @@ module.exports.fetchOneCombo = function (pool, dbconfig, req, res, queryString, 
         //err handling
       }
       else{
-        var temprows = rows;
-        var robCombo = helper.fundObj(_.map(rows, function(row){ return [[row.Fund_ID,row.Fund_Name],(row.Month-1)+12*row.Year,row.Month_Return]}));
+        //console.log(rows);
+        //var temprows = rows;
+        var robCombo = helper.fundObj(_.map(rows, function(row){ return [[row.Fund_ID,row.Fund_Name],(row.Month-1)+12*row.Year,row.Month_Return,row.Month_Assets]}));
         //now you have a object that knows everything
         //console.log(robCombo.getbasic());
-	var comFunUrl = "SELECT cdt.Fund_ID fid, Fund_Name, Annual_Return, Last_Month_Return, Amount FROM ";
+	var comFunUrl = "SELECT cdt.Fund_ID fid, Fund_Name, Annual_Return, Last_Month_Return, Amount, Min_Invest, Mgmt_Fee, Perf_Fee FROM ";
                 comFunUrl += " Fund_Table ft, Combo_Data_Table cdt ";
                 comFunUrl += " WHERE ft.Fund_ID=cdt.Fund_ID AND cdt.Combo_ID=?";
             connection.query( comFunUrl, req.query['comboid'],
@@ -138,20 +141,34 @@ module.exports.fetchOneCombo = function (pool, dbconfig, req, res, queryString, 
             if (!rows.length) {
                 //error handling
 		 var comFunData=[];
-		 rendEngine.onecombo( robCombo, temprows, res , comFunData);
+		 //rendEngine.onecombo( robCombo, temprows, res , comFunData);
+     rendEngine.combod( robCombo, res , comFunData, index);
             }
             else{
                 var comLen = rows.length;
                 var comFunData = new Array(comLen);
-                for( var j=0; j<comLen; j++){ comFunData[j] = new Array(5);}
+                //tot, mfee, pfee, minv
+                var bstat = [0,0,0,0];
+                for( var j=0; j<comLen; j++){ comFunData[j] = new Array(6);}
                 for( var i=0; i<comLen; i++){
                         comFunData[i][0] = rows[i].fid;
                         comFunData[i][1] = rows[i].Fund_Name;
                         comFunData[i][2] = rows[i].Last_Month_Return.toFixed(2);
                         comFunData[i][3] = rows[i].Annual_Return.toFixed(2);
                         comFunData[i][4] = rows[i].Amount.toFixed(2);
+                        bstat[0] += rows[i].Amount;
+                        bstat[1] += rows[i].Mgmt_Fee*rows[i].Amount;
+                        bstat[2] += rows[i].Perf_Fee*rows[i].Amount;
+                        bstat[3] += rows[i].Min_Invest;
                 }
-		rendEngine.onecombo( robCombo, temprows, res , comFunData);
+                for( var i=0; i<comLen; i++){
+                        comFunData[i][5] = (rows[i].Amount/bstat[0]*100).toFixed(2);
+                }
+                bstat[1]=bstat[1]/bstat[0];
+                bstat[2]=bstat[2]/bstat[0];
+
+		//rendEngine.onecombo( robCombo, temprows, res , comFunData);
+    rendEngine.combod( robCombo, res , comFunData, bstat, index);
 		}
       });
 	}
@@ -161,28 +178,35 @@ module.exports.fetchOneCombo = function (pool, dbconfig, req, res, queryString, 
 }
 
 
-module.exports.fetchComboList = function (pool, dbconfig, req, res, queryString, values){
+module.exports.fetchComboList = function (pool, dbconfig, req, res, queryString, values, index){
   //always compute on the fly
   pool.getConnection(function(err, connection) {
     connection.query('USE ' + dbconfig.database);
     //connection.query(queryString, [req.user.User_ID], function(err, rows){
     connection.query(queryString, values, function(err, rows){
       if(err){
-        //console.log(err);
+        console.log(err);
         //err handling
       } else if (!rows.length){
         console.log("no combo!");
+        rendEngine.combolist([], res, index); 
         //err handling
       }
       else{
+
         var robComboList = _.chain(rows)
-                .map(function(row){ return [[row.Fund_ID,row.Fund_Name],(row.Month-1)+12*row.Year,row.Month_Return]})
+                .map(function(row){ return [[row.Fund_ID,row.Fund_Name],(row.Month-1)+12*row.Year,row.Month_Return,row.Month_Assets]})
                 .groupBy(function(data){return data[0]})
                 .map(function(row){return helper.fundObj(row)})
                 .value();
 
         //now you have a object that knows everything
-	rendEngine.combolist( robComboList, res );
+        /*
+        for(k in robComboList){
+          console.log(robComboList[k].getbasic());
+        }*/
+  
+	rendEngine.combolist(robComboList, res, index);
 	}
     });
     connection.release();

@@ -11,7 +11,13 @@
     <div class="dashhead m-t-md">
   <div class="dashhead-titles">
     <h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6>
-    <h2 class="dashhead-title">列表名称</h2>
+    <h2 class="dashhead-title">
+    <% if (leng > 3) {%>
+    基金列表
+    <%} else {%>
+    组合列表
+    <%}%>
+    </h2>
   </div>
     </div>
   <% include ../partials/table-combo3.ejs %>

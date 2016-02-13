@@ -15,11 +15,19 @@ module.exports.fundObj= function(data){
         .value();
 
   //last 12 month cumulative return
+  /*
+  var cumulative = 0;
+  var mretc = _.chain(data)
+        .last(13)
+        .map(function(row){if(cumulative==0)cumulative=1;else cumulative*=(1+row[2]/100); return [row[1],cumulative];})
+        .value();
+*/
   var cumulative = 1;
   var mretc = _.chain(data)
         .last(12)
         .map(function(row){cumulative*=(1+row[2]/100); return [row[1],cumulative];})
         .value();
+  mretc.splice(0, 0, [mretc[0][0]-1,1]);
 
   //full cumulative return
   var fcumulative = 1;
@@ -81,9 +89,10 @@ module.exports.fundObj= function(data){
 
   //public facing function to get all the data
   //basic stats including fund id and name
-  //last month, last year return, dd and wm, caror, year2date
+  //info, last month, assets, last year return, dd and wm, caror, full_drawdown, year2date
   fundData.getbasic = function(){
-    return [lastm[0],lastm[2],100*(_.last(mretc)[1]-1),dd,ydd,caror,fdd, y2date];
+    //console.log(lastm);
+    return [lastm[0],lastm[2],lastm[3],100*(_.last(mretc)[1]-1),dd,ydd,caror,fdd, y2date];
   };
 
   //last 12 month return data
@@ -91,14 +100,14 @@ module.exports.fundObj= function(data){
     return mret;
   };
 
-  //last 12 month cumulative return for chart
+  //last 12 month cumulative return for chart (13 month)
   fundData.last12c = function(){
     return mretc;
   };
 
   //get the full cumulative return
   fundData.fretc = function(){
-    return mretc;
+    return fmretc;
   };
 
   //annual data for yearly table

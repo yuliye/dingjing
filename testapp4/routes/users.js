@@ -68,7 +68,7 @@ router.post('/addfundtocombo', function(req, res) {
         var comID = req.body["comboid"];
         pool.getConnection(function(err, connection) {
     		connection.query('USE ' + dbconfig.database);
-	          connection.query( "DELETE FROM Combo_Data_Table WHERE Combo_ID = ? " ,comID, function(err, rows){
+	      connection.query( "DELETE FROM Combo_Data_Table WHERE Combo_ID = ? " ,comID, function(err, rows){
      		 if(err){
      			   //err handling
       		}
@@ -78,7 +78,7 @@ router.post('/addfundtocombo', function(req, res) {
       			else {
 			 for(var attrikey in req.body){
           		     if( attrikey=="comboid") continue;
-				console.log(attrikey);
+				//console.log(attrikey);
                 		var items = JSON.parse("["+req.body[attrikey] + "]");
                 		var totalAm = 0;
                 		for( var tLen=0; tLen<items.length; tLen++){
@@ -98,10 +98,11 @@ router.post('/addfundtocombo', function(req, res) {
 
     		    		}); 
 	        	}
+            res.redirect('cdetail?comboid='+comID);
     		}});
     		connection.release();
 		});
-		res.redirect('cdetail?comboid='+comID);
+		
 });
 
 router.get('/text',  isLoggedIn, function(req, res) {
@@ -116,7 +117,7 @@ router.get('/text',  isLoggedIn, function(req, res) {
       }
       else {
       id = rows[0].Fund_ID;
-      res.redirect('detail?fundid='+id);
+      res.redirect('fdetail?fundid='+id);
       }
     });
     connection.release();
@@ -170,7 +171,7 @@ router.get('/deletecombo',  isLoggedIn, function(req, res) {
           connection.query('USE ' + dbconfig.database);
           connection.query('DELETE FROM Combo_Table WHERE Combo_ID = ? AND User_ID = ?',[req.query.fundid,req.user.User_ID]);
           //connection.query('DELETE FROM Combo_Data_Table WHERE Combo_ID = ?',[req.query.fundid]);
-          res.redirect('combo'); 
+          res.redirect('clist'); 
         }
         connection.release();
     }); 
@@ -192,7 +193,7 @@ router.get('/add2combo', isLoggedIn, function(req, res){
           }
           else {
             connection.query('INSERT INTO Combo_Data_Table ( Combo_ID, Fund_ID, Amount ) values (?,?,?)', [rows.insertId,req.query.fundid,req.query.amount]);
-            res.redirect('combo');
+            res.redirect('clist');
           }
         });
       }
@@ -200,7 +201,7 @@ router.get('/add2combo', isLoggedIn, function(req, res){
         //old combo name
         var id = rows[0].Combo_ID;
         connection.query('Insert INTO Combo_Data_Table (Combo_ID, Fund_ID, Amount) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE Amount = ?', [id,req.query.fundid,req.query.amount,req.query.amount]);
-        res.redirect('combo');
+        res.redirect('clist');
       }
     });
     connection.release();
@@ -239,15 +240,15 @@ router.get('/save',  isLoggedIn, function(req, res) {
             }
             else if(rows.length ==0 && req.query.hasSaved==0){
               connection.query('INSERT INTO Saved_Fund_Table ( User_ID, Fund_ID ) values (?,?)', [req.user.User_ID,req.query.fundid]);
-              res.redirect('collection');
+              res.redirect('slist');
             }
             else if(rows.length > 0 && req.query.hasSaved==1) {
               connection.query('DELETE FROM Saved_Fund_Table WHERE User_ID = ? AND Fund_ID = ?',[req.user.User_ID,req.query.fundid]);
-              res.redirect('collection');
+              res.redirect('slist');
             }
             else {
               //err handling
-              res.redirect('collection');
+              res.redirect('slist');
             }
           });
         }
@@ -266,14 +267,20 @@ router.get('/collection',  isLoggedIn, function(req, res) {
 
 router.get('/searchlist',  isLoggedIn, function(req, res) {
     var type = "fdetail?fundid";
-    var queryString = "SELECT sf.Fund_ID, Fund_Name, Last_Month_Return, Annual_Return, Assets FROM Fund_Table ft, ";
+
+    var queryString = " SELECT f.Fund_ID Fund_ID, Fund_Name, Min_Invest, Mgmt_Fee, Perf_Fee, COALESCE(Year,0) Year, ";
+    queryString += " COALESCE(Month,0) Month, COALESCE(Month_Return,0) Month_Return, COALESCE(fd.Assets,0) Month_Assets FROM ";
+    queryString += " Fund_Table f LEFT OUTER JOIN Fund_Data_Table fd ";
+    queryString += " ON f.Fund_ID=fd.Fund_ID LEFT OUTER JOIN ";
     queryString += "(SELECT Fund_ID, exp(sum(log(1+Month_Return/100))) cumRet FROM Fund_Data_Table ";
     queryString += " WHERE STR_TO_DATE(concat('01/',Month, '/', Year), '%d/%m/%Y') BETWEEN ";
     queryString += "STR_TO_DATE( ? , '%m/%d/%Y') AND STR_TO_DATE( ? , '%m/%d/%Y') GROUP BY Fund_ID ) sf ";
-    queryString += "  WHERE ft.Fund_ID=sf.Fund_ID AND sf.cumRet > ? ";
+    queryString += "  on f.Fund_ID=sf.Fund_ID WHERE sf.cumRet > ? ";
     var values = [req.query.startTime, req.query.endTime, req.query.compoundRate/100+1];
     var index = 7;
-    fetchData.result(pool,dbconfig , queryString, values, header, pageIndex, res, type, index);
+    robot.fetchFundList(pool, dbconfig, req, res, queryString, values, 7,7);
+
+    //fetchData.result(pool,dbconfig , queryString, values, header, pageIndex, res, type, index);
 });
 
 /*
@@ -344,62 +351,95 @@ router.get('/test', isLoggedIn, function(req, res) {
 //fund detail page
 
 router.get('/fdetail', isLoggedIn, function(req, res) {
-  var queryString = "SELECT f.Fund_ID Fund_ID, Fund_Name, COALESCE(Year,0) Year, ";
-      queryString += " COALESCE(Month,0) Month, COALESCE(Month_Return,0) Month_Return FROM ";
+  var queryString = "SELECT f.Fund_ID Fund_ID, Fund_Name, Min_Invest, Mgmt_Fee, Perf_Fee, COALESCE(Year,0) Year, ";
+      queryString += " COALESCE(Month,0) Month, COALESCE(Month_Return,0) Month_Return, COALESCE(fd.Assets,0) Month_Assets FROM ";
       queryString += " Fund_Table f LEFT OUTER JOIN Fund_Data_Table fd ";
       queryString += " ON f.Fund_ID=fd.Fund_ID WHERE f.Fund_ID=? ";
   var values = [req.query.fundid]; 
-  robot.fetchOneFund(pool, dbconfig, req, res, queryString, values);
+  robot.fetchOneFund(pool, dbconfig, req, res, queryString, values, 7);
 });
 
 //combo detail page
-router.get('/cdetail', isLoggedIn, function(req, res) {
-  var queryString = "SELECT Combo_ID Fund_ID, Combo_Name Fund_Name, yr Year, mn Month, sum(ret)/sum(pct) Month_Return ";
+router.get('/cdetail2', isLoggedIn, function(req, res) {
+  var queryString = "SELECT Combo_ID Fund_ID, Combo_Name Fund_Name, sum(minv) Min_Invest, sum(mfee)/sum(pct) Mgmt_Fee, sum(pfee)/sum(pct) Perf_Fee, yr Year, mn Month, sum(ret)/sum(pct) Month_Return, sum(ast)/sum(pct) Month_Assets ";
       queryString += "FROM ( SELECT  ct.Combo_ID, Combo_Name, COALESCE(cf.Fund_ID,-1), COALESCE(Year,0) yr, COALESCE(Month,0) mn, ";
-      queryString += " COALESCE(Month_Return,0)*COALESCE(Amount,0) ret, COALESCE(Amount,1) pct " ;
+      queryString += " COALESCE(Month_Return,0)*COALESCE(Amount,0) ret, COALESCE(ft.Assets,0)*COALESCE(Amount,0) ast, ",
+      queryString += " COALESCE(f.Mgmt_Fee,0)*COALESCE(Amount,0) mfee, COALESCE(f.Perf_Fee,0)*COALESCE(Amount,0) pfee, ";
+      queryString += " COALESCE(f.Min_Invest,0) minv, COALESCE(Amount,0.000000001) pct " ;
       queryString += " FROM Combo_Table ct LEFT OUTER JOIN Combo_Data_Table cf ";
       queryString += " ON ct.Combo_ID=cf.Combo_ID LEFT OUTER JOIN Fund_Data_Table ft ";
-      queryString += " ON cf.Fund_ID=ft.Fund_ID WHERE ct.Combo_ID=? AND ct.User_ID=?) temp ";
+      queryString += " ON cf.Fund_ID=ft.Fund_ID LEFT OUTER JOIN Fund_Table f ON cf.Fund_ID=f.Fund_ID WHERE ct.Combo_ID=? AND ct.User_ID=?) temp ";
       queryString += " GROUP BY Combo_ID, Combo_Name, Year, Month";
   var values = [req.query.comboid, req.user.User_ID]; 
   //var values = [req.query.comboid, 8]; 
   robot.fetchOneCombo(pool, dbconfig, req, res, queryString, values);
 });
 
-//combo list page
-router.get('/clist', isLoggedIn, function(req, res) {
-  var queryString = "SELECT Combo_ID Fund_ID, Combo_Name Fund_Name, yr Year, mn Month, sum(ret)/sum(pct) Month_Return ";
+//combo detail page
+router.get('/cdetail', isLoggedIn, function(req, res) {
+  var queryString = "SELECT Combo_ID Fund_ID, Combo_Name Fund_Name, yr Year, mn Month, sum(ret)/sum(pct) Month_Return, sum(ast)/sum(pct) Month_Assets ";
       queryString += "FROM ( SELECT  ct.Combo_ID, Combo_Name, COALESCE(cf.Fund_ID,-1), COALESCE(Year,0) yr, COALESCE(Month,0) mn, ";
-      queryString += " COALESCE(Month_Return,0)*COALESCE(Amount,0) ret, COALESCE(Amount,1) pct " ;
+      queryString += " COALESCE(Month_Return,0)*COALESCE(Amount,0) ret, COALESCE(ft.Assets,0)*COALESCE(Amount,0) ast, COALESCE(Amount,0.000000001) pct " ;
       queryString += " FROM Combo_Table ct LEFT OUTER JOIN Combo_Data_Table cf ";
       queryString += " ON ct.Combo_ID=cf.Combo_ID LEFT OUTER JOIN Fund_Data_Table ft ";
-      queryString += " ON cf.Fund_ID=ft.Fund_ID WHERE ct.User_ID=? ) temp ";
+      queryString += " ON cf.Fund_ID=ft.Fund_ID WHERE ct.Combo_ID=? AND ct.User_ID=?) temp ";
+      queryString += " GROUP BY Combo_ID, Combo_Name, Year, Month";
+  var values = [req.query.comboid, req.user.User_ID]; 
+  //var values = [req.query.comboid, 8]; 
+  robot.fetchOneCombo(pool, dbconfig, req, res, queryString, values, 7);
+});
+
+//combo list page
+router.get('/clist2', isLoggedIn, function(req, res) {
+  var queryString = "SELECT Combo_ID Fund_ID, Combo_Name Fund_Name, sum(minv) Min_Invest, sum(mfee)/sum(pct) Mgmt_Fee, sum(pfee)/sum(pct) Perf_Fee, yr Year, mn Month, sum(ret)/sum(pct) Month_Return, sum(ast)/sum(pct) Month_Assets ";
+      queryString += "FROM ( SELECT  ct.Combo_ID, Combo_Name, COALESCE(cf.Fund_ID,-1), COALESCE(Year,0) yr, COALESCE(Month,0) mn, ";
+      queryString += " COALESCE(Month_Return,0)*COALESCE(Amount,0) ret, COALESCE(ft.Assets,0)*COALESCE(Amount,0) ast, "; 
+      queryString += " COALESCE(f.Mgmt_Fee,0)*COALESCE(Amount,0) mfee, COALESCE(f.Perf_Fee,0)*COALESCE(Amount,0) pfee, ";
+      queryString += " COALESCE(f.Min_Invest,0) minv, COALESCE(Amount,0.000000001) pct " ;
+      queryString += " FROM Combo_Table ct LEFT OUTER JOIN Combo_Data_Table cf ";
+      queryString += " ON ct.Combo_ID=cf.Combo_ID LEFT OUTER JOIN Fund_Data_Table ft ";
+      queryString += " ON cf.Fund_ID=ft.Fund_ID LEFT OUTER JOIN Fund_Table f ON cf.Fund_ID=f.Fund_ID WHERE ct.User_ID=? ) temp ";
       queryString += " GROUP BY Combo_ID, Combo_Name, Year, Month";
   var values = [req.user.User_ID]; 
   //var values = [8]; 
   robot.fetchComboList(pool, dbconfig, req, res, queryString, values);
 });
 
+//combo list page
+router.get('/clist', isLoggedIn, function(req, res) {
+  var queryString = "SELECT Combo_ID Fund_ID, Combo_Name Fund_Name, yr Year, mn Month, sum(ret)/sum(pct) Month_Return, sum(ast)/sum(pct) Month_Assets ";
+      queryString += "FROM ( SELECT  ct.Combo_ID, Combo_Name, COALESCE(cf.Fund_ID,-1), COALESCE(Year,0) yr, COALESCE(Month,0) mn, ";
+      queryString += " COALESCE(Month_Return,0)*COALESCE(Amount,0) ret, COALESCE(ft.Assets,0)*COALESCE(Amount,0) ast, COALESCE(Amount,0.000000001) pct " ;
+      queryString += " FROM Combo_Table ct LEFT OUTER JOIN Combo_Data_Table cf ";
+      queryString += " ON ct.Combo_ID=cf.Combo_ID LEFT OUTER JOIN Fund_Data_Table ft ";
+      queryString += " ON cf.Fund_ID=ft.Fund_ID WHERE ct.User_ID=? ) temp ";
+      queryString += " GROUP BY Combo_ID, Combo_Name, Year, Month";
+  var values = [req.user.User_ID]; 
+  //var values = [8]; 
+  robot.fetchComboList(pool, dbconfig, req, res, queryString, values, 3);
+});
+
+
 //full fund list
 router.get('/flist', isLoggedIn, function(req, res) {
-  var queryString = " SELECT f.Fund_ID Fund_ID, Fund_Name, COALESCE(Year,0) Year, ";
-      queryString += " COALESCE(Month,0) Month, COALESCE(Month_Return,0) Month_Return FROM ";
+  var queryString = " SELECT f.Fund_ID Fund_ID, Fund_Name, Min_Invest, Mgmt_Fee, Perf_Fee, COALESCE(Year,0) Year, ";
+      queryString += " COALESCE(Month,0) Month, COALESCE(Month_Return,0) Month_Return, COALESCE(fd.Assets,0) Month_Assets FROM ";
       queryString += " Fund_Table f LEFT OUTER JOIN Fund_Data_Table fd ";
       queryString += " ON f.Fund_ID=fd.Fund_ID ";
   var values = []; 
-  robot.fetchFundList(pool, dbconfig, req, res, queryString, values);
+  robot.fetchFundList(pool, dbconfig, req, res, queryString, values, 7);
 });
 
 //saved fund list
 router.get('/slist', isLoggedIn, function(req, res) {
-  var queryString = " SELECT s.Fund_ID Fund_ID, Fund_Name, COALESCE(Year,0) Year, ";
-      queryString += " COALESCE(Month,0) Month, COALESCE(Month_Return,0) Month_Return FROM ";
+  var queryString = " SELECT s.Fund_ID Fund_ID, Fund_Name, Min_Invest, Mgmt_Fee, Perf_Fee, COALESCE(Year,0) Year, ";
+      queryString += " COALESCE(Month,0) Month, COALESCE(Month_Return,0) Month_Return, COALESCE(fd.Assets,0) Month_Assets FROM ";
       queryString += " Saved_Fund_Table s JOIN Fund_Table f ON s.Fund_ID=f.Fund_ID ";
       queryString += " LEFT OUTER JOIN Fund_Data_Table fd ON s.Fund_ID=fd.Fund_ID ";
       queryString += " WHERE s.User_ID =? ";
   var values = [req.user.User_ID]; 
   //var values = [8]; 
-  robot.fetchFundList(pool, dbconfig, req, res, queryString, values);
+  robot.fetchFundList(pool, dbconfig, req, res, queryString, values, 2);
 });
 
 return router;

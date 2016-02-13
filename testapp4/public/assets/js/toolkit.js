@@ -4153,7 +4153,8 @@ $(function () {
         animation: false,
         segmentStrokeColor: '#fff',
         segmentStrokeWidth: 2,
-        percentageInnerCutout: 80,
+        percentageInnerCutout: 0,
+        tooltipTemplate: "<%= label+': '+value + '%' %>",
       }, attrData)
 
       new Chart(element.getContext('2d')).Doughnut(data, options)
@@ -4227,7 +4228,7 @@ $(function () {
 
       var stepWidth = Math.round((yaxisMax-yaxisMin)/5);
      if( yaxisMax == yaxisMin) {
-		stepWidth = 500;
+		stepWidth = 50;
      }	
       Charts._cleanAttr(attrData)
 
