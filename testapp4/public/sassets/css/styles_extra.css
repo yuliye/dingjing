@@ -21,7 +21,11 @@ small {
 }
 
 .dj-centered-top{
-    padding: 20px 0px 0px 0px;
+    padding: 40px 0px 0px 0px;
+}
+
+.dj-centered-tb{
+    padding: 40px 0px 40px 0px;
 }
 
 .dj-container { 
@@ -67,6 +71,10 @@ small {
   padding:20px !important; 
 }
 
+.dj-padding-lg {
+  padding:0px 60px !important; 
+}
+
 .dj-padding2 {
   padding:20px 60px 5px 60px !important; 
 }
@@ -88,6 +96,11 @@ small {
   margin: 0px auto;
   width: 300px;
   padding: 0px; 
+}
+
+.dj-table{
+  width:70%;
+  margin:auto;
 }
 
 .btn-dj {
