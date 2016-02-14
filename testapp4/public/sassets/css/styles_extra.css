@@ -20,6 +20,10 @@ small {
     margin: 0px auto;
 }
 
+.dj-centered-top{
+    padding: 20px 0px 0px 0px;
+}
+
 .dj-container { 
   display: block;
   margin: auto;
