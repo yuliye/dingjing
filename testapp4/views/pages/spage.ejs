@@ -15,13 +15,211 @@
          <% include ../partials/scontact.ejs%>
       <% } else if (page=='smart') { %>   
          <% include ../partials/ssmart.ejs%>
+      <% } else if (page=='about') { %>   
+         <% include ../partials/sabout.ejs%>
+      <% } else if (page=='join') { %>  
+         <% include ../partials/sjoin.ejs%>
       <% } else { %>
          <% include ../partials/smain.ejs%>
       <% } %>
       <% include ../partials/sfooter.ejs %>
     </div><!--//canvas-wrapper-->
-     
+
+<!-- Modal Member-1 -->
+    <div class="modal modal-member modal-member-1" id="modal-member-1" tabindex="-1" role="dialog" aria-labelledby="member-1-ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 id="member-1-ModalLabel" class="modal-title sr-only">丁华昆</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="member-details row">
+                        <figure class="figure col-md-4 col-sm-4 col-xs-12">
+                            <img class="img-responsive" src="sassets/images/team/s1.jpg" alt="">
+                        </figure>
+                        <div class="content col-md-8 col-sm-8 col-xs-12">
+                            <h4 class="name">丁华昆</h4>
+                            <h5 class="job-title">执行董事，首席投资官</h5>
+                            <p>丁华昆先生拥有南开大学数学本科学位（三年完成本科学业提前毕业），加拿大纽芬兰大学数学硕士学位和英属哥伦比亚大学金融数学硕士学位。丁华昆先生在全球量化投资，量化投资策略研究与开发等领域有极其丰富的理论和实践经验。丁华昆先生在其过往的全球投资生涯中已取得极其辉煌的成就，2008年至今连续8个年度每年持续稳定盈利，至今已获得上百倍的累积投资回报。</p>
+                            <div class="social">
+                                <ul class="social-list list-inline">
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                </ul><!--//social-list-->
+                            </div><!--//social-->
+                        </div><!--//content-->
+                    </div><!--//member-details-->
+                </div><!--//modal-body-->
+            </div><!--//modal-content-->
+        </div><!--//modal-dialog-->
+    </div><!--//modal-->
+    
+    <!-- Modal Member-2 -->
+    <div class="modal modal-member modal-member-2" id="modal-member-2" tabindex="-1" role="dialog" aria-labelledby="member-2-ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 id="member-2-ModalLabel" class="modal-title sr-only">于明</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="member-details row">
+                        <figure class="figure col-md-4 col-sm-4 col-xs-12">
+                            <img class="img-responsive" src="sassets/images/team/s2.jpg" alt="">
+                        </figure>
+                        <div class="content col-md-8 col-sm-8 col-xs-12">
+                            <h4 class="name">于明</h4>
+                            <h5 class="job-title">股票基金经理，CFA</h5>
+                            <p>于明先生拥有复旦大学财务会计专业本科学位，美国波士顿大学金融工商管理（MBA）硕士学位，并拥有CFA证书。于明先生在全球股票市场投资领域有多年丰富的投资经验。于明先生曾在中国和美国的一些顶尖投资公司工作，包括中国著名投资银行——中金公司，中国平安信托，美国著名对冲基金Dalton基金（公司管理资产规模约30亿美元）。</p>
+                            <div class="social">
+                                <ul class="social-list list-inline">
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-github"></i></a></li>
+                                </ul><!--//social-list-->
+                            </div><!--//social-->
+                        </div><!--//content-->
+                    </div><!--//member-details-->
+                </div><!--//modal-body-->
+            </div><!--//modal-content-->
+        </div><!--//modal-dialog-->
+    </div><!--//modal-->
+    
+    <!-- Modal Member-3 -->
+    <div class="modal modal-member modal-member-3" id="modal-member-3" tabindex="-1" role="dialog" aria-labelledby="member-3-ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 id="member-3-ModalLabel" class="modal-title sr-only">钱彬</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="member-details row">
+                        <figure class="figure col-md-4 col-sm-4 col-xs-12">
+                            <img class="img-responsive" src="sassets/images/team/s3.jpg" alt="">
+                        </figure>
+                        <div class="content col-md-8 col-sm-8 col-xs-12">
+                            <h4 class="name">钱彬</h4>
+                            <h5 class="job-title">副总裁，高级分析师</h5>
+                            <p>钱彬先生拥有南京大学化学本科学位，纽约州立大学化学硕士学位和英属哥伦比亚大学管理学硕士学位。钱先生在行业研究与分析方面有丰富的经验。钱先生曾在中国的一家顶尖私募股权投资公司——金浦产业投资基金管理有限公司工作。</p>
+                            
+                            <div class="social">
+                                <ul class="social-list list-inline">
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-github"></i></a></li>
+                                </ul><!--//social-list-->
+                            </div><!--//social-->
+                        </div><!--//content-->
+                    </div><!--//member-details-->
+                </div><!--//modal-body-->
+            </div><!--//modal-content-->
+        </div><!--//modal-dialog-->
+    </div><!--//modal-->
+    
+    <!-- Modal Member-4 -->
+    <div class="modal modal-member modal-member-4" id="modal-member-4" tabindex="-1" role="dialog" aria-labelledby="member-4-ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 id="member-4-ModalLabel" class="modal-title sr-only">陈耀文</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="member-details row">
+                        <figure class="figure col-md-4 col-sm-4 col-xs-12">
+                            <img class="img-responsive" src="sassets/images/team/s4.jpg" alt="">
+                        </figure>
+                        <div class="content col-md-8 col-sm-8 col-xs-12">
+                            <h4 class="name">陈耀文</h4>
+                            <h5 class="job-title">首席技术官</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            <p>Donec placerat ultrices lacus, id fermentum mauris accumsan non. Suspendisse potenti. Nam id turpis purus. Proin dignissim at velit quis consectetur. Nullam fermentum tempus tortor, posuere egestas diam interdum id. Duis lobortis finibus libero ac bibendum. Phasellus eu libero tellus. </p>
+                            
+                            <div class="social">
+                                <ul class="social-list list-inline">
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                </ul><!--//social-list-->
+                            </div><!--//social-->
+                        </div><!--//content-->
+                    </div><!--//member-details-->
+                </div><!--//modal-body-->
+            </div><!--//modal-content-->
+        </div><!--//modal-dialog-->
+    </div><!--//modal-->
+    
+    <!-- Modal member-5 -->
+    <div class="modal modal-member modal-member-5" id="modal-member-5" tabindex="-1" role="dialog" aria-labelledby="member-5-ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 id="member-5-ModalLabel" class="modal-title sr-only">刘凌峰</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="member-details row">
+                        <figure class="figure col-md-4 col-sm-4 col-xs-12">
+                            <img class="img-responsive" src="sassets/images/team/s5.jpg" alt="">
+                        </figure>
+                        <div class="content col-md-8 col-sm-8 col-xs-12">
+                            <h4 class="name">刘凌峰</h4>
+                            <h5 class="job-title">首席智囊官</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            <p>Donec placerat ultrices lacus, id fermentum mauris accumsan non. Suspendisse potenti. Nam id turpis purus. Proin dignissim at velit quis consectetur. Nullam fermentum tempus tortor, posuere egestas diam interdum id. Duis lobortis finibus libero ac bibendum. Phasellus eu libero tellus. </p>
+                            
+                            <div class="social">
+                                <ul class="social-list list-inline">
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                </ul><!--//social-list-->
+                            </div><!--//social-->
+                        </div><!--//content-->
+                    </div><!--//member-details-->
+                </div><!--//modal-body-->
+            </div><!--//modal-content-->
+        </div><!--//modal-dialog-->
+    </div><!--//modal-->
+    
+    <!-- Modal member-6 -->
+    <div class="modal modal-member modal-member-6" id="modal-member-6" tabindex="-1" role="dialog" aria-labelledby="member-6-ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 id="member-6-ModalLabel" class="modal-title sr-only">娜姐</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="member-details row">
+                        <figure class="figure col-md-4 col-sm-4 col-xs-12">
+                            <img class="img-responsive" src="sassets/images/team/s6.jpg" alt="">
+                        </figure>
+                        <div class="content col-md-8 col-sm-8 col-xs-12">
+                            <h4 class="name">娜姐</h4>
+                            <h5 class="job-title">首席市场官</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            <p>Donec placerat ultrices lacus, id fermentum mauris accumsan non. Suspendisse potenti. Nam id turpis purus. Proin dignissim at velit quis consectetur. Nullam fermentum tempus tortor, posuere egestas diam interdum id. Duis lobortis finibus libero ac bibendum. Phasellus eu libero tellus. </p>
+                            
+                            <div class="social">
+                                <ul class="social-list list-inline">
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                </ul><!--//social-list-->
+                            </div><!--//social-->
+                        </div><!--//content-->
+                    </div><!--//member-details-->
+                </div><!--//modal-body-->
+            </div><!--//modal-content-->
+        </div><!--//modal-dialog-->
+    </div><!--//modal-->     
 <% include ../partials/sfoot.ejs %>
+
+
 </body>
 </html> 
 
