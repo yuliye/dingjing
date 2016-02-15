@@ -1,19 +1,18 @@
 var fund = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.whitespace,
   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  prefetch: '../../data/fund.json'
+  prefetch: {
+	url: '/users/autosearch'
+	}
   //remote: {
-    //url: '../../data/fund.json'
-    //url: '../../data/%QUERY.json',
-    //wildcard: '%QUERY'
-  //}
-    //remote: {
-    //    url : '../../data/connection.php?query=%QUERY',
+   //     url : '/users/autosearch?fname=%QUERY',
     //    wildcard: '%QUERY'
-    //}
+   // }
 });
-
+fund.clearPrefetchCache();
+fund.initialize();
 $('#prefetch .typeahead').typeahead(null, {
   name: 'fund',
-  source: fund
+  source: fund,
+  limit: 10
 });

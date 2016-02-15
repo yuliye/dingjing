@@ -179,6 +179,33 @@ module.exports.fetchOneCombo = function (pool, dbconfig, req, res, queryString, 
 }
 
 
+module.exports.fetchFundName = function (pool, dbconfig, req, res, queryString){
+  //always compute on the fly
+  pool.getConnection(function(err, connection) {
+    connection.query('USE ' + dbconfig.database);
+    //connection.query(queryString, [req.user.User_ID], function(err, rows){
+    connection.query(queryString, function(err, rows){
+      if(err){
+        console.log("error");
+        //console.log(err);
+        //err handling
+      } else if (!rows.length){
+        console.log("no combo!");
+        //err handling
+      }
+      else{
+                var names = [];
+                for( var nam=0; nam<rows.length; nam++) {
+                        names.push( rows[nam].Fund_Name);
+                }
+                res.end(JSON.stringify(names) );
+      }
+    });
+  });
+}
+
+
+
 module.exports.fetchComboList = function (pool, dbconfig, req, res, queryString, values, index){
   //always compute on the fly
   pool.getConnection(function(err, connection) {

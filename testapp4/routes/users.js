@@ -283,6 +283,15 @@ router.get('/searchlist',  isLoggedIn, function(req, res) {
     //fetchData.result(pool,dbconfig , queryString, values, header, pageIndex, res, type, index);
 });
 
+
+/////Typeahead codes
+
+router.get('/autosearch', isLoggedIn, function (req, res){
+        var queryString = "SELECT DISTINCT Fund_Name from Fund_Table ORDER BY Fund_Name ";
+        robot.fetchFundName( pool, dbconfig, req, res, queryString );
+});
+
+
 /*
 router.get('/detail', isLoggedIn, function(req, res) {
   res.render('pages/bs_detail_view',{
