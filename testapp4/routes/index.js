@@ -207,6 +207,14 @@ router.get('/logout', function(req, res) {
     res.redirect('/login');
   });
 
+/*
+router.post('/risktest', function(req, res) {
+  var id = req.body["stepid"];
+  if (id =1)
+  res.render('pages/short_header',{title:req.params.name});
+});
+*/
+
 router.get('/public/:name?', function(req, res) {
   res.render('pages/short_header',{title:req.params.name});
 });
