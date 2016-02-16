@@ -28,6 +28,10 @@ small {
     padding: 40px 0px 40px 0px;
 }
 
+.dj-centered-lr{
+    padding: 0px 20px 0px 20px;
+}
+
 .dj-container { 
   display: block;
   margin: auto;
