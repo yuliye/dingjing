@@ -103,6 +103,10 @@ small {
   margin:auto;
 }
 
+.dj-text-md{
+  font-size: 15px !important;
+}
+
 .btn-dj {
   padding: 9px 10px;
   border-color: white;
