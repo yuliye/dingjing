@@ -104,7 +104,19 @@ small {
 }
 
 .dj-text-md{
-  font-size: 15px !important;
+  font-size: 16px !important;
+  padding: 20px;
+}
+
+.dj-text-md1{
+  font-size: 16px !important;
+  padding: 20px 0px 0px 0px;
+}
+
+.dj-text-sg{
+  font-size: 24px !important;
+  font-weight: 900 !important;
+  margin-bottom: 5px;
 }
 
 .btn-dj {
