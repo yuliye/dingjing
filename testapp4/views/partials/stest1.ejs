@@ -5,26 +5,27 @@
                 <div class="row">
                     <div class="text-left" >
                     <h3 class="subtitle col-md-12 col-sm-12 col-xs-12 col-md-push-2 col-sm-push-0 col-xs-push-0">您的年龄是多少？</h3>
-                    <form>
+                    <form action="/risktest" method="post">
 <div class="content col-md-12 col-sm-12 col-xs-12 col-md-push-2 col-sm-push-0 col-xs-push-0">                       
 <div class="radio dj-text-md2">
-  <label><input type="radio" name="optradio">60岁以上</label>
+  <label><input type="radio" name="opt" value="1">60岁以上</label>
 </div>
 <div class="radio dj-text-md2">
-  <label><input type="radio" name="optradio">51到60岁</label>
+  <label><input type="radio" name="opt" value="2">51到60岁</label>
 </div>
 <div class="radio dj-text-md2">
-  <label><input type="radio" name="optradio">41到50岁</label>
+  <label><input type="radio" name="opt" value="3">41到50岁</label>
 </div>       
 <div class="radio dj-text-md2">
-  <label><input type="radio" name="optradio">31到40岁</label>
+  <label><input type="radio" name="opt" value="4">31到40岁</label>
 </div>
 <div class="radio dj-text-md2">
-  <label><input type="radio" name="optradio">30岁以下</label>
+  <label><input type="radio" name="opt" value="5">30岁以下</label>
 </div>
 </div>               
             <div class="press-cta container text-center">
-                <a class="btn btn-lg btn-cta-primary" href="#">下一步</a>
+                <input value="1" name="pageid" hidden>
+                <input type="submit" class="btn btn-lg btn-cta-primary" disabled="disabled" value="下一步" name="submit">
             </div><!--//container-->
                         </form><!--//content-->
                     </div>

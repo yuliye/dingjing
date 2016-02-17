@@ -94,7 +94,8 @@ router.get('/reg2',function(req, res) {
             else {
 //========================
   //if basic error
-  if(req.query.username.length!==10&&req.query.username.length!==11){
+  //if(req.query.username.length!==10&&req.query.username.length!==11){
+  if(!req.query.username.match(/\d/g)||req.query.username.match(/\d/g).length!==10&&req.query.username.match(/\d/g).length!==11){
     req.flash('signupMessage', '手机号码长度错误！中国手机11位，北美手机10位。');
     res.redirect('/reg1?username='+req.query.username); 
   } 
@@ -207,13 +208,13 @@ router.get('/logout', function(req, res) {
     res.redirect('/login');
   });
 
-/*
+
 router.post('/risktest', function(req, res) {
-  var id = req.body["stepid"];
-  if (id =1)
-  res.render('pages/short_header',{title:req.params.name});
+  var id = req.body["pageid"];
+    console.log(id);
+  //res.render('pages/short_header',{title:req.params.name});
 });
-*/
+
 
 router.get('/public/:name?', function(req, res) {
   res.render('pages/short_header',{title:req.params.name});
