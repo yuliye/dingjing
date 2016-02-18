@@ -38,6 +38,10 @@ small {
   width: 320px;
 }
 
+.dj-container1 { 
+  width: 320px;
+}
+
 .dj-container-bd { 
   display: block;
   margin: 0px auto;
@@ -121,6 +125,16 @@ small {
   font-size: 24px !important;
   font-weight: 900 !important;
   margin-bottom: 5px;
+}
+
+.dj-text-sg1{
+  font-size: 24px !important;
+  font-weight: 900 !important;
+}
+
+.dj-text-sg2{
+  font-size: 21px !important;
+  font-weight: 300 !important;
 }
 
 .dj-text-md2{

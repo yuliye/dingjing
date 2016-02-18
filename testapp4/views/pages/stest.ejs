@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="zh"> <!--<![endif]-->  
+<% include ../partials/shead.ejs %>
+
+<body>       
+    
+    <% include ../partials/smenu.ejs %>
+   
+    <div class="canvas-wrapper">
+      <% if(pageid=='1') { %>   
+         <% include ../partials/stest1.ejs%>
+      <% } else if (pageid=='2') { %>   
+         <% include ../partials/stest2.ejs%>
+      <% } else if (pageid=='3') { %>   
+         <% include ../partials/stest3.ejs%>
+      <% } else if (pageid=='4') { %>   
+         <% include ../partials/stest4.ejs%>
+      <% } else if (pageid=='5') { %>  
+         <% include ../partials/stest5.ejs%>
+      <% } else if (pageid=='6') { %>  
+         <% include ../partials/stest6.ejs%>
+      <% } else { %>
+         <% include ../partials/smain.ejs%>
+      <% } %>
+      <% include ../partials/sfooter.ejs %>
+    </div><!--//canvas-wrapper-->  
+<% include ../partials/sfoot.ejs %>
+
+
+</body>
+</html> 
+
