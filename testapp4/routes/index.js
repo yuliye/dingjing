@@ -15,13 +15,55 @@ router.get('/old', function(req, res) {
   res.render('pages/landing');
 });
 
+/*
 router.get('/', function(req, res) {
   res.render('pages/shome');
 });
 
-/*router.get('/trade', function(req, res) {
+router.get('/trade', function(req, res) {
   res.render('pages/sh1');
 });*/
+
+
+router.get('/', function(req, res) {
+  res.render('pages/spage',{page:'home'});
+});
+
+router.get('/trade', function(req, res) {
+  res.render('pages/spage',{page:'trade'});
+});
+
+router.get('/contact', function(req, res) {
+  res.render('pages/spage',{page:'contact'});
+});
+
+router.get('/smart', function(req, res) {
+  res.render('pages/spage',{page:'smart'});
+});
+
+router.get('/download', function(req, res) {
+  res.render('pages/spage',{page:'download'});
+});
+
+router.get('/about', function(req, res) {
+  res.render('pages/spage',{page:'about'});
+});
+
+router.get('/risktest', function(req, res) {
+  res.render('pages/spage',{page:'risktest'});
+});
+
+router.get('/privacy', function(req, res) {
+  res.render('pages/spage',{page:'privacy'});
+});
+
+router.get('/fund', function(req, res) {
+  res.render('pages/spage',{page:'fund'});
+});
+
+router.get('/join', function(req, res) {
+  res.render('pages/spage',{page:'join'});
+});
 
 router.get('/login', function(req, res) {
   res.render('pages/tw_login', { 
