@@ -255,12 +255,15 @@ router.post('/risktest', function(req, res) {
   var id = req.body["pageid"];
     //console.log(id);
   if(id=='1'){
-    res.render('pages/stest',{pageid:id,f1:req.body["opt1"]});
+    res.render('pages/stest',{pageid:id,
+                              page:'risktest',
+                              f1:req.body["opt1"]});
   } else if (id=='2'){
     //console.log(id);
     //console.log(req.body["f1"]);
     //console.log(req.body["opt2"]);    
     res.render('pages/stest',{pageid:id,
+                            page:'risktest',
                             f1:req.body["f1"],
                             f2:req.body["opt2"]});
   } else if (id=='3'){
@@ -269,17 +272,20 @@ router.post('/risktest', function(req, res) {
     //console.log(req.body["f2"]);
     //console.log(req.body["opt3"]);    
     res.render('pages/stest',{pageid:id,
+                            page:'risktest',
                             f1:req.body["f1"],
                             f2:req.body["f2"],
                             f3:req.body["opt3"]});
   } else if (id=='4'){    
     res.render('pages/stest',{pageid:id,
+                            page:'risktest',
                             f1:req.body["f1"],
                             f2:req.body["f2"],
                             f3:req.body["f3"],
                             f4:req.body["opt4"]});
   } else if (id=='5'){
     res.render('pages/stest',{pageid:id,
+                            page:'risktest',
                             f1:req.body["f1"],
                             f2:req.body["f2"],
                             f3:req.body["f3"],
@@ -287,6 +293,7 @@ router.post('/risktest', function(req, res) {
                             f5:req.body["opt5"]});
   } else if (id=='6') {
     res.render('pages/stest',{pageid:id,
+                            page:'risktest',
                             f1:req.body["f1"],
                             f2:req.body["f2"],
                             f3:req.body["f3"],
