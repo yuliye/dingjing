@@ -163,7 +163,7 @@ small {
   -moz-perspective: 800;
   -o-perspective: 800;
    width: 320px;
-   height: 120px;
+   height: 130px;
    position: relative;
    margin: 10px auto;
 }
@@ -210,16 +210,16 @@ small {
   background-color:rgba(0, 0, 0, 0);
   border-style: solid;
   border-width: 1px;
-  font-size: 20px;
+  font-size: 28px;
   font-weight: bold;
-  padding: 20px 10px;
+  padding: 35px 30px;
 }
 .flip .card .back {
   cursor: pointer;
   background-color:rgba(0, 0, 0, 0);
   border-style: solid;
   border-width: 1px;
-  font-size: 15px;
+  font-size: 14px;
   padding: 10px 15px;
     
   transform:rotatey(-180deg);
@@ -227,6 +227,17 @@ small {
   -moz-transform:rotatey(-180deg); /* Firefox */
   -webkit-transform:rotatey(-180deg); /* Safari and Chrome */
   -o-transform:rotatey(-180deg); /* Opera */
+}
+
+.flip-title{
+  font-size: 18px;
+  font-weight: 600;
+  color: #FFC500;
+}
+
+.flip-content{
+  text-align: left;
+  margin:5px;
 }
 
 @media (min-width: 992px) {
@@ -294,6 +305,23 @@ small {
   /*color: #00BFFF !important;*/
 }
 
+@media (min-width: 992px) {
+.navbar .nav{
+  margin-right: 120px !important;
+}
+.navbar-brand{
+  margin-left: 120px !important;
+}
+}
+
+@media (max-width: 500px) {
+.navbar {
+  margin-right: 0px !important;
+}
+.navbar-brand{
+  margin-left: 0px !important;
+}
+}
 /*
 @media (min-width: 992px) {
 .navbar .nav,
@@ -314,6 +342,26 @@ small {
   text-align:center !important;
 }
 */
+
+.dj-foot{
+    font-size: 16px;
+}
+
+.dj-foot li > a {
+  /*background-color: #00BFFF !important;*/
+  font-weight: 900 !important;
+  font-family: 'Helvetica Neue',Helvetica,'Nimbus Sans L',Arial,'Liberation Sans','PingFang SC','Hiragino Sans GB','Source Han Sans CN','Source Han Sans SC','Microsoft YaHei','Wenquanyi Micro Hei','WenQuanYi Zen Hei','ST Heiti',SimHei,'WenQuanYi Zen Hei Sharp',sans-serif !important;
+  /*color: #00BFFF !important;*/
+}
+
+.dj-foot li > a:hover {
+  /*background-color: #00BFFF !important;*/
+  font-weight: 900 !important;
+  font-family: 'Helvetica Neue',Helvetica,'Nimbus Sans L',Arial,'Liberation Sans','PingFang SC','Hiragino Sans GB','Source Han Sans CN','Source Han Sans SC','Microsoft YaHei','Wenquanyi Micro Hei','WenQuanYi Zen Hei','ST Heiti',SimHei,'WenQuanYi Zen Hei Sharp',sans-serif !important;
+  /*color: #00BFFF !important;*/
+  color: #FFFFFF !important;
+  text-decoration: none;
+}
 
 .error {
   color: white !important;
