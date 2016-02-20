@@ -312,6 +312,9 @@ small {
 .navbar-brand{
   margin-left: 120px !important;
 }
+.dj-trick{
+  margin-top: -70px !important;
+}
 }
 
 @media (max-width: 500px) {
@@ -320,6 +323,10 @@ small {
 }
 .navbar-brand{
   margin-left: 0px !important;
+}
+.dj-trick{
+  margin-top: 10px !important;
+  text-align: left !important;
 }
 }
 /*
@@ -362,6 +369,16 @@ small {
   color: #FFFFFF !important;
   text-decoration: none;
 }
+
+.dj-note{
+    font-size: 13px;
+    margin-bottom: 10px; 
+    font-family: 'Helvetica Neue',Helvetica,'Nimbus Sans L',Arial,'Liberation Sans','PingFang SC','Hiragino Sans GB','Source Han Sans CN','Source Han Sans SC','Microsoft YaHei','Wenquanyi Micro Hei','WenQuanYi Zen Hei','ST Heiti',SimHei,'WenQuanYi Zen Hei Sharp',sans-serif !important;
+    /*color: #FFFFFF !important;
+    text-decoration: none;*/
+}
+
+.dj-spacer { margin:0; padding:0; height:50px; }
 
 .error {
   color: white !important;
