@@ -65,6 +65,10 @@ router.get('/join', function(req, res) {
   res.render('pages/spage',{page:'join'});
 });
 
+router.get('/help', function(req, res) {
+  res.render('pages/spage',{page:'help'});
+});
+
 router.get('/login', function(req, res) {
   res.render('pages/tw_login', { 
     message: req.flash('loginMessage'),

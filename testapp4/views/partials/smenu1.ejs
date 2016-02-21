@@ -31,8 +31,12 @@
           >
             <a href="/users/home">专户理财</a>
           </li>
-          <li>
-            <a href="＃">帮助</a>            
+          <li
+          <%if(page=='help'){ %>
+          class="active"
+          <% } %>
+          >
+            <a href="/help">帮助</a>            
           </li>
           <li
           <%if(page=='about'){ %>

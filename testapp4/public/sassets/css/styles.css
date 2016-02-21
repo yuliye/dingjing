@@ -2587,7 +2587,7 @@ select {
     padding: 30px;
   }
   .faqs .panel .panel-heading {
-    padding: 15px;
+    padding: 15px 30px;
   }
   .faqs .panel .panel-title .panel-toggle .pe-icon {
     font-size: 20px;
