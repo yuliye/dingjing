@@ -33,6 +33,11 @@ router.get('/', isLoggedIn, function(req, res, next) {
   res.send('respond with a resource');
 });
 
+router.get('/unified', isLoggedIn, function(req, res) {
+    res.render('pages/bs2_unified_view',{
+    page: 'unified'
+  });
+});
 
 router.get('/searchfun',  isLoggedIn, function(req, res) {
   pool.getConnection(function(err, connection) {
