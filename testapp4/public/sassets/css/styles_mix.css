@@ -1,0 +1,153 @@
+/*   
+ * Overwrite bad fonts for Chinese character
+*/
+/* ======= Base ======= */
+body {
+  /*font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif !important;*/
+}
+.header .logo {
+  /*font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif !important;*/
+  
+}
+
+small {
+  color: #FFFFFF !important;
+  /*font-weight: 300 !important;*/
+}
+
+strong {
+  font-weight: 500 !important;
+}
+
+.navbar-brand,
+.navbar-nav > li > a {
+  font-size: 16px;
+}
+
+.navbar {
+  background-color: black;
+  text-align: center !important;
+}
+
+.navbar-brand {
+  float: left;
+  padding: 9px 15px;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  position: relative;
+  z-index: 10;
+  display: inline-block;
+}
+
+.navbar-brand:hover,
+.navbar-brand:focus {
+  text-decoration: none;
+}
+.navbar-brand > img {
+  display: block;
+}
+
+.navbar-brand > strong {
+  color: white;
+  font-weight: 700;
+  font-size:24px;
+} 
+
+.navbar-header {
+  height: 55px;
+} 
+
+.nav li > a:hover {
+  /*background-color: #00BFFF !important;*/
+  color: #FFFFFF !important;
+}
+
+.nav li.active > a {
+  /*background-color: #00BFFF !important;*/
+  font-weight: 500 !important;
+  font-family: 'Helvetica Neue',Helvetica,'Nimbus Sans L',Arial,'Liberation Sans','PingFang SC','Hiragino Sans GB','Source Han Sans CN','Source Han Sans SC','Microsoft YaHei','Wenquanyi Micro Hei','WenQuanYi Zen Hei','ST Heiti',SimHei,'WenQuanYi Zen Hei Sharp',sans-serif !important;
+  color: #FFFFFF !important;
+}
+
+.nav li > a {
+  /*background-color: #00BFFF !important;*/
+  font-weight: 500 !important;
+  font-family: 'Helvetica Neue',Helvetica,'Nimbus Sans L',Arial,'Liberation Sans','PingFang SC','Hiragino Sans GB','Source Han Sans CN','Source Han Sans SC','Microsoft YaHei','Wenquanyi Micro Hei','WenQuanYi Zen Hei','ST Heiti',SimHei,'WenQuanYi Zen Hei Sharp',sans-serif !important;
+  color: #777 !important;
+}
+
+@media (min-width: 992px) {
+.navbar .nav{
+  margin-right: 120px !important;
+}
+.navbar-brand{
+  margin-left: 120px !important;
+}
+.dj-trick{
+  margin-top: -80px !important;
+  text-align: right !important;
+}
+}
+
+@media (max-width: 767px) {
+.navbar {
+  margin-right: 0px !important;
+}
+.navbar-brand{
+  margin-left: 0px !important;
+}
+.dj-trick{
+  margin-top: 10px !important;
+  text-align: left !important;
+}
+}
+/*
+@media (min-width: 992px) {
+.navbar .nav,
+.navbar .nav > li {
+  float:none !important;
+  display:inline-block;
+  text-align: center !important;
+  margin: 0 auto !important;
+}
+.navbar {
+  margin-left: -50px !important;
+  margin: auto !important;
+  margin-right: 160px !important;
+}
+}
+
+.navbar-inner {
+  text-align:center !important;
+}
+*/
+
+.dj-foot{
+    font-size: 16px;
+}
+
+.dj-foot li > a {
+  /*background-color: #00BFFF !important;*/
+  font-weight: 900 !important;
+  font-family: 'Helvetica Neue',Helvetica,'Nimbus Sans L',Arial,'Liberation Sans','PingFang SC','Hiragino Sans GB','Source Han Sans CN','Source Han Sans SC','Microsoft YaHei','Wenquanyi Micro Hei','WenQuanYi Zen Hei','ST Heiti',SimHei,'WenQuanYi Zen Hei Sharp',sans-serif !important;
+  /*color: #00BFFF !important;*/
+}
+
+.dj-foot li > a:hover {
+  /*background-color: #00BFFF !important;*/
+  font-weight: 900 !important;
+  font-family: 'Helvetica Neue',Helvetica,'Nimbus Sans L',Arial,'Liberation Sans','PingFang SC','Hiragino Sans GB','Source Han Sans CN','Source Han Sans SC','Microsoft YaHei','Wenquanyi Micro Hei','WenQuanYi Zen Hei','ST Heiti',SimHei,'WenQuanYi Zen Hei Sharp',sans-serif !important;
+  /*color: #00BFFF !important;*/
+  color: #FFFFFF !important;
+  text-decoration: none;
+}
+
+.dj-note{
+    font-size: 13px;
+    margin-bottom: 10px; 
+    font-family: 'Helvetica Neue',Helvetica,'Nimbus Sans L',Arial,'Liberation Sans','PingFang SC','Hiragino Sans GB','Source Han Sans CN','Source Han Sans SC','Microsoft YaHei','Wenquanyi Micro Hei','WenQuanYi Zen Hei','ST Heiti',SimHei,'WenQuanYi Zen Hei Sharp',sans-serif !important;
+    /*color: #FFFFFF !important;
+    text-decoration: none;*/
+}
