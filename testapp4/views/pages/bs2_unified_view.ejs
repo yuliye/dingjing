@@ -8,25 +8,36 @@
   <link id="extra-style" rel="stylesheet" href="/sassets/css/styles_mix2.css">
 
 
-<body class="with-top-navbar">
+<body class="with-top-navbar dj-container">
   <% include ../partials/smenu2.ejs %> 
 <div class="row">
-<div class="container-fluid container-fluid-spacious col-md-4 p-x-lg p-y">
+<div class="container-fluid container-fluid-spacious col-md-12 p-r-md">
+<form action="/users/text" method="get" class="form-inline navbar-form navbar-right m-t m-l">
+          <div class="input-with-icon" id="prefetch">
+            <input class="typeahead form-control" type="text" name="fundname" placeholder="搜索基金...">
+            <span class="icon icon-magnifying-glass"></span>
+          </div>
+          <button type="button submit" class="btn btn-sm btn-primary">GO!</button>
+        </form>
+</div>
+<div class="container-fluid container-fluid-spacious col-md-4 p-l-md">
     <div class="dashhead m-t-md">
-  <div class="dashhead-titles">
+  <div class="dashhead-titles p-x p-b">
     <h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6>
-    <h2 class="dashhead-title">海鲸证券－专户理财</h2>
+    <h2 class="dashhead-title">专户理财</h2>
   </div>
 </div>
 </div>
-<div class="container-fluid container-fluid-spacious col-md-8 p-a-lg">
+<div class="container-fluid container-fluid-spacious col-md-8 p-t-md">
 <ul class="nav nav-pills p-y">
-  <li class="active"><a href="#">基金列表</a></li>
-  <li class=""><a href="#">我的收藏</a></li>
-  <li class=""><a href="#">我的组合</a></li>
+  <li class="m-l-md dj-menu active"><a href="#">基金列表</a></li>
+  <li class="m-x-md dj-menu"><a href="#">我的收藏</a></li>
+  <li class="dj-menu"><a href="#">我的组合</a></li>
 </ul>
 </div>
+
 </div>
+
 
 <form action="/users/searchlist" method="get">
   <div class="container-fluid container-fluid-spacious">
@@ -60,14 +71,13 @@
       <div class="flextable-item">
         <select class="custom-select custom-select-sm" name="compoundRate">
           <option selected="selected" value="-100">任何回报</option>
-          <option value="100">大于100%</option>
-          <option value="80">大于80%</option>
-          <option value="50">大于50%</option>
-          <option value="30">大于30%</option>
-          <option value="15">大于15%</option>
-          <option value="10">大于10%</option>
-          <option value="5">大于5%</option>
-          <option value="0">大于0%</option>
+          <option value="50">> 50%</option>
+          <option value="30">> 30%</option>
+          <option value="15">> 15%</option>
+          <option value="10">> 10%</option>
+          <option value="5">> 5%</option>
+          <option value="0">> 0%</option>
+          <option value="-5">> -5%</option>
         </select>
       </div>
     </div>
@@ -80,10 +90,11 @@
       <div class="flextable-item">
         <select class="custom-select custom-select-sm">
           <option>任何回撤</option>
-          <option>First option</option>
-          <option>Another option</option>
-          <option>Alternative</option>
-          <option>Last one</option>
+          <option value="50">< 50%</option>
+          <option value="30">< 30%</option>
+          <option value="15">< 15%</option>
+          <option value="10">< 10%</option>
+          <option value="5">< 5%</option>
         </select>
       </div>
     </div>
@@ -96,10 +107,10 @@
       <div class="flextable-item">
         <select class="custom-select custom-select-sm">
           <option>任何规模</option>
-          <option>First option</option>
-          <option>Another option</option>
-          <option>Alternative</option>
-          <option>Last one</option>
+          <option>> 100M</option>
+          <option>> 50M</option>
+          <option>> 25M</option>
+          <option>> 10M</option>
         </select>
       </div>
     </div>
@@ -112,10 +123,11 @@
       <div class="flextable-item">
         <select class="custom-select custom-select-sm">
           <option>任何投资</option>
-          <option>First option</option>
-          <option>Another option</option>
-          <option>Alternative</option>
-          <option>Last one</option>
+          <option>> 1M</option>
+          <option>> 500K</option>
+          <option>> 200K</option>
+          <option>> 100K</option>
+          <option>> 10K</option>
         </select>
       </div>
     </div>
@@ -127,7 +139,7 @@
   </div>
   </div>
 
-    <div class="container-fluid container-fluid-spacious col-md-9 text-center">
+    <div class="container-fluid container-fluid-spacious col-md-9 text-center m-t-lg">
  AJAX控制页面内容显示！！！
   </div>
 

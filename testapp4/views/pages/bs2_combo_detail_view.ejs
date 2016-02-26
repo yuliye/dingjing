@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head><% include ../partials/bs_head.ejs %></head>
+  <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,300,600,900,800,700,200,100' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+  
+    <!-- Plugins CSS -->     
+  <link id="extra-style" rel="stylesheet" href="/sassets/css/styles_mix2.css">
+
+<body class="with-top-navbar dj-container">
+  <% include ../partials/smenu2.ejs %>  
+<div class="row">
+  <div class="container-fluid container-fluid-spacious col-md-12 p-r-md">
+<form action="/users/text" method="get" class="form-inline navbar-form navbar-right m-t m-l">
+          <div class="input-with-icon" id="prefetch">
+            <input class="typeahead form-control" type="text" name="fundname" placeholder="搜索基金...">
+            <span class="icon icon-magnifying-glass"></span>
+          </div>
+          <button type="button submit" class="btn btn-sm btn-primary">GO!</button>
+        </form>
+</div> 
+</div>
+
+  <div class="container-fluid container-fluid-spacious">
+    <div class="dashhead m-t-md">
+
+
+  <div class="dashhead-titles p-x p-b">
+    <h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6>
+    <h2 class="dashhead-title"><%= topData[0][1] %></h2>
+  </div>
+
+  <div class="btn-toolbar dashhead-toolbar p-y">
+  <form action="deletecombo" method="get" class="saveForm">
+  <input type="hidden" class="form-control" name="fundid" 
+        value=<%= topData[0][0] %> 
+  >
+   <button class="btn btn-primary m-l m-t saveButton" type="button submit">
+  <span class="icon icon-squared-cross"></span>
+  删除组合
+  </button>
+
+<a href="tel:+14155132523">
+  <button class="btn btn-success m-l m-t" type="button">
+  <span class="icon icon-phone"></span>
+  电话申购
+</button>
+</a>
+</form>
+
+  </div>
+</div>
+
+<div class="hr-divider m-t m-b-md">
+  <h3 class="hr-divider-content hr-divider-heading">基本情况一览</h3>
+</div>
+<div class="row statcard">
+<div class="col-sm-4 col-md-4 p-x-lg">
+    <div class="ex-graphs text-center">
+          <canvas
+            class="ex-graph"
+            width="100" height="100"
+            data-chart="doughnut"
+            data-segment-stroke-color="#222"
+            data-value="<%= pie %>">
+          </canvas>
+    </div>
+</div>
+<div class="col-sm-12 col-md-8">
+  <div class="col-sm-6 col-md-6 m-t">
+    <div class="statcard statcard-primary p-a-md">
+      <h1 class="statcard-number">
+        <%= topData[8].toFixed(2)+"%" %> 
+        <small class="delta-indicator delta-positive"><%= topData[1].toFixed(2)+"%" %></small>
+      </h1>
+      <span class="statcard-desc">本年度回报＋上月回报</span>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-6 m-t">
+    <table class="table table-mini3">
+    <tbody>
+      <tr>
+        <td>最低投资</td>
+        <td><%= "$"+bstat[3]+"K" %></td>
+      </tr>
+      <tr>
+        <td>管理费用</td>
+        <td><%= bstat[1].toFixed(2)+"%" %></td>
+      </tr>
+      <tr>
+        <td>业绩提成</td>
+        <td><%= bstat[2].toFixed(2)+"%" %></td>
+      </tr>
+    </tbody>
+    </table> 
+  </div>
+  <div class="col-sm-6 col-md-6 m-t">
+    <table class="table table-mini3">
+    <tbody>
+      <tr>
+        <td>近12月风险</td>
+        <% if(topData[5]<0) {%>
+        <td><%= topData[5].toFixed(2)+"%" %></td>
+        <%} else {%>
+        <td><%= "0.00%" %></td>
+        <%} %>
+      </tr>
+      <tr>
+        <td>夏普比率</td>
+        <td>需要公式</td>
+      </tr>
+      <tr>
+        <td>年复回报</td>
+        <td><%= topData[6].toFixed(2)+"%" %></td>
+      </tr>
+    </tbody>
+    </table> 
+  </div>
+  <div class="col-sm-6 col-md-6 m-t">
+    <table class="table table-mini3">
+    <tbody>
+      <tr>
+        <td>资产规模</td>
+        <td><%= "$"+(topData[2]/1000000).toFixed(1)+"M" %></td>
+      </tr>
+      <tr>
+        <td>最大回撤</td>
+        <td><%= topData[7].toFixed(2)+"%" %></td>
+      </tr>
+      <tr>
+        <td>近12月回报</td>
+        <td><%= topData[3].toFixed(2)+"%" %></td>
+      </tr>
+    </tbody>
+    </table> 
+  </div>
+  </div>
+</div>
+
+<% include ../partials/bsyy_graph.ejs %>
+
+<div class="hr-divider m-t-lg m-b-md">
+  <h3 class="hr-divider-content hr-divider-heading">年度数据</h3>
+</div>
+
+  <% include ../partials/table-large15.ejs %>
+
+<div class="hr-divider m-t m-b">
+  <h3 class="hr-divider-content hr-divider-heading">调整组合</h3>
+</div>
+  <% include ../partials/combo-fund-list.ejs %>
+
+  </div>
+
+
+  <% include ../partials/bs_foot.ejs %>
+  <script type="text/javascript">
+function comboInit(thelist)
+{
+  theinput = document.getElementById(theinput);  
+  var idx = thelist.selectedIndex;
+  var content = thelist.options[idx].innerHTML;
+  if(idx == 0)
+    content = "";
+  if(theinput.value == "")
+    theinput.value = content; 
+}
+function combo(thelist, theinput)
+{
+  theinput = document.getElementById(theinput);  
+  var idx = thelist.selectedIndex;
+  var content = thelist.options[idx].innerHTML;
+  if(idx == 0)
+    content = "";
+  theinput.value = content; 
+}
+
+$(function(){
+    $("table#combfund_remove").on("click", ".remove", function () {
+        $(this).closest('tr').remove();
+    });
+});
+
+$(function() {
+	$(".searchFun").submit(function(event) {
+		event.preventDefault();
+                var formURL = $(this).attr("action");
+		var fName = "fundname="+$("#fundname").val();
+		$.get( formURL, fName, function(data, status){
+			$("#combfund_remove > tbody").append(data);
+			
+		} );
+		});
+});
+
+</script>
+<script type="text/javascript">
+
+  
+  function combocheckForm(form){
+    var formInput = $('#combfund_remove > tbody > tr');
+    var flag = 0;
+    formInput.find('input').each( function(){
+		var inputVal = $(this).val();
+    		if(isNaN(inputVal) || inputVal == "" || inputVal<=0) {
+				flag = 1;
+			$(this).val("请填写正确金额");
+      //try to use placeholder
+		}
+    });
+    if( flag==1) {
+		return false;
+	} 
+  }
+</script>
+
+  </body>
+</html>

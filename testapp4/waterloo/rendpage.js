@@ -103,14 +103,16 @@ module.exports.fundd = function(fundata, res, hasSaved, comboname, index){
   var revHistData=histData.reverse();
   //console.log(revHistData);
   
-  res.render('pages/bsyy_detail_view',{
+  //res.render('pages/bsyy_detail_view',{
+  res.render('pages/bs2_list_detail_view',{
                         topData : fundInfo,
                         graphData: "[" + gdata.toString() +"]",
                         dataLabel: "[" + ldata.toString() +"]",
                         data: revHistData,
                         index : index,
                         showSave: hasSaved,
-                        combo: comboname
+                        combo: comboname,
+                        page: 'unified'
                 });
 
 }
@@ -200,7 +202,8 @@ module.exports.combod = function(fundata, res, comFunData, bstat, index){
   var revHistData=histData.reverse();
   //console.log(revHistData);
   
-  res.render('pages/bsyy_combo_detail_view',{
+  //res.render('pages/bsyy_combo_detail_view',{
+  res.render('pages/bs2_combo_detail_view',{
                         topData : fundInfo,
                         graphData: "[" + gdata.toString() +"]",
                         dataLabel: "[" + ldata.toString() +"]",
@@ -209,7 +212,8 @@ module.exports.combod = function(fundata, res, comFunData, bstat, index){
                         showSave: 0,
                         comFunData: comFunData,
                         bstat: bstat,
-                        pie: pie
+                        pie: pie,
+                        page: 'unified'
                 });
 
 }

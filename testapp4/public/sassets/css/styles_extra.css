@@ -328,10 +328,10 @@ small {
 
 @media (min-width: 992px) {
 .navbar .nav{
-  margin-right: 120px !important;
+  margin-right: 75px !important;
 }
 .navbar-brand{
-  margin-left: 120px !important;
+  margin-left: 75px !important;
 }
 .dj-trick{
   margin-top: -80px !important;

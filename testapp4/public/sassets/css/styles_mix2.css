@@ -824,10 +824,10 @@ small {
 
 @media (min-width: 992px) {
 .navbar .nav{
-  margin-right: 120px !important;
+  margin-right: 75px !important;
 }
 .navbar-brand{
-  margin-left: 120px !important;
+  margin-left: 75px !important;
 }
 .dj-trick{
   margin-top: -80px !important;
@@ -895,3 +895,41 @@ small {
     /*color: #FFFFFF !important;
     text-decoration: none;*/
 }
+
+.dj-menu{
+  font-size: 16px; 
+}
+
+.dj-menu a:hover{
+    background-color: #51586a !important;
+}
+
+.dj-menu a:active{
+    background-color: #1ca8dd !important;
+}
+
+
+.dj-container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  .dj-container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .dj-container {
+    width: 970px;
+    padding-right: 90px;
+    padding-left: 90px;
+  }
+}
+@media (min-width: 1200px) {
+  .dj-container {
+    width: 1170px;
+  }
+}
+
