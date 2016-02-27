@@ -909,26 +909,26 @@ small {
 }
 
 
-.dj-container {
+.djx-container {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
 }
 @media (min-width: 768px) {
-  .dj-container {
+  .djx-container {
     width: 750px;
   }
 }
 @media (min-width: 992px) {
-  .dj-container {
+  .djx-container {
     width: 970px;
     padding-right: 90px;
     padding-left: 90px;
   }
 }
 @media (min-width: 1200px) {
-  .dj-container {
+  .djx-container {
     width: 1170px;
   }
 }

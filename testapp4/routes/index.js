@@ -72,7 +72,8 @@ router.get('/help', function(req, res) {
 router.get('/login', function(req, res) {
   res.render('pages/tw_login', { 
     message: req.flash('loginMessage'),
-    index: 0 });
+    index: 0,
+    page: 'login' });
 });
 
 router.post('/login', passport.authenticate('local-login', {
@@ -97,7 +98,8 @@ router.get('/reg1', function(req, res) {
   res.render('pages/reg1',{
     cellphone: cellphone,
     message: req.flash('signupMessage'),
-    index: 0
+    index: 0,
+    page: 'login' 
   });
 });
 
@@ -107,7 +109,8 @@ router.get('/reg2',function(req, res) {
       cellphone: req.query.username,
       code: req.query.code,
       message: req.flash('signupMessage'),
-      index: 0
+      index: 0,
+      page: 'login' 
     });
   }
   else if (req.query.state==='0'){
@@ -116,7 +119,8 @@ router.get('/reg2',function(req, res) {
       cellphone: req.query.username,
       code: "",
       message: req.flash('signupMessage'),
-      index: 0
+      index: 0,
+      page: 'login' 
     });
   }
   else{
@@ -194,7 +198,8 @@ router.get('/reg2',function(req, res) {
                       cellphone: req.query.username,
                       code: "",
                       message: req.flash('signupMessage'),
-                      index: 0
+                      index: 0,
+                      page: 'login' 
                     });
                   }
                 });
@@ -210,7 +215,8 @@ router.get('/reg2',function(req, res) {
                       cellphone: req.query.username,
                       code: "",
                       message: req.flash('signupMessage'),
-                      index: 0
+                      index: 0,
+                      page: 'login' 
                     });
                   }
                 });
