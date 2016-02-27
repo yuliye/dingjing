@@ -104,7 +104,7 @@ module.exports.fundd = function(fundata, res, hasSaved, comboname, index){
   //console.log(revHistData);
   
   //res.render('pages/bsyy_detail_view',{
-  res.render('pages/bs2_list_detail_view',{
+  res.render('pages/bs2_fund_detail_view',{
                         topData : fundInfo,
                         graphData: "[" + gdata.toString() +"]",
                         dataLabel: "[" + ldata.toString() +"]",
