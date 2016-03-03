@@ -22,7 +22,8 @@ module.exports.fundlist = function(fundata,  res, index){
   if (fundata.length>0) 
       data = formatTool.fundNewListFormat(fundata); //.getData();
    //console.log(data);
-	 res.render('pages/bs_list_view',{
+ 	//res.render('pages/bs_list_view',{
+	  res.render('partials/dyn-table-full.ejs',{
                 header: header,
                 data: data,
                 pagetype : "fdetail?fundid",
@@ -35,7 +36,8 @@ module.exports.combolist = function(fundata,  res, index){
     var data = fundata;
     if (fundata.length>0) 
       data = formatTool.ComboNewListFormat(fundata);//.getData();
-         res.render('pages/bs_list_view',{
+         //res.render('pages/bs_list_view',{
+	  res.render('partials/dyn-table-full.ejs',{
                 header: header,
                 data: data,
                 pagetype : "cdetail?comboid",

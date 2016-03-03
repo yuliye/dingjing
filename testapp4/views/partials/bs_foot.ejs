@@ -1,3 +1,31 @@
+<style>
+    div.pager {
+    text-align: center;
+    margin: 1em 0;
+}
+
+div.pager span {
+    display: inline-block;
+    width: 1.8em;
+    height: 1.8em;
+    line-height: 1.8;
+    text-align: center;
+    cursor: pointer;
+    background: #000;
+    color: #fff;
+    margin-right: 0.5em;
+}
+
+div.pager span.active{
+	background: #c00;
+}
+
+table.tablesorter{
+text-align:left;
+}
+</style>
+
+
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/chart.js"></script>
 <script src="/assets/js/tablesorter.min.js"></script>
@@ -22,6 +50,195 @@
     };
     */
     window.onorientationchange = function() { window.location.reload(); };
+
+
+	
+$(document).ready(function(){
+     $.ajax({ url: '/users/flist',
+           success: function(response){
+              $('#tablelist').html(response);
+	      $('#example').tablesorter( );
+		var sorting = [[1,0]]; 
+              $("#example").trigger("sorton",[sorting]); 
+	      
+	      loadPage();
+           }
+        });
+
+	$('#mycollection').click(function(){
+	$.ajax({
+		type: "GET",
+		url: '/users/slist',
+		success: function(response){
+		        $('#mycollection').addClass('active').siblings().removeClass('active');	
+			$('#tablelist').html(response);
+ 			$('#example').tablesorter();
+ 			var sorting = [[1,0]];
+ 			$("#example").trigger("sorton",[sorting]);
+ 			loadPage();
+
+           		} 
+		});
+
+	});
+
+	
+	 $('#fundlist').click(function(){
+        	$.ajax({
+                type: "GET",
+                url: '/users/flist',
+                success: function(response){
+                        $('#fundlist').addClass('active').siblings().removeClass('active');
+                        $('#tablelist').html(response);
+                        $('#example').tablesorter();
+                        var sorting = [[1,0]];
+                        $("#example").trigger("sorton",[sorting]);
+                        loadPage();
+
+                        }
+                });
+
+        });
+
+	$('#mycombolist').click(function(){
+                $.ajax({
+                type: "GET",
+                url: '/users/clist',
+                success: function(response){
+                        $('#mycombolist').addClass('active').siblings().removeClass('active');
+                        $('#tablelist').html(response);
+                        $('#example').tablesorter();
+                        var sorting = [[1,0]];
+                        $("#example").trigger("sorton",[sorting]);
+                        loadPage();
+
+                        }
+                });
+
+        });
+
+
+
+
+$("#searchList").submit(function(event) {
+                event.preventDefault();
+                var formURL = $('#searchList').attr("action");
+		 
+                $.get( formURL, 
+			{startTime: $('#startTime').val(),
+			 endTime: $('#endTime').val(),
+			compoundRate: $('#compoundRate').val() }, 
+                        function(data, status){
+	                	$('#fundlist').addClass('active').siblings().removeClass('active');
+                        	$('#tablelist').html(data);
+                        	$('#example').tablesorter();
+                        	var sorting = [[1,0]];
+                        	$("#example").trigger("sorton",[sorting]);
+                        	loadPage();
+                	} );
+                });
+
+
+function  loadPage() {
+    var currentPage = 0;
+    var numPerPage = 5;
+    var $table = $('table.paginated');
+   $table.bind('sortPaginate', function(){
+         $table.find('tbody tr').hide().slice(0, numPerPage).show();
+	  $pager.find('span.page-number:first').addClass('active').siblings().removeClass('active');
+          $pager.find('span.page-number').hide().slice(0,5).show();
+        });
+    
+   $table.bind('repaginate', function() {
+
+        $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage - (-1)) * numPerPage).show();
+    });
+
+    $table.trigger('repaginate');
+	
+     $('#example').on("sortEnd", function(){
+                  $('table.paginated').trigger('sortPaginate');
+                });
+
+    var numRows = $table.find('tbody tr').length;
+
+    if(numRows <= numPerPage) return;
+
+    var numPages = Math.ceil(numRows / numPerPage);
+    var $pager = $('<div class="pager"></div>');
+    /// for first page
+      $('<span class="page-number-pre"></span>').text("<<").bind('click', {
+            newPage: 0
+            //newnumPagers: numPagers
+        }, function(event) {
+            currentPage = event.data['newPage'];
+            //totalPages = event.data['newnumPagers'];
+            $table.trigger('repaginate');
+	     $pager.find('span.page-number:first').addClass('active').siblings().removeClass('active');
+            if( numPages>5) $pager.find('span.page-number').hide().slice(0,5).show();
+        }).appendTo($pager).addClass('clickable');
+
+    // for previous
+
+     $('<span class="page-number-pre"></span>').text("<").bind('click', {
+            newPage: 0
+        }, function(event) {
+            var $currAct = $pager.find('span.active');
+            currentPage = $currAct.html();
+            if(currentPage>1) $currAct.removeClass('active').prev().addClass('active');
+            currentPage = ( currentPage > 1 ? currentPage - 2 : currentPage - 1 );
+
+            $table.trigger('repaginate');
+            if((currentPage>=2 && currentPage<=numPages-3) && numPages>5 ) $pager.find('span.page-number').hide().slice(currentPage-2, currentPage-(-3) ).show();
+        }).appendTo($pager).addClass('clickable');
+
+
+    for (var page = 0; page < numPages; page++) {
+        $('<span class="page-number"></span>').text(page + 1).bind('click', {
+            newPage: page
+        }, function(event) {
+            currentPage = event.data['newPage'];
+            $table.trigger('repaginate');
+            $(this).addClass('active').siblings().removeClass('active');
+        }).appendTo($pager).addClass('clickable');
+    }
+
+     // for  next
+
+     $('<span class="page-number-pre"></span>').text(">").bind('click', {
+            newPage: 0
+        }, function(event) {
+            var $currAct = $pager.find('span.active');
+            currentPage = $currAct.html();
+            if(currentPage < numPages) $currAct.removeClass('active').next().addClass('active');
+            else currentPage = numPages - 1 ;
+
+            $table.trigger('repaginate');
+	   if((currentPage>=2 && currentPage<=numPages-3) && numPages>5 ) 
+			$pager.find('span.page-number').hide().slice(currentPage-2, currentPage-(-3) ).show();
+
+           //if( currentPage < numPages - 2 ) $('.span.page-number').hide().slice(currentPage , currentPage - (-3)).show();
+        }).appendTo($pager).addClass('clickable');
+
+     // for last
+
+       $('<span class="page-number-pre"></span>').text(">>").bind('click', {
+            newPage: numPages - 1
+        }, function(event) {
+            currentPage = event.data['newPage'];
+            $table.trigger('repaginate');
+            $pager.find('span.page-number:last').addClass('active').siblings().removeClass('active');
+            if( numPages>5) $pager.find('span.page-number').hide().slice(numPages-5,numPages).show();
+        }).appendTo($pager).addClass('clickable');
+
+
+       $pager.insertAfter($table).find('span.page-number:first').addClass('active');
+       if( numPages>5 )       $('span.page-number').slice(5,numPages).hide();
+   }
+
+
+});
+
 </script>
 
 

@@ -1,10 +1,12 @@
-<div class="table-full">
-  <div class="table-responsive">
-    <table id="example" class="table tablesorter" data-sort="table">
-      <thead>
+     <div class="table-full">
+                <div class="table-responsive">
+                        <table id="example" class="table tablesorter paginated" data-sort="table">
+ 
+	<thead>
         <tr>
           <th><input type="checkbox" class="select-all" id="selectAll"></th>
           <th><%= header[0] %></th>
+	  <% var start = pageIndex[0] %>
           <% for(var i=start; i<start+leng; i++) { %>
             <th><%= header[i] %></th>
           <% } %>
@@ -21,27 +23,8 @@
         </tr>
       <% }); %>
       </tbody>
-    </table>
-  </div>
-</div>
-<% if(data.length>20) { %>
-<div class="text-center">
-  <ul class="pagination">
-    <li>
-      <a href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="active"><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li>
-      <a href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</div>
-<% } %>
+
+                        </table>
+                </div>
+        </div>
+
