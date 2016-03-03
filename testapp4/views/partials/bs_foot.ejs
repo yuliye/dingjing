@@ -11,13 +11,16 @@ div.pager span {
     line-height: 1.8;
     text-align: center;
     cursor: pointer;
-    background: #000;
-    color: #fff;
+    background: #252830;
+    color: #51586a;
     margin-right: 0.5em;
+    border-color: #51586a;
+    border: 1px solid #434857;
 }
 
 div.pager span.active{
-	background: #c00;
+	background: #51586a;
+    color: #fff;
 }
 
 table.tablesorter{
@@ -141,7 +144,7 @@ $("#searchList").submit(function(event) {
 
 function  loadPage() {
     var currentPage = 0;
-    var numPerPage = 5;
+    var numPerPage = 9;
     var $table = $('table.paginated');
    $table.bind('sortPaginate', function(){
          $table.find('tbody tr').hide().slice(0, numPerPage).show();

@@ -66,7 +66,7 @@ module.exports.fundNewListFormat= function(fundata){
   //console.log(fundata);
   var result = _.chain(fundata)
         .map(function(row){return row.getbasic();})
-        .map(function(row){return [row[0][0],row[0][1],row[1].toFixed(2)+"%",row[3].toFixed(2)+"%",row[4].toFixed(2)+"%","$"+row[0][2]+"K","$"+(row[2]/1000000).toFixed(1)+"M",row[0][3]+"%",row[0][4]+"%"];})
+        .map(function(row){return [row[0][0],row[0][1],row[1].toFixed(2)+"%",row[8].toFixed(2)+"%",row[6].toFixed(2)+"%",row[7].toFixed(2)+"%","$"+(row[2]/1000000).toFixed(1)+"M","$"+row[0][2]+"K",row[0][5]];})
         .value();
   //console.log(result);
   return result;
@@ -77,7 +77,7 @@ module.exports.ComboNewListFormat= function(fundata){
   //console.log(fundata);
   var result = _.chain(fundata)
         .map(function(row){return row.getbasic();})
-        .map(function(row){return [row[0][0],row[0][1],row[1].toFixed(2)+"%",row[3].toFixed(2)+"%",row[4].toFixed(2)+"%"];})
+        .map(function(row){return [row[0][0],row[0][1],row[1].toFixed(2)+"%",row[8].toFixed(2)+"%",row[6].toFixed(2)+"%",row[7].toFixed(2)+"%"];})
         .value();
   //console.log(result);
   return result;

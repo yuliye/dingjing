@@ -3,10 +3,12 @@ var formatTool = require("./format.js");
 
 var header = ['基金名',
               '上月回报',
-              '近12月回报',
-              '近12月回撤',
-              '最低投资',
+              '年至今回报',
+              '均年复收益',
+              '最大回撤',
               '资产规模',
+              '最低投资',
+              '点击量',
               '管理费用',
               '业绩提成',
               '年复回报',
@@ -43,7 +45,7 @@ module.exports.combolist = function(fundata,  res, index){
                 pagetype : "cdetail?comboid",
                 pageIndex: pageIndex,
                 index: index,
-                leng: 3});
+                leng: 4});
 }
 
 

@@ -176,7 +176,7 @@ router.get('/deletecombo',  isLoggedIn, function(req, res) {
           connection.query('USE ' + dbconfig.database);
           connection.query('DELETE FROM Combo_Table WHERE Combo_ID = ? AND User_ID = ?',[req.query.fundid,req.user.User_ID]);
           //connection.query('DELETE FROM Combo_Data_Table WHERE Combo_ID = ?',[req.query.fundid]);
-          res.redirect('clist'); 
+          res.redirect('unified'); 
         }
         connection.release();
     }); 
@@ -198,7 +198,7 @@ router.get('/add2combo', isLoggedIn, function(req, res){
           }
           else {
             connection.query('INSERT INTO Combo_Data_Table ( Combo_ID, Fund_ID, Amount ) values (?,?,?)', [rows.insertId,req.query.fundid,req.query.amount]);
-            res.redirect('clist');
+            res.redirect('unified');
           }
         });
       }
@@ -206,7 +206,7 @@ router.get('/add2combo', isLoggedIn, function(req, res){
         //old combo name
         var id = rows[0].Combo_ID;
         connection.query('Insert INTO Combo_Data_Table (Combo_ID, Fund_ID, Amount) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE Amount = ?', [id,req.query.fundid,req.query.amount,req.query.amount]);
-        res.redirect('clist');
+        res.redirect('unified');
       }
     });
     connection.release();
@@ -245,15 +245,15 @@ router.get('/save',  isLoggedIn, function(req, res) {
             }
             else if(rows.length ==0 && req.query.hasSaved==0){
               connection.query('INSERT INTO Saved_Fund_Table ( User_ID, Fund_ID ) values (?,?)', [req.user.User_ID,req.query.fundid]);
-              res.redirect('slist');
+              res.redirect('unified');
             }
             else if(rows.length > 0 && req.query.hasSaved==1) {
               connection.query('DELETE FROM Saved_Fund_Table WHERE User_ID = ? AND Fund_ID = ?',[req.user.User_ID,req.query.fundid]);
-              res.redirect('slist');
+              res.redirect('unified');
             }
             else {
               //err handling
-              res.redirect('slist');
+              res.redirect('unified');
             }
           });
         }
@@ -328,7 +328,7 @@ router.get('/home', isLoggedIn, function(req, res) {
   var values = [];
   var index = 7;
   fetchData.result(pool,dbconfig , queryString,values, header, pageIndex, res, type, index); */
-  res.redirect('/users/flist');
+  res.redirect('/users/unified');
 });
 
 router.get('/compute', isLoggedIn, function(req, res) {

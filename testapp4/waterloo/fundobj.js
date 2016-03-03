@@ -116,7 +116,7 @@ if(rdata.length>1) {
 }
   //public facing function to get all the data
   //basic stats including fund id and name
-  //info, last month, assets, last year return, dd and wm, caror, full_drawdown, year2date
+  //info, (1)last month, (2)assets, (3)last year return, (4)dd and (5)wm, (6)caror, (7)full_drawdown, (8)year2date, (9)stdev, (10)sharp
   fundData.getbasic = function(){
     //console.log(lastm);
     return [lastm[0],lastm[2],lastm[3],100*(_.last(mretc)[1]-1),dd,ydd,caror,fdd, y2date,stdDev*Math.sqrt(12),sharp*Math.sqrt(12)];
