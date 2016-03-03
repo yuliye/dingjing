@@ -1,0 +1,38 @@
+ <table class="table table-djmini3 table-condensed table-borderless">
+    <tbody>
+      <tr>
+        <td class="p-a-0"><h5 style="color:#cfd2da !important;">年至今回报</h5></td>
+        <td class="p-a-0"></td>
+      </tr>
+      <tr>
+        <td class="p-a-0"><h6 class="p-y-0" style="color:
+        <%if(topData[8]<0) {%>
+        #1bc98e; font-size: 40px; font-weight:600 ;"><%= topData[8].toFixed(2)+"%" %></h6></td> 
+        <%} else {%>
+        #e64759; font-size: 40px; font-weight:600 ;"><%= "+"+topData[8].toFixed(2)+"%" %></h6></td>
+        <%}%>
+        <td class="p-a-0"><h6 
+        <%if(topData[8]<0) {%>
+        class="icon icon-arrow-down p-y-0" style="color:#1bc98e;
+        <%} else {%> 
+        class="icon icon-arrow-up p-y-0" style="color:#e64759;
+        <%}%>
+        font-size: 40px;"></h6></td>
+      </tr>
+      <tr>
+        <td class="p-a-0"><h5 style="color:#cfd2da !important;">上月回报</h5></td>
+        <td class="p-a-0"><h5 style="color:
+        <%if(topData[1]<0) {%>
+        #1bc98e
+        <%} else {%>
+        #e64759
+        <%}%>
+         !important; font-weight: 600 !important;">
+        <%if(topData[1]>=0) {%>
+        <%= "+"+topData[1].toFixed(2)+"%" %></h5></td>
+        <%} else {%>
+        <%= topData[1].toFixed(2)+"%" %></h5></td>
+        <%}%>
+      </tr>
+    </tbody>
+  </table> 

@@ -933,3 +933,32 @@ small {
   }
 }
 
+
+.dj-foot{
+    font-size: 16px;
+}
+
+.dj-foot li > a {
+  /*background-color: #00BFFF !important;*/
+  font-weight: 900 !important;
+  font-family: 'Helvetica Neue',Helvetica,'Nimbus Sans L',Arial,'Liberation Sans','PingFang SC','Hiragino Sans GB','Source Han Sans CN','Source Han Sans SC','Microsoft YaHei','Wenquanyi Micro Hei','WenQuanYi Zen Hei','ST Heiti',SimHei,'WenQuanYi Zen Hei Sharp',sans-serif !important;
+  /*color: red !important;*/
+}
+
+.dj-foot li > a:hover {
+  /*background-color: #00BFFF !important;*/
+  font-weight: 900 !important;
+  font-family: 'Helvetica Neue',Helvetica,'Nimbus Sans L',Arial,'Liberation Sans','PingFang SC','Hiragino Sans GB','Source Han Sans CN','Source Han Sans SC','Microsoft YaHei','Wenquanyi Micro Hei','WenQuanYi Zen Hei','ST Heiti',SimHei,'WenQuanYi Zen Hei Sharp',sans-serif !important;
+  /*color: #00BFFF !important;*/
+  color: #FFFFFF !important;
+  text-decoration: none;
+}
+
+.dj-note{
+    font-size: 13px;
+    margin-bottom: 10px; 
+    font-family: 'Helvetica Neue',Helvetica,'Nimbus Sans L',Arial,'Liberation Sans','PingFang SC','Hiragino Sans GB','Source Han Sans CN','Source Han Sans SC','Microsoft YaHei','Wenquanyi Micro Hei','WenQuanYi Zen Hei','ST Heiti',SimHei,'WenQuanYi Zen Hei Sharp',sans-serif !important;
+    /*color: #FFFFFF !important;
+    text-decoration: none;*/
+}
+

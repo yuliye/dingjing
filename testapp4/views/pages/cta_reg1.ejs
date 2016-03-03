@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><% include ../partials/bs_head.ejs %>
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,500,300,600,900,800,700,200,100' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+  
+    <!-- Plugins CSS -->     
+  <link id="extra-style" rel="stylesheet" href="/sassets/css/styles_mix2.css">
+</head>
+<body class="with-top-navbar djx-container">
+  <% include ../partials/smenu2.ejs %>  
+  <div class="container-fluid container-fluid-spacious">
+    <div class="dashhead m-t-md">
+      <div class="dashhead-titles">
+      <h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6>
+      <h2 class="dashhead-title">Reset Password</h2>
+      </div>
+    </div>
+      <div class="hr-divider m-t">
+      <h3 class="hr-divider-content hr-divider-heading"></h3>
+    </div>
+    <div class="dj-container">
+    <div class="p-a">
+    <% if (message.length > 0) { %>
+                <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+    <form action="/cta_reg2" method="get">
+      <input type="text" class="form-control m-t" placeholder="Cellphone Number" name="username" 
+      value=<%= cellphone %> 
+      >
+      <div class="flextable m-t">
+  <div class="flextable-item">
+      <button type="button submit" class="btn btn-primary-outline">
+        Send SMS
+      </button>
+  </div>
+  <div class="flextable-item flextable-primary">
+    <div class="btn-group">
+    <input type="text" class="form-control" placeholder="SMS Code" name="code" disabled>
+    </div>
+  </div>
+</div>
+    <input type="password" class="form-control m-t" placeholder="Enter Password" name="password" disabled>
+    <input type="password" class="form-control m-t" placeholder="Re-Enter Password" name="repassword" disabled>
+    <button type="button submit" class="btn btn-block btn-primary m-y" disabled>
+      Reset Password</button>
+    </form>
+    </div>
+    </div>
+  </div>
+  <% include ../partials/bs_foot.ejs %>
+</body>
+</html>

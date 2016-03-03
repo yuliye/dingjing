@@ -39,6 +39,7 @@ module.exports.updateAllFund = function (pool, dbconfig, req, res, queryString, 
 module.exports.fetchOneFund = function (pool, dbconfig, req, res, queryString, values, index){
   pool.getConnection(function(err, connection) {
     connection.query('USE ' + dbconfig.database);
+    connection.query("UPDATE Fund_Table SET Clicks = Clicks + 1 WHERE Fund_ID = ?",values);
     connection.query(queryString, values, function(err, rows){
     //connection.query(queryString, [3], function(err, rows){
       if(err){
@@ -52,6 +53,8 @@ module.exports.fetchOneFund = function (pool, dbconfig, req, res, queryString, v
 	//var temprows = rows;
         var robFund = helper.fundObj(_.map(rows, function(row){ return [[row.Fund_ID, row.Fund_Name, row.Min_Invest, row.Mgmt_Fee, row.Perf_Fee], (row.Month-1)+12*row.Year, row.Month_Return, row.Month_Assets]}));
         //now you have a object that knows everything
+
+        //console.log(robFund.getbasic());
 
 	connection.query("SELECT * FROM Saved_Fund_Table Where User_ID = ? AND Fund_ID = ?", 
 			[req.user.User_ID,rows[0].Fund_ID], function(err,rows){
@@ -95,7 +98,7 @@ module.exports.fetchFundList = function (pool, dbconfig, req, res, queryString, 
       }
       else{
         var robFundList = _.chain(rows)
-                .map(function(row){ return [[row.Fund_ID,row.Fund_Name, row.Min_Invest, row.Mgmt_Fee, row.Perf_Fee],(row.Month-1)+12*row.Year,row.Month_Return,row.Month_Assets]})
+                .map(function(row){ return [[row.Fund_ID,row.Fund_Name, row.Min_Invest, row.Mgmt_Fee, row.Perf_Fee, row.Clicks],(row.Month-1)+12*row.Year,row.Month_Return,row.Month_Assets]})
                 .groupBy(function(data){return data[0]})
                 .map(function(row){return helper.fundObj(row)})
                 .value();

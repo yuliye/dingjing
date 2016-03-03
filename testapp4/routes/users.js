@@ -273,7 +273,7 @@ router.get('/collection',  isLoggedIn, function(req, res) {
 router.get('/searchlist',  isLoggedIn, function(req, res) {
     var type = "fdetail?fundid";
 
-    var queryString = " SELECT f.Fund_ID Fund_ID, Fund_Name, Min_Invest, Mgmt_Fee, Perf_Fee, COALESCE(Year,0) Year, ";
+    var queryString = " SELECT f.Fund_ID Fund_ID, Fund_Name, Min_Invest, Mgmt_Fee, Perf_Fee, Clicks, COALESCE(Year,0) Year, ";
     queryString += " COALESCE(Month,0) Month, COALESCE(Month_Return,0) Month_Return, COALESCE(fd.Assets,0) Month_Assets FROM ";
     queryString += " Fund_Table f LEFT OUTER JOIN Fund_Data_Table fd ";
     queryString += " ON f.Fund_ID=fd.Fund_ID LEFT OUTER JOIN ";
@@ -350,18 +350,6 @@ router.get('/test', isLoggedIn, function(req, res) {
   });
 });
 
-//****************important*******************************
-//****************important*******************************
-//****************important*******************************
-//****************important*******************************
-//****************important*******************************
-//jeff, please read starting from here and take a look at 
-//the following five routes, and then dive deep into 
-//the robot class and fundobj class, all data now is returned
-//from fundobj class, and robot class will use it to render 
-//the papge, please modify all the detail view and list view
-//with that data.
-
 //fund detail page
 
 router.get('/fdetail', isLoggedIn, function(req, res) {
@@ -436,7 +424,7 @@ router.get('/clist', isLoggedIn, function(req, res) {
 
 //full fund list
 router.get('/flist', isLoggedIn, function(req, res) {
-  var queryString = " SELECT f.Fund_ID Fund_ID, Fund_Name, Min_Invest, Mgmt_Fee, Perf_Fee, COALESCE(Year,0) Year, ";
+  var queryString = " SELECT f.Fund_ID Fund_ID, Fund_Name, Min_Invest, Mgmt_Fee, Perf_Fee, Clicks, COALESCE(Year,0) Year, ";
       queryString += " COALESCE(Month,0) Month, COALESCE(Month_Return,0) Month_Return, COALESCE(fd.Assets,0) Month_Assets FROM ";
       queryString += " Fund_Table f LEFT OUTER JOIN Fund_Data_Table fd ";
       queryString += " ON f.Fund_ID=fd.Fund_ID ";
@@ -446,7 +434,7 @@ router.get('/flist', isLoggedIn, function(req, res) {
 
 //saved fund list
 router.get('/slist', isLoggedIn, function(req, res) {
-  var queryString = " SELECT s.Fund_ID Fund_ID, Fund_Name, Min_Invest, Mgmt_Fee, Perf_Fee, COALESCE(Year,0) Year, ";
+  var queryString = " SELECT s.Fund_ID Fund_ID, Fund_Name, Min_Invest, Mgmt_Fee, Perf_Fee, Clicks, COALESCE(Year,0) Year, ";
       queryString += " COALESCE(Month,0) Month, COALESCE(Month_Return,0) Month_Return, COALESCE(fd.Assets,0) Month_Assets FROM ";
       queryString += " Saved_Fund_Table s JOIN Fund_Table f ON s.Fund_ID=f.Fund_ID ";
       queryString += " LEFT OUTER JOIN Fund_Data_Table fd ON s.Fund_ID=fd.Fund_ID ";

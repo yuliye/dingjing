@@ -68,12 +68,8 @@
 </div>
 <div class="col-sm-12 col-md-8">
   <div class="col-sm-6 col-md-6 m-t">
-    <div class="statcard statcard-primary p-a-md">
-      <h1 class="statcard-number">
-        <%= topData[8].toFixed(2)+"%" %> 
-        <small class="delta-indicator delta-positive"><%= topData[1].toFixed(2)+"%" %></small>
-      </h1>
-      <span class="statcard-desc">本年度回报＋上月回报</span>
+    <div class="statcard statcard-primary" style="background-color:transparent; padding-left:10px; padding-top:0px">
+    <% include ../partials/dj-stats.ejs %>
     </div>
   </div>
   <div class="col-sm-6 col-md-6 m-t">
@@ -98,19 +94,15 @@
     <table class="table table-mini3">
     <tbody>
       <tr>
-        <td>近12月风险</td>
-        <% if(topData[5]<0) {%>
-        <td><%= topData[5].toFixed(2)+"%" %></td>
-        <%} else {%>
-        <td><%= "0.00%" %></td>
-        <%} %>
+        <td>年化波动率</td>
+        <td><%= topData[9].toFixed(2)+"%" %></td>
       </tr>
       <tr>
         <td>夏普比率</td>
-        <td>需要公式</td>
+        <td><%= topData[10].toFixed(2) %></td>
       </tr>
       <tr>
-        <td>年复回报</td>
+        <td>均年复收益</td>
         <td><%= topData[6].toFixed(2)+"%" %></td>
       </tr>
     </tbody>
@@ -128,7 +120,7 @@
         <td><%= topData[7].toFixed(2)+"%" %></td>
       </tr>
       <tr>
-        <td>近12月回报</td>
+        <td>普标相关性</td>
         <td><%= topData[3].toFixed(2)+"%" %></td>
       </tr>
     </tbody>

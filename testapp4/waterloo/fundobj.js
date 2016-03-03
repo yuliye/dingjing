@@ -87,12 +87,39 @@ module.exports.fundObj= function(data){
     annndd[key]=100*(_.min(tmp, function(row){ return row[1];})[1]-1);
   } 
 
+//std dev
+  var stdDev = 0;
+  var sharp = 0;
+  var rdata = _.chain(data)
+        .map(function(row){return row[2];})
+        .value();
+
+if(rdata.length>1) {
+  var rsum = rdata.reduce(function(sum, value){
+    return sum + value;
+  }, 0);
+
+  var ravg = rsum/rdata.length;
+
+  var squareDiffs = rdata.map(function(value){
+    var diff = value - ravg;
+    var sqrDiff = diff * diff;
+    return sqrDiff;
+  });
+
+  var sumSquareDiffs = squareDiffs.reduce(function(sum, value){
+    return sum + value;
+  }, 0);
+
+  stdDev = Math.sqrt(sumSquareDiffs/(rdata.length-1));
+  if(stdDev>0) sharp = (ravg - 1/12)/stdDev;
+}
   //public facing function to get all the data
   //basic stats including fund id and name
   //info, last month, assets, last year return, dd and wm, caror, full_drawdown, year2date
   fundData.getbasic = function(){
     //console.log(lastm);
-    return [lastm[0],lastm[2],lastm[3],100*(_.last(mretc)[1]-1),dd,ydd,caror,fdd, y2date];
+    return [lastm[0],lastm[2],lastm[3],100*(_.last(mretc)[1]-1),dd,ydd,caror,fdd, y2date,stdDev*Math.sqrt(12),sharp*Math.sqrt(12)];
   };
 
   //last 12 month return data

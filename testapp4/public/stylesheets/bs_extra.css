@@ -15,3 +15,15 @@
     color: #cfd2da !important;
     border-color: transparent !important;
 }
+
+
+.table-djmini3 > thead > tr:first-child > td, 
+.table-djmini3 > tbody > tr:first-child > td {
+  border: none;
+  width: 50%;
+}
+
+.table-borderless tbody tr td, .table-borderless tbody tr th, .table-borderless thead tr th {
+   border: none;
+   padding-left: 0px;
+}
