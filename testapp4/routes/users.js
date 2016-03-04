@@ -289,6 +289,21 @@ router.get('/searchlist',  isLoggedIn, function(req, res) {
 });
 
 
+router.get('/usearch',  isLoggedIn, function(req, res) {
+    var type = "fdetail?fundid";
+
+    var queryString = " SELECT f.Fund_ID Fund_ID, Fund_Name, Min_Invest, Mgmt_Fee, Perf_Fee, Clicks, COALESCE(Year,0) Year, ";
+    queryString += " COALESCE(Month,0) Month, COALESCE(Month_Return,0) Month_Return, COALESCE(fd.Assets,0) Month_Assets FROM ";
+    queryString += " Fund_Table f LEFT OUTER JOIN Fund_Data_Table fd ";
+    queryString += " ON f.Fund_ID=fd.Fund_ID WHERE STR_TO_DATE(concat('01/',Month, '/', Year), '%d/%m/%Y') BETWEEN ";
+    queryString += " STR_TO_DATE( ? , '%m/%d/%Y') AND STR_TO_DATE( ? , '%m/%d/%Y') ";
+    var values = [req.query.startTime, req.query.endTime];
+    var cond = [req.query.compoundRate, req.query.drawDown, req.query.aum, req.query.minInv]
+    robot.fetchSearchList(pool, dbconfig, req, res, queryString, values, cond, 7);
+
+    //fetchData.result(pool,dbconfig , queryString, values, header, pageIndex, res, type, index);
+});
+
 /////Typeahead codes
 
 router.get('/autosearch', isLoggedIn, function (req, res){

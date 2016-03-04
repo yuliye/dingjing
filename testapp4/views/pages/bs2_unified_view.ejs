@@ -39,7 +39,7 @@
 </div>
 
 
-<form action="/users/searchlist" method="get" id="searchList">
+<form action="/users/usearch" method="get" id="usearch">
   <div class="container-fluid container-fluid-spacious">
 <div class="row form">
   <div class="form-group col-sm-4 col-md-3">
@@ -65,12 +65,12 @@
     <div class="p-t">
     <div class="col-xs-6 col-sm-6 col-md-6">
       <div class="m-b">
-        年复回报：
+        均年复收益：
       </div>
     <div class="flextable m-b">
       <div class="flextable-item">
         <select class="custom-select custom-select-sm" id="compoundRate" name="compoundRate">
-          <option selected="selected" value="-100">任何回报</option>
+          <option selected="selected" value="-1000">任何收益</option>
           <option value="50">> 50%</option>
           <option value="30">> 30%</option>
           <option value="15">> 15%</option>
@@ -88,8 +88,8 @@
       </div>
     <div class="flextable m-b">
       <div class="flextable-item">
-        <select class="custom-select custom-select-sm">
-          <option>任何回撤</option>
+        <select class="custom-select custom-select-sm" id="drawDown" name="drawDown">
+          <option selected="selected" value="1000">任何回撤</option>
           <option value="50">< 50%</option>
           <option value="30">< 30%</option>
           <option value="15">< 15%</option>
@@ -105,12 +105,12 @@
       </div>
     <div class="flextable m-b">
       <div class="flextable-item">
-        <select class="custom-select custom-select-sm">
-          <option>任何规模</option>
-          <option>> 100M</option>
-          <option>> 50M</option>
-          <option>> 25M</option>
-          <option>> 10M</option>
+        <select class="custom-select custom-select-sm" id="aum" name="aum">
+          <option selected="selected" value="-1">任何规模</option>
+          <option value="100">> 100M</option>
+          <option value="50">> 50M</option>
+          <option value="25">> 25M</option>
+          <option value="10">> 10M</option>
         </select>
       </div>
     </div>
@@ -121,13 +121,13 @@
       </div>
     <div class="flextable m-b">
       <div class="flextable-item">
-        <select class="custom-select custom-select-sm">
-          <option>任何投资</option>
-          <option>< 1M</option>
-          <option>< 500K</option>
-          <option>< 250K</option>
-          <option>< 100K</option>
-          <option>< 10K</option>
+        <select class="custom-select custom-select-sm" id="minInv" name="minInv">
+          <option selected="selected" value="1000000">任何投资</option>
+          <option value="1000"><= 1M</option>
+          <option value="500"><= 500K</option>
+          <option value="200"><= 200K</option>
+          <option value="100"><= 100K</option>
+          <option value="10"><= 10K</option>
         </select>
       </div>
     </div>

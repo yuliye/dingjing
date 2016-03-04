@@ -123,14 +123,17 @@ $(document).ready(function(){
 
 
 
-$("#searchList").submit(function(event) {
+$("#usearch").submit(function(event) {
                 event.preventDefault();
-                var formURL = $('#searchList').attr("action");
+                var formURL = $('#usearch').attr("action");
 		 
                 $.get( formURL, 
 			{startTime: $('#startTime').val(),
 			 endTime: $('#endTime').val(),
-			compoundRate: $('#compoundRate').val() }, 
+			compoundRate: $('#compoundRate').val(),
+            drawDown: $('#drawDown').val(),
+            aum: $('#aum').val(),
+            minInv: $('#minInv').val()}, 
                         function(data, status){
 	                	$('#fundlist').addClass('active').siblings().removeClass('active');
                         	$('#tablelist').html(data);

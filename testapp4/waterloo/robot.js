@@ -114,6 +114,38 @@ module.exports.fetchFundList = function (pool, dbconfig, req, res, queryString, 
   });  
 }
 
+module.exports.fetchSearchList = function (pool, dbconfig, req, res, queryString, values, cond, index){
+  pool.getConnection(function(err, connection) {
+    connection.query('USE ' + dbconfig.database);
+    connection.query(queryString, values, function(err, rows){
+    //connection.query(queryString, [3], function(err, rows){
+      if(err){
+        console.log(err);
+        //err handling
+      } else if (!rows.length){
+        console.log("no fund!");
+        rendEngine.fundlist([], res, index); 
+        //err handling
+      }
+      else{
+        var robFundList = _.chain(rows)
+                .map(function(row){ return [[row.Fund_ID,row.Fund_Name, row.Min_Invest, row.Mgmt_Fee, row.Perf_Fee, row.Clicks],(row.Month-1)+12*row.Year,row.Month_Return,row.Month_Assets]})
+                .groupBy(function(data){return data[0]})
+                .map(function(row){return helper.fundObj(row)})
+                .filter(function(row){var fobj=row.getbasic(); return fobj[6]>cond[0]&&-1*fobj[4]<cond[1]&&fobj[2]/1000000>cond[2]&&fobj[0][2]<=cond[3];})
+                .value();
+
+        //now you have a object that knows everything, need to go throw the lis 
+  //for(k in robFundList){
+  //  console.log(robFundList[k].getbasic());
+  //}
+  rendEngine.fundlist(robFundList, res, index);
+  } 
+    });
+    connection.release();
+  });  
+}
+
 module.exports.fetchOneCombo = function (pool, dbconfig, req, res, queryString, values, index){
   //always compute on the fly
   pool.getConnection(function(err, connection) {
