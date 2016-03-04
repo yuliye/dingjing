@@ -47,7 +47,11 @@
           </li>
           <li 
           >
+          <%if(!auth){ %>
             <a href="/login">登录｜注册</a>
+          <% } else { %>
+            <a href="/logout">登出</a>
+          <% } %>
           </li>
         </ul>
       </div>

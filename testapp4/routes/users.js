@@ -35,7 +35,7 @@ router.get('/', isLoggedIn, function(req, res, next) {
 
 router.get('/unified', isLoggedIn, function(req, res) {
     res.render('pages/bs2_unified_view',{
-    page: 'unified'
+    page: 'unified' ,auth:req.isAuthenticated()
   });
 });
 

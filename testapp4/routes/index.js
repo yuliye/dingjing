@@ -26,54 +26,54 @@ router.get('/trade', function(req, res) {
 
 
 router.get('/', function(req, res) {
-  res.render('pages/spage',{page:'home'});
+  res.render('pages/spage',{page:'home',auth:req.isAuthenticated()});
 });
 
 router.get('/trade', function(req, res) {
-  res.render('pages/spage',{page:'trade'});
+  res.render('pages/spage',{page:'trade',auth:req.isAuthenticated()});
 });
 
 router.get('/contact', function(req, res) {
-  res.render('pages/spage',{page:'contact'});
+  res.render('pages/spage',{page:'contact',auth:req.isAuthenticated()});
 });
 
 router.get('/smart', function(req, res) {
-  res.render('pages/spage',{page:'smart'});
+  res.render('pages/spage',{page:'smart',auth:req.isAuthenticated()});
 });
 
 router.get('/download', function(req, res) {
-  res.render('pages/spage',{page:'download'});
+  res.render('pages/spage',{page:'download',auth:req.isAuthenticated()});
 });
 
 router.get('/about', function(req, res) {
-  res.render('pages/spage',{page:'about'});
+  res.render('pages/spage',{page:'about',auth:req.isAuthenticated()});
 });
 
 router.get('/risktest', function(req, res) {
-  res.render('pages/spage',{page:'risktest'});
+  res.render('pages/spage',{page:'risktest',auth:req.isAuthenticated()});
 });
 
 router.get('/privacy', function(req, res) {
-  res.render('pages/spage',{page:'privacy'});
+  res.render('pages/spage',{page:'privacy',auth:req.isAuthenticated()});
 });
 
 router.get('/fund', function(req, res) {
-  res.render('pages/spage',{page:'fund'});
+  res.render('pages/spage',{page:'fund',auth:req.isAuthenticated()});
 });
 
 router.get('/join', function(req, res) {
-  res.render('pages/spage',{page:'join'});
+  res.render('pages/spage',{page:'join',auth:req.isAuthenticated()});
 });
 
 router.get('/help', function(req, res) {
-  res.render('pages/spage',{page:'help'});
+  res.render('pages/spage',{page:'help',auth:req.isAuthenticated()});
 });
 
 router.get('/cta_login', function(req, res) {
   res.render('pages/cta_login', { 
     message: req.flash('loginMessage'),
     index: 0,
-    page: 'login' });
+    page: 'login' ,auth:req.isAuthenticated()});
 });
 
 router.post('/cta_login', passport.authenticate('local-login', {
@@ -94,7 +94,7 @@ router.get('/login', function(req, res) {
   res.render('pages/tw_login', { 
     message: req.flash('loginMessage'),
     index: 0,
-    page: 'login' });
+    page: 'login' ,auth:req.isAuthenticated()});
 });
 
 router.post('/login', passport.authenticate('local-login', {
@@ -120,7 +120,7 @@ router.get('/reg1', function(req, res) {
     cellphone: cellphone,
     message: req.flash('signupMessage'),
     index: 0,
-    page: 'login' 
+    page: 'login' ,auth:req.isAuthenticated()
   });
 });
 
@@ -131,7 +131,7 @@ router.get('/reg2',function(req, res) {
       code: req.query.code,
       message: req.flash('signupMessage'),
       index: 0,
-      page: 'login' 
+      page: 'login' ,auth:req.isAuthenticated()
     });
   }
   else if (req.query.state==='0'){
@@ -141,7 +141,7 @@ router.get('/reg2',function(req, res) {
       code: "",
       message: req.flash('signupMessage'),
       index: 0,
-      page: 'login' 
+      page: 'login' ,auth:req.isAuthenticated()
     });
   }
   else{
@@ -220,7 +220,7 @@ router.get('/reg2',function(req, res) {
                       code: "",
                       message: req.flash('signupMessage'),
                       index: 0,
-                      page: 'login' 
+                      page: 'login' ,auth:req.isAuthenticated()
                     });
                   }
                 });
@@ -237,7 +237,7 @@ router.get('/reg2',function(req, res) {
                       code: "",
                       message: req.flash('signupMessage'),
                       index: 0,
-                      page: 'login' 
+                      page: 'login' ,auth:req.isAuthenticated()
                     });
                   }
                 });
@@ -287,7 +287,7 @@ router.get('/cta_reg1', function(req, res) {
     cellphone: cellphone,
     message: req.flash('signupMessage'),
     index: 0,
-    page: 'login' 
+    page: 'login' ,auth:req.isAuthenticated()
   });
 });
 
@@ -298,7 +298,7 @@ router.get('/cta_reg2',function(req, res) {
       code: req.query.code,
       message: req.flash('signupMessage'),
       index: 0,
-      page: 'login' 
+      page: 'login' ,auth:req.isAuthenticated()
     });
   }
   else if (req.query.state==='0'){
@@ -308,7 +308,7 @@ router.get('/cta_reg2',function(req, res) {
       code: "",
       message: req.flash('signupMessage'),
       index: 0,
-      page: 'login' 
+      page: 'login' ,auth:req.isAuthenticated()
     });
   }
   else{
@@ -387,7 +387,7 @@ router.get('/cta_reg2',function(req, res) {
                       code: "",
                       message: req.flash('signupMessage'),
                       index: 0,
-                      page: 'login' 
+                      page: 'login' ,auth:req.isAuthenticated()
                     });
                   }
                 });
@@ -404,7 +404,7 @@ router.get('/cta_reg2',function(req, res) {
                       code: "",
                       message: req.flash('signupMessage'),
                       index: 0,
-                      page: 'login' 
+                      page: 'login' ,auth:req.isAuthenticated()
                     });
                   }
                 });
@@ -455,7 +455,7 @@ router.post('/risktest', function(req, res) {
   if(id=='1'){
     res.render('pages/stest',{pageid:id,
                               page:'risktest',
-                              f1:req.body["opt1"]});
+                              f1:req.body["opt1"],auth:req.isAuthenticated()});
   } else if (id=='2'){
     //console.log(id);
     //console.log(req.body["f1"]);
@@ -463,7 +463,7 @@ router.post('/risktest', function(req, res) {
     res.render('pages/stest',{pageid:id,
                             page:'risktest',
                             f1:req.body["f1"],
-                            f2:req.body["opt2"]});
+                            f2:req.body["opt2"],auth:req.isAuthenticated()});
   } else if (id=='3'){
     //console.log(id);
     //console.log(req.body["f1"]);
@@ -473,14 +473,14 @@ router.post('/risktest', function(req, res) {
                             page:'risktest',
                             f1:req.body["f1"],
                             f2:req.body["f2"],
-                            f3:req.body["opt3"]});
+                            f3:req.body["opt3"],auth:req.isAuthenticated()});
   } else if (id=='4'){    
     res.render('pages/stest',{pageid:id,
                             page:'risktest',
                             f1:req.body["f1"],
                             f2:req.body["f2"],
                             f3:req.body["f3"],
-                            f4:req.body["opt4"]});
+                            f4:req.body["opt4"],auth:req.isAuthenticated()});
   } else if (id=='5'){
     res.render('pages/stest',{pageid:id,
                             page:'risktest',
@@ -488,7 +488,7 @@ router.post('/risktest', function(req, res) {
                             f2:req.body["f2"],
                             f3:req.body["f3"],
                             f4:req.body["f4"],
-                            f5:req.body["opt5"]});
+                            f5:req.body["opt5"],auth:req.isAuthenticated()});
   } else if (id=='6') {
     res.render('pages/stest',{pageid:id,
                             page:'risktest',
@@ -497,7 +497,7 @@ router.post('/risktest', function(req, res) {
                             f3:req.body["f3"],
                             f4:req.body["f4"],
                             f5:req.body["f5"],
-                            f6:req.body["opt6"]});
+                            f6:req.body["opt6"],auth:req.isAuthenticated()});
   }
 
 });
@@ -508,7 +508,7 @@ router.get('/public/:name?', function(req, res) {
 });
 
 router.get('/:name?', function(req, res) {
-  res.render('pages/spage',{page:req.params.name});
+  res.render('pages/spage',{page:req.params.name,auth:req.isAuthenticated()});
 });
 
 return router;

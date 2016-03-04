@@ -116,7 +116,7 @@ module.exports.fundd = function(fundata, res, hasSaved, comboname, index){
                         index : index,
                         showSave: hasSaved,
                         combo: comboname,
-                        page: 'unified'
+                        page: 'unified' ,auth:true
                 });
 
 }
@@ -217,7 +217,7 @@ module.exports.combod = function(fundata, res, comFunData, bstat, index){
                         comFunData: comFunData,
                         bstat: bstat,
                         pie: pie,
-                        page: 'unified'
+                        page: 'unified' ,auth:true
                 });
 
 }
