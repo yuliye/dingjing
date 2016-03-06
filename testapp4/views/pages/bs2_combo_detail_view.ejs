@@ -11,7 +11,10 @@
   <% include ../partials/smenu2.ejs %>  
 <div class="row">
   <div class="container-fluid container-fluid-spacious col-md-12 p-r-md">
-<form action="/users/text" method="get" class="form-inline navbar-form navbar-right m-t m-l">
+    <div class="m-t m-l col-md-4 col-sm-12 col-xs-12">
+  <a href="unified" class="icon icon-home" style="font-size:18px"> 专户理财 </a>：<%= topData[0][1] %>
+  </div>
+<form action="/users/text" method="get" class="form-inline navbar-form navbar-right m-t m-l col-md-8 col-sm-12 col-xs-12">
           <div class="input-with-icon" id="prefetch">
             <input class="typeahead form-control" type="text" name="fundname" placeholder="搜索基金...">
             <span class="icon icon-magnifying-glass"></span>

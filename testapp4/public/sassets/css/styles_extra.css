@@ -402,6 +402,10 @@ small {
 
 .dj-spacer { margin:0; padding:0; height:50px; }
 
+.dj-email{
+  color: white;
+}
+
 .error {
   color: white !important;
 }
