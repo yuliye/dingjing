@@ -4,7 +4,7 @@ var formatTool = require("./format.js");
 var header = ['基金名',
               '上月回报',
               '年至今回报',
-              '均年复收益',
+              '平均年化收益率',
               '最大回撤',
               '资产规模',
               '最低投资',

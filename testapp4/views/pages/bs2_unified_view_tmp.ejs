@@ -31,7 +31,6 @@
   </div>
 </div>
 </div>
-
 <div class="container-fluid container-fluid-spacious col-sm-5 col-md-5 p-t-md">
 <ul class="nav nav-pills p-y">
   <li class="m-l-md dj-menu active" id="fundlist"><a href="#">基金列表</a></li>
@@ -47,44 +46,10 @@
   收藏基金
   </button>
     <button class="btn btn-primary btn m-l m-t" type="button" data-toggle="modal" data-target="#comboModal" data-backdrop="static" data-keyboard="false">
-  <span class="icon icon-squared-plus"></span>
-  加入组合
+  <span class="icon icon-lab-flask"></span>
+  产生组合
 </button>
 </form>
-
-
-<div class="modal" id="comboModal">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-    <form action="abc" method="get" class="comboForm" onsubmit="return checkForm(this);">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-center">加入组合</h4>
-      </div>
-      <div class="modal-body row">
-      <div class="col-xs-6 col-sm-6 col-md-6">
-        <select class="custom-select" name="thelist" onChange="combo(this, 'comboname')" onMouseOut="comboInit(this, 'comboname')">
-          <option>新组合</option>
-          <% combo.forEach(function(row) { %>
-          <option><%= row %></option>
-          <% }); %>
-        </select>
-        </div>
-        <div class="col-xs-6 col-sm-6 col-md-6">
-        <input type="text" class="form-control" id="comboname" name="comboname" placeholder="组合名">
-        </div>
-      </div>
-      <div class="modal-actions">
-        <button type="button" class="btn-link modal-action" data-dismiss="modal">取消</button>
-        <button type="button submit" class="btn-link modal-action comboButton">
-          <strong>添加</strong>
-        </button>
-      </div>
-    </form>
-    </div>
-  </div>
-</div>
-
 
   </div>
 
@@ -94,20 +59,86 @@
 <form action="/users/usearch" method="get" id="usearch">
   <div class="container-fluid container-fluid-spacious">
 <div class="row form">
-  <div class="form-group col-sm-4 col-md-4">
+  <div class="form-group col-sm-3 col-md-3">
+  
     <div class="hr-divider m-t">
       <h3 class="hr-divider-content hr-divider-heading">时间条件</h3>
     </div>
 
-    <div class="p-a">
-    <div class="btn-toolbar-item input-with-icon m-b m-r bringup">
-      <input type="text" class="form-control" id="startTime" data-provide="datepicker" placeholder="起始日期" name="startTime">
-      <span class="icon icon-calendar"></span>
+    <div class="p-y">
+
+<div class="bringup col-xs-6 col-sm-6 col-md-6">
+    <div class="flextable m-b">
+      <div class="flextable-item">
+        <select class="custom-select custom-select-sm" id="compoundRate" name="compoundRate">
+          <option selected="selected" value="-1000">2016年</option>
+          <option value="50">2015年</option>
+          <option value="30">2014年</option>
+          <option value="15">2013年</option>
+          <option value="10">2012年</option>
+          <option value="5">2011年</option>
+          <option value="0">2010年</option>
+        </select>
+      </div>
+    </div>
     </div>
 
-    <div class="btn-toolbar-item input-with-icon m-b m-r bringup">
-      <input type="text" class="form-control" id="endTime" data-provide="datepicker" placeholder="结束日期" name="endTime">
-      <span class="icon icon-calendar"></span>
+<div class="bringup col-xs-6 col-sm-6 col-md-6">
+    <div class="flextable m-b">
+      <div class="flextable-item">
+        <select class="custom-select custom-select-sm" id="compoundRate" name="compoundRate">
+          <option selected="selected" value="-1000">1月</option>
+          <option value="50">2月</option>
+          <option value="30">3月</option>
+          <option value="15">4月</option>
+          <option value="10">5月</option>
+          <option value="5">6月</option>
+          <option value="0">7月</option>
+          <option value="50">8月</option>
+          <option value="30">9月</option>
+          <option value="15">10月</option>
+          <option value="10">11月</option>
+          <option value="5">12月</option>
+        </select>
+      </div>
+    </div>
+    </div>
+
+<div class="bringup col-xs-6 col-sm-6 col-md-6">
+    <div class="flextable m-b">
+      <div class="flextable-item">
+        <select class="custom-select custom-select-sm" id="compoundRate" name="compoundRate">
+          <option selected="selected" value="-1000">2016年</option>
+          <option value="50">2015年</option>
+          <option value="30">2014年</option>
+          <option value="15">2013年</option>
+          <option value="10">2012年</option>
+          <option value="5">2011年</option>
+          <option value="0">2010年</option>
+        </select>
+      </div>
+    </div>
+    </div>
+
+<div class="bringup col-xs-6 col-sm-6 col-md-6">
+    <div class="flextable m-b">
+      <div class="flextable-item">
+        <select class="custom-select custom-select-sm" id="compoundRate" name="compoundRate">
+          <option selected="selected" value="-1000">1月</option>
+          <option value="50">2月</option>
+          <option value="30">3月</option>
+          <option value="15">4月</option>
+          <option value="10">5月</option>
+          <option value="5">6月</option>
+          <option value="0">7月</option>
+          <option value="50">8月</option>
+          <option value="30">9月</option>
+          <option value="15">10月</option>
+          <option value="10">11月</option>
+          <option value="5">12月</option>
+        </select>
+      </div>
+    </div>
     </div>
   </div>
 
@@ -115,13 +146,13 @@
       <h3 class="hr-divider-content hr-divider-heading">属性条件</h3>
   </div>
     <div class="p-t">
-    <div class="bringup col-xs-6 col-sm-6 col-md-6">
+    <div class="bringup col-xs-12 col-sm-12 col-md-12">
       <div class="m-b">
         平均年化收益率：
       </div>
     <div class="flextable m-b">
       <div class="flextable-item">
-        <select class="custom-select custom-select-sm" id="compoundRate" name="compoundRate" style="width: 83%">
+        <select class="custom-select custom-select-sm" id="compoundRate" name="compoundRate">
           <option selected="selected" value="-1000">任何收益</option>
           <option value="50">> 50%</option>
           <option value="30">> 30%</option>
@@ -134,13 +165,13 @@
       </div>
     </div>
     </div>
-    <div class="bringup col-xs-6 col-sm-6 col-md-6">
+    <div class="bringup col-xs-12 col-sm-12 col-md-12">
       <div class="m-b">
         最大回撤：
       </div>
     <div class="flextable m-b">
       <div class="flextable-item">
-        <select class="custom-select custom-select-sm" id="drawDown" name="drawDown" style="width: 83%">
+        <select class="custom-select custom-select-sm" id="drawDown" name="drawDown">
           <option selected="selected" value="1000">任何回撤</option>
           <option value="50">< 50%</option>
           <option value="30">< 30%</option>
@@ -151,13 +182,13 @@
       </div>
     </div>
     </div>
-    <div class="bringup col-xs-6 col-sm-6 col-md-6">
+    <div class="bringup col-xs-12 col-sm-12 col-md-12">
       <div class="m-b">
         资产规模：
       </div>
     <div class="flextable m-b">
       <div class="flextable-item">
-        <select class="custom-select custom-select-sm" id="aum" name="aum" style="width: 83%">
+        <select class="custom-select custom-select-sm" id="aum" name="aum">
           <option selected="selected" value="-1">任何规模</option>
           <option value="100">> 1亿美元</option>
           <option value="50">> 5千万美元</option>
@@ -167,13 +198,13 @@
       </div>
     </div>
     </div>
-    <div class="bringup col-xs-6 col-sm-6 col-md-6">
+    <div class="bringup col-xs-12 col-sm-12 col-md-12">
       <div class="m-b">
         最低投资：
       </div>
     <div class="flextable m-b">
       <div class="flextable-item">
-        <select class="custom-select custom-select-sm" id="minInv" name="minInv" style="width: 83%">
+        <select class="custom-select custom-select-sm" id="minInv" name="minInv">
           <option selected="selected" value="1000000">任何投资</option>
           <option value="1000"><= 1百万美元</option>
           <option value="500"><= 50万美元</option>
@@ -186,15 +217,12 @@
     </div>
     </div>
 
-      <div class="form-group col-xs-6 col-sm-6 col-md-6 m-t-md bringup">
+      <div class="form-group col-xs-12 col-sm-12 col-md-12 m-t-md bringup">
       <button type="button submit" class="btn btn-lg btn-primary">立即搜索</button>
-  </div>
-        <div class="form-group col-xs-6 col-sm-6 col-md-6 m-t-md bringup">
-      <button type="button submit" class="btn btn-lg btn-primary">重置选项</button>
   </div>
   </div>
 
-    <div class="container-fluid container-fluid-spacious col-sm-8 col-md-8 text-center m-t">
+    <div class="container-fluid container-fluid-spacious col-sm-9 col-md-9 text-center m-t">
 	<div id="tablelist">
 	</div>
 
@@ -205,27 +233,5 @@
 </form>
 <!--% include ../partials/sfooter1.ejs % -->
   <% include ../partials/bs_foot.ejs %>
-  <script type="text/javascript">
-function comboInit(thelist)
-{
-  comboname = document.getElementById(comboname); 
-  var idx = thelist.selectedIndex;
-  var content = thelist.options[idx].innerHTML;
-  if(idx == 0)
-    content = "";
-  if(comboname.value == ""){
-    comboname.value = content;
-  }
-}
-function combo(thelist, comboname)
-{
-  comboname = document.getElementById(comboname);  
-  var idx = thelist.selectedIndex;
-  var content = thelist.options[idx].innerHTML;
-  if(idx == 0)
-    content = "";
-  comboname.value = content;
-}
-</script>
   </body>
 </html>

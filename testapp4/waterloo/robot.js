@@ -236,6 +236,7 @@ module.exports.fetchFundName = function (pool, dbconfig, req, res, queryString){
                 res.end(JSON.stringify(names) );
       }
     });
+    connection.release();
   });
 }
 

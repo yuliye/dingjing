@@ -34,9 +34,24 @@ router.get('/', isLoggedIn, function(req, res, next) {
 });
 
 router.get('/unified', isLoggedIn, function(req, res) {
-    res.render('pages/bs2_unified_view',{
-    page: 'unified' ,auth:req.isAuthenticated()
-  });
+  pool.getConnection(function(err, connection) {
+      connection.query('USE ' + dbconfig.database);
+      var comboname = [];    
+      connection.query("SELECT Combo_Name FROM Combo_Table Where User_ID = ?", [req.user.User_ID], function(err,rows){
+        if(err){
+          //error handling
+        }
+        else {
+            for(i=0;i<rows.length;i++)
+            comboname.push(rows[i].Combo_Name);
+            res.render('pages/bs2_unified_view',{
+                page: 'unified' ,auth:req.isAuthenticated(),
+                combo: comboname
+            });
+        }
+      });
+      connection.release();
+  }); 
 });
 
 router.get('/searchfun',  isLoggedIn, function(req, res) {

@@ -12,7 +12,7 @@
 <div class="row">
   <div class="container-fluid container-fluid-spacious col-md-12 p-r-md">
     <div class="m-t m-l col-md-4 col-sm-12 col-xs-12">
-  <a href="unified" class="icon icon-home" style="font-size:18px"> 专户理财 </a>：<%= topData[0][1] %>
+  <a href="unified" class="icon icon-home" style="font-size:22px; font-weight:900;"> 专户理财</a>
   </div>
 <form action="/users/text" method="get" class="form-inline navbar-form navbar-right m-t m-l col-md-8 col-sm-12 col-xs-12">
           <div class="input-with-icon" id="prefetch">
@@ -29,7 +29,7 @@
 
 
   <div class="dashhead-titles p-x p-b">
-    <h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6>
+    <!--h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6-->
     <h2 class="dashhead-title"><%= topData[0][1] %></h2>
   </div>
 
@@ -80,7 +80,7 @@
     <tbody>
       <tr>
         <td>最低投资</td>
-        <td><%= "$"+bstat[3]+"K" %></td>
+        <td><%= bstat[3]/10+"万美元" %></td>
       </tr>
       <tr>
         <td>管理费用</td>
@@ -105,7 +105,7 @@
         <td><%= topData[10].toFixed(2) %></td>
       </tr>
       <tr>
-        <td>均年复收益</td>
+        <td>平均年化收益率</td>
         <td><%= topData[6].toFixed(2)+"%" %></td>
       </tr>
     </tbody>
@@ -116,7 +116,7 @@
     <tbody>
       <tr>
         <td>资产规模</td>
-        <td><%= "$"+(topData[2]/1000000).toFixed(1)+"M" %></td>
+        <td><%= (topData[2]/10000).toFixed(0)+"万美元" %></td>
       </tr>
       <tr>
         <td>最大回撤</td>
