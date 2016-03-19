@@ -41,12 +41,16 @@
 </div>
 
   <div class="container-fluid container-fluid-spacious col-sm-3 col-md-3 p-t-md text-right p-r-md">
-  <form action="bulksave" method="get" class="saveForm">
-    <button class="btn btn-primary btn m-l m-t saveButton" type="button submit">
+  <form action="bulksave" method="POST" class="saveForm" id="tosavefund">
+    <button class="btn btn-primary btn m-l m-t saveButton" type="button submit" id="tosavefundbut">
   <span class="icon icon-heart"></span>
   收藏基金
   </button>
-    <button class="btn btn-primary btn m-l m-t" type="button" data-toggle="modal" data-target="#comboModal" data-backdrop="static" data-keyboard="false">
+  <button class="btn btn-primary btn m-l m-t saveButton" type="button" id="deletefundbut" style="display:none;">
+  <span class="icon icon-heart"></span>
+   取消基金
+  </button>
+  <button class="btn btn-primary btn m-l m-t" type="button" data-toggle="modal" data-target="#comboModal" data-backdrop="static" data-keyboard="false" id="addtocombo">
   <span class="icon icon-squared-plus"></span>
   加入组合
 </button>
@@ -96,14 +100,14 @@
       <h3 class="hr-divider-content hr-divider-heading">时间条件</h3>
     </div>
 
-    <div class="p-a">
-    <div class="btn-toolbar-item input-with-icon m-b m-r bringup">
-      <input type="text" class="form-control" id="startTime" data-provide="datepicker" placeholder="起始日期" name="startTime">
+    <div class="p-a" >
+    <div class="btn-toolbar-item input-with-icon m-b m-r bringup" >
+  <input type="text"  class="form-control" data-provide="datepicker" placeholder="起始日期" name="startTime" id="startTime" >
       <span class="icon icon-calendar"></span>
     </div>
 
     <div class="btn-toolbar-item input-with-icon m-b m-r bringup">
-      <input type="text" class="form-control" id="endTime" data-provide="datepicker" placeholder="结束日期" name="endTime">
+      <input type="text"  class="form-control" id="endTime" data-provide="datepicker" placeholder="结束日期" name="endTime">
       <span class="icon icon-calendar"></span>
     </div>
   </div>
@@ -187,7 +191,7 @@
       <button type="button submit" class="btn btn-lg btn-primary">立即搜索</button>
   </div>
         <div class="form-group col-xs-6 col-sm-6 col-md-6 m-t-md bringup">
-      <button type="button submit" class="btn btn-lg btn-primary">重置选项</button>
+      <button type="button" class="btn btn-lg btn-primary" id="resetSelectItem" >重置选项</button>
   </div>
   </div>
 

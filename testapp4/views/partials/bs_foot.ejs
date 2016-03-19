@@ -60,10 +60,14 @@ $(document).ready(function(){
      $.ajax({ url: '/users/flist',
            success: function(response){
               $('#tablelist').html(response);
-	      $('#example').tablesorter( );
-		var sorting = [[1,0]]; 
+	      $('#example').tablesorter(  {headers: { 0 : {sorter: false} } } );
+	      var sorting = [[1,0]]; 
               $("#example").trigger("sorton",[sorting]); 
-	      
+	      $('#selectAll').bind('click',function() {
+			$(this).is(":checked")? $('.select-row').prop("checked", true) : 
+        		   $('.select-row').prop("checked", false);
+    		});
+	      $("#deletefundbut").hide();
 	      loadPage();
            }
         });
@@ -75,9 +79,20 @@ $(document).ready(function(){
 		success: function(response){
 		        $('#mycollection').addClass('active').siblings().removeClass('active');	
 			$('#tablelist').html(response);
- 			$('#example').tablesorter();
+ 			$('#example').tablesorter( {headers: { 0 : {sorter: false} } }  );
  			var sorting = [[1,0]];
  			$("#example").trigger("sorton",[sorting]);
+			$('#selectAll').bind('click',function() {
+                        $(this).is(":checked")? $('.select-row').prop("checked", true) :
+                           $('.select-row').prop("checked", false);
+                });
+			//$("#tosavefundbut").disabled=true;
+    		 	//document.getElementById("tosavefundbut").disabled=true;
+			 $("#tosavefundbut").hide();
+			 $("#deletefundbut").show();
+			 document.getElementById("addtocombo").disabled=false;
+			document.getElementById("deletefundbut").disabled=false;
+
  			loadPage();
 
            		} 
@@ -93,9 +108,17 @@ $(document).ready(function(){
                 success: function(response){
                         $('#fundlist').addClass('active').siblings().removeClass('active');
                         $('#tablelist').html(response);
-                        $('#example').tablesorter();
+                        $('#example').tablesorter( {headers: { 0 : {sorter: false} } } );
                         var sorting = [[1,0]];
                         $("#example").trigger("sorton",[sorting]);
+			$('#selectAll').bind('click',function() {
+                        $(this).is(":checked")? $('.select-row').prop("checked", true) :
+                           $('.select-row').prop("checked", false);
+                });
+			document.getElementById("tosavefundbut").disabled=false;
+			document.getElementById("addtocombo").disabled=false;
+			$("#tosavefundbut").show();
+                        $("#deletefundbut").hide();
                         loadPage();
 
                         }
@@ -110,9 +133,18 @@ $(document).ready(function(){
                 success: function(response){
                         $('#mycombolist').addClass('active').siblings().removeClass('active');
                         $('#tablelist').html(response);
-                        $('#example').tablesorter();
+                        $('#example').tablesorter(  {headers: { 0 : {sorter: false} } } );
                         var sorting = [[1,0]];
                         $("#example").trigger("sorton",[sorting]);
+			$('#selectAll').bind('click',function() {
+       		                 $(this).is(":checked")? $('.select-row').prop("checked", true) :
+               		            $('.select-row').prop("checked", false);
+	                });
+
+			document.getElementById("tosavefundbut").disabled=true;
+			document.getElementById("addtocombo").disabled=true;
+			document.getElementById("deletefundbut").disabled=true;
+
                         loadPage();
 
                         }
@@ -126,10 +158,11 @@ $(document).ready(function(){
 $("#usearch").submit(function(event) {
                 event.preventDefault();
                 var formURL = $('#usearch').attr("action");
-		 
+		var sTime = $('#startTime').val()=="" ? "01/01/1971" : $('#startTime').val();
+		var eTime = $('#endTime').val()=="" ? "12/31/2999" : $('#endTime').val(); 
                 $.get( formURL, 
-			{startTime: $('#startTime').val(),
-			 endTime: $('#endTime').val(),
+			{startTime: sTime,
+			 endTime: eTime,
 			compoundRate: $('#compoundRate').val(),
             drawDown: $('#drawDown').val(),
             aum: $('#aum').val(),
@@ -137,17 +170,78 @@ $("#usearch").submit(function(event) {
                         function(data, status){
 	                	$('#fundlist').addClass('active').siblings().removeClass('active');
                         	$('#tablelist').html(data);
-                        	$('#example').tablesorter();
+                        	$('#example').tablesorter(  {headers: { 0 : {sorter: false} } } );
                         	var sorting = [[1,0]];
                         	$("#example").trigger("sorton",[sorting]);
+				$('#selectAll').bind('click',function() {
+                        		$(this).is(":checked")? $('.select-row').prop("checked", true) :
+                           		$('.select-row').prop("checked", false);
+                		});
                         	loadPage();
                 	} );
                 });
 
 
+$('#tosavefund').submit(function(event){
+		event.preventDefault();
+		var fID = [];
+		$('#tablelist').find("tr").each( function(){
+	            if(	$(this).find("td > input").is(":checked") ) 	
+			 fID.push( $(this).find("td > a ").prop('href').split('=')[1]  );
+		});
+
+		var fundlistData = {
+			'fundID' : fID 
+		};
+
+                $.ajax({
+                	type: "POST",
+                	url: '/users/bulksave',
+			data: fundlistData,
+                }).done( function (data ) {
+			//alert("已经成功收藏基金,谢谢!");			
+			$('#mycollection').trigger('click');	
+		});
+
+        });
+
+
+$("#deletefundbut").click(function(event){
+                var fID = [];
+                $('#tablelist').find("tr").each( function(){
+                    if( $(this).find("td > input").is(":checked") )
+                         fID.push( $(this).find("td > a ").prop('href').split('=')[1]  );
+                });
+
+                var fundlistData = {
+                        'fundID' : fID
+                };
+
+                $.ajax({
+                        type: "POST",
+                        url: '/users/bulkdel',
+                        data: fundlistData,
+                }).done( function (data ) {
+			$('#mycollection').trigger('click');
+                });
+
+        });
+
+
+
+$("#resetSelectItem").click(function(){
+        $("select#compoundRate").val('-1000');
+	$("select#drawDown").val('1000');
+	$("select#aum").val('-1');
+	$("select#minInv").val('1000000');
+	//$("input#stime").attr('placeholder', '起始日期').blur();
+	$("input#startTime").val("");
+	$("input#endTime").val( "");
+});
+
 function  loadPage() {
     var currentPage = 0;
-    var numPerPage = 10;
+    var numPerPage = 3;
     var $table = $('table.paginated');
    $table.bind('sortPaginate', function(){
          $table.find('tbody tr').hide().slice(0, numPerPage).show();
@@ -191,6 +285,7 @@ function  loadPage() {
         }, function(event) {
             var $currAct = $pager.find('span.active');
             currentPage = $currAct.html();
+            if(currentPage>1) $currAct.removeClass('active').prev().addClass('active');
             if(currentPage>1) $currAct.removeClass('active').prev().addClass('active');
             currentPage = ( currentPage > 1 ? currentPage - 2 : currentPage - 1 );
 
@@ -241,6 +336,8 @@ function  loadPage() {
        $pager.insertAfter($table).find('span.page-number:first').addClass('active');
        if( numPages>5 )       $('span.page-number').slice(5,numPages).hide();
    }
+
+   
 
 
 });

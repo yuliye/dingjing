@@ -496,6 +496,67 @@ router.get('/slist', isLoggedIn, function(req, res) {
   robot.fetchFundList(pool, dbconfig, req, res, queryString, values, 2);
 });
 
+router.post('/bulksave',  isLoggedIn, function(req, res) {
+	var userID = req.user.User_ID;
+	var saveItem = req.body.fundID;
+	var itemValue = [];
+	saveItem.forEach( function( item ){  var eachItem = [userID, item]; itemValue.push(eachItem);     });
+	
+	 pool.getConnection(function(err, connection) {
+        if(err){
+          //err handling
+        }
+        else {
+          connection.query('USE ' + dbconfig.database);
+          connection.query('INSERT IGNORE INTO Saved_Fund_Table ( User_ID, Fund_ID ) VALUES ?', [itemValue] , function(err,rows){
+            if(err){
+              //err handling
+            }
+            else if(rows.length == 0 ){
+		res.end();
+            }
+            else {
+              //err handling
+              res.end();
+            }
+          });
+        }
+        connection.release();
+    });
+
+});
+
+router.post('/bulkdel',  isLoggedIn, function(req, res) {
+        var userID = req.user.User_ID;
+        var saveItem = req.body.fundID;
+        var itemValue = [];
+        saveItem.forEach( function( item ){  var eachItem = [userID, item]; itemValue.push(eachItem);     });
+
+        pool.getConnection(function(err, connection) {
+        if(err){
+          //err handling
+        }
+        else {
+          connection.query('USE ' + dbconfig.database);
+          connection.query('DELETE FROM Saved_Fund_Table WHERE (User_ID, Fund_ID) IN (?)', [itemValue] , function(err,rows){
+            if(err){
+              //err handling
+            }
+            else if(rows.length == 0 ){
+                res.end();
+            }
+            else {
+              //err handling
+              res.end();
+            }
+          });
+        }
+        connection.release();
+    });
+
+});
+
+
 return router;
 };
 
