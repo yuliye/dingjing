@@ -410,3 +410,6 @@ small {
   color: white !important;
 }
 
+.nav li> a:focus {
+  outline: none !important;
+}

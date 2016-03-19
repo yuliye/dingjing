@@ -2304,7 +2304,7 @@ select {
 }
 .modal.modal-login .form-group.email:before,
 .modal.modal-signup .form-group.email:before {
-  content: "\f007";
+  content: "\f10b";
   font-family: FontAwesome;
   font-style: normal;
   font-weight: normal;

@@ -361,6 +361,28 @@ router.get('/home', isLoggedIn, function(req, res) {
   res.redirect('/users/unified');
 });
 
+router.get('/cta_home', isLoggedIn, function(req, res) {
+  console.log(req.user.First_Name);
+  if(req.user.Fund_Manager==1) {
+
+    // get a list of managed fund
+    // get fund manager detail table
+    // pass it to render
+
+    res.render('pages/bs_cta_home_view',{
+      auth:req.isAuthenticated(),
+      page:'login'
+    });
+  }
+  else res.redirect('/users/unified');
+  /*var queryString = "SELECT Fund_ID, Fund_Name, Last_Month_Return, Annual_Return,Assets FROM Fund_Table";
+  var type = "detail?fundid";
+  var values = [];
+  var index = 7;
+  fetchData.result(pool,dbconfig , queryString,values, header, pageIndex, res, type, index); */
+  //res.redirect('/users/unified');
+});
+
 router.get('/compute', isLoggedIn, function(req, res) {
   //only super user can run this
   if(req.user.User_ID==8){

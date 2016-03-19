@@ -77,7 +77,7 @@ router.get('/cta_login', function(req, res) {
 });
 
 router.post('/cta_login', passport.authenticate('local-login', {
-            successRedirect : '/users/home', // redirect to the secure profile section
+            successRedirect : '/users/cta_home', // redirect to the secure profile section
             failureRedirect : '/cta_login', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
     }),

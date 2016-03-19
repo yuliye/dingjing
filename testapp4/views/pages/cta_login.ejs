@@ -9,19 +9,19 @@
 </head>
 
 <body class="with-top-navbar djx-container">
-  <% include ../partials/smenu2.ejs %>  
+  <% include ../partials/smenu4.ejs %>  
   <div class="container-fluid container-fluid-spacious">
     <div class="dashhead m-t-md">
       <div class="dashhead-titles">
-      <h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6>
-      <h2 class="dashhead-title">CTA Login</h2>
+      <!--h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6-->
+      <h2 class="dashhead-title p-t-lg">CTA Fund Manager Portal</h2>
       </div>
     </div>
       <div class="hr-divider m-t">
       <h3 class="hr-divider-content hr-divider-heading"></h3>
     </div>
     <div class="dj-container">
-    <form action="/login" method="post">
+    <form action="/cta_login" method="post">
     <div class="p-a">
       <% if (message.length > 0) { %>
         <div class="alert alert-danger"><%= message %></div>
