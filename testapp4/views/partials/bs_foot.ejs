@@ -241,7 +241,7 @@ $("#resetSelectItem").click(function(){
 
 function  loadPage() {
     var currentPage = 0;
-    var numPerPage = 3;
+    var numPerPage = 8;
     var $table = $('table.paginated');
    $table.bind('sortPaginate', function(){
          $table.find('tbody tr').hide().slice(0, numPerPage).show();
