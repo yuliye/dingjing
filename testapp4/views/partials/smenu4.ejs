@@ -14,6 +14,27 @@
       <div id="navbar" class="navbar-collapse collapse navbar-right">
         <ul class="nav navbar-nav">
           <li 
+          <%if(page=='home'){ %>
+          class="active"
+          <% } %>
+          >
+            <a href="/cta_home">Home</a>
+          </li>
+          <li 
+          <%if(page=='update'){ %>
+          class="active"
+          <% } %>
+          >
+            <a href="/cta_home">Update Information</a>
+          </li>
+          <li 
+          <%if(page=='enter'){ %>
+          class="active"
+          <% } %>
+          >
+            <a href="/cta_home">Data Entry</a>
+          </li>
+          <li 
           <%if(page=='login'){ %>
           class="active"
           <% } %>

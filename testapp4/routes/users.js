@@ -372,7 +372,7 @@ router.get('/cta_home', isLoggedIn, function(req, res) {
 
     res.render('pages/bs_cta_home_view',{
       auth:req.isAuthenticated(),
-      page:'login'
+      page:'home'
     });
   }
   else res.redirect('/users/unified');
@@ -382,6 +382,22 @@ router.get('/cta_home', isLoggedIn, function(req, res) {
   var index = 7;
   fetchData.result(pool,dbconfig , queryString,values, header, pageIndex, res, type, index); */
   //res.redirect('/users/unified');
+});
+
+router.get('/cta_home', isLoggedIn, function(req, res) {
+  console.log(req.user.First_Name);
+  if(req.user.Fund_Manager==1) {
+
+    // get a list of managed fund
+    // get fund manager detail table
+    // pass it to render
+
+    res.render('pages/bs_cta_home_view',{
+      auth:req.isAuthenticated(),
+      page:'home'
+    });
+  }
+  else res.redirect('/users/unified');
 });
 
 router.get('/compute', isLoggedIn, function(req, res) {
