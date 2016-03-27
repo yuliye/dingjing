@@ -50,6 +50,11 @@
   <span class="icon icon-heart"></span>
    取消收藏
   </button>
+   <button class="btn btn-primary btn m-l m-t" type="button"  id="deletecombo" style="display:none;">
+  <span class="icon icon-squared-plus"></span>
+   取消组合
+</button>
+
   <button class="btn btn-primary btn m-l m-t" type="button" data-toggle="modal" data-target="#comboModal" data-backdrop="static" data-keyboard="false" id="addtocombo">
   <span class="icon icon-squared-plus"></span>
   加入组合
@@ -60,7 +65,7 @@
 <div class="modal" id="comboModal">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
-    <form action="abc" method="get" class="comboForm" onsubmit="return checkForm(this);">
+    <form action="abc" method="get" class="comboForm" id="addfundtocombo">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title text-center">加入组合</h4>
@@ -68,7 +73,7 @@
       <div class="modal-body row">
       <div class="col-xs-6 col-sm-6 col-md-6">
         <select class="custom-select" name="thelist" onChange="combo(this, 'comboname')" onMouseOut="comboInit(this, 'comboname')">
-          <option>新组合</option>
+          <option value="新组合">新组合</option>
           <% combo.forEach(function(row) { %>
           <option><%= row %></option>
           <% }); %>
@@ -79,7 +84,7 @@
         </div>
       </div>
       <div class="modal-actions">
-        <button type="button" class="btn-link modal-action" data-dismiss="modal">取消</button>
+        <button type="button" class="btn-link modal-action" data-dismiss="modal" id="canceladdfund">取消</button>
         <button type="button submit" class="btn-link modal-action comboButton">
           <strong>添加</strong>
         </button>

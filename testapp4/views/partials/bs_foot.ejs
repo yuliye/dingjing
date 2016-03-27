@@ -90,6 +90,8 @@ $(document).ready(function(){
     		 	//document.getElementById("tosavefundbut").disabled=true;
 			 $("#tosavefundbut").hide();
 			 $("#deletefundbut").show();
+			  $("#deletecombo").hide();
+			   $("#addtocombo").show();
 			 document.getElementById("addtocombo").disabled=false;
 			document.getElementById("deletefundbut").disabled=false;
 
@@ -119,6 +121,8 @@ $(document).ready(function(){
 			document.getElementById("addtocombo").disabled=false;
 			$("#tosavefundbut").show();
                         $("#deletefundbut").hide();
+			 $("#deletecombo").hide();
+			 $("#addtocombo").show();
                         loadPage();
 
                         }
@@ -144,13 +148,15 @@ $(document).ready(function(){
 			document.getElementById("tosavefundbut").disabled=true;
 			document.getElementById("addtocombo").disabled=true;
 			document.getElementById("deletefundbut").disabled=true;
-
+			$("#addtocombo").hide();	
+			 $("#deletecombo").show();
                         loadPage();
 
                         }
                 });
 
         });
+
 
 
 
@@ -227,6 +233,26 @@ $("#deletefundbut").click(function(event){
 
         });
 
+$("#deletecombo").click(function(event){
+                var cID = [];
+                $('#tablelist').find("tr").each( function(){
+                    if( $(this).find("td > input").is(":checked") )
+                         cID.push( $(this).find("td > a ").prop('href').split('=')[1]  );
+                });
+
+                var combolistData = {
+                        'comboID' : cID
+                };
+
+                $.ajax({
+                        type: "POST",
+                        url: '/users/combobulkdelete',
+                        data: combolistData,
+                }).done( function (data ) {
+                        $('#mycombolist').trigger('click');
+                });
+
+        });
 
 
 $("#resetSelectItem").click(function(){
@@ -238,6 +264,47 @@ $("#resetSelectItem").click(function(){
 	$("input#startTime").val("");
 	$("input#endTime").val( "");
 });
+
+$('#addfundtocombo').submit(function(event){
+		 event.preventDefault();
+
+		  if( $("#comboname").val() =="" ) {
+        		//$("#comboname").placeholder="不能为空！";
+			$("#comboname").attr('placeholder', "不能为空！").blur();
+        		return ;
+   		  }
+
+                var fID = [];
+                $('#tablelist').find("tr").each( function(){
+                    if( $(this).find("td > input").is(":checked") )
+                         fID.push( $(this).find("td > a ").prop('href').split('=')[1]  );
+                });
+
+		if(fID.length == 0){
+			alert("你没有选取任何基金!");
+		        $("#comboname").val("新组合");
+                        $("#canceladdfund").trigger('click');
+			return;
+
+		}
+
+                var fundlistData = {
+			'comboName' : $("#comboname").val(),
+                        'fundID' : fID
+                };
+
+                $.ajax({
+                        type: "POST",
+                        url: '/users/addfund2combo',
+                        data: fundlistData,
+                }).done( function (data ) {
+			$("#comboname").val("新组合");
+			$("#canceladdfund").trigger('click');			
+                        $('#mycombolist').trigger('click');
+                });
+
+        });
+
 
 function  loadPage() {
     var currentPage = 0;

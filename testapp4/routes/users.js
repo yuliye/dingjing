@@ -228,6 +228,7 @@ router.get('/add2combo', isLoggedIn, function(req, res){
   });
 });
 
+
 router.get('/combodetail',  isLoggedIn, function(req, res) {
   var id = req.query['comboid'];
   var queryString = "SELECT Combo_ID Fund_ID, Combo_Name Fund_Name, Year, Month, round(sum(ret),2) Month_Return ";
@@ -539,6 +540,81 @@ router.post('/bulkdel',  isLoggedIn, function(req, res) {
         else {
           connection.query('USE ' + dbconfig.database);
           connection.query('DELETE FROM Saved_Fund_Table WHERE (User_ID, Fund_ID) IN (?)', [itemValue] , function(err,rows){
+            if(err){
+              //err handling
+            }
+            else if(rows.length == 0 ){
+                res.end();
+            }
+            else {
+              //err handling
+              res.end();
+            }
+          });
+        }
+        connection.release();
+    });
+
+});
+
+
+router.post('/addfund2combo', isLoggedIn, function(req, res){
+        var comboname = req.body.comboName;	
+        var saveItem = req.body.fundID;
+        var itemValue = [];
+	var amount = 1000;
+        //saveItem.forEach( function( item ){  var eachItem = [userID, item]; itemValue.push(eachItem);     });
+
+  pool.getConnection(function(err, connection) {
+    connection.query('USE ' + dbconfig.database);
+    connection.query("SELECT Combo_ID FROM Combo_Table WHERE Combo_Name = ? AND User_ID = ?",[comboname, req.user.User_ID], function(err, rows){
+      if(err){
+        //err handling
+      }
+      else if(rows.length==0){
+        //new combo name
+        connection.query('INSERT INTO Combo_Table ( Combo_Name, User_ID ) values (?,?)', [comboname,req.user.User_ID], function(err, rows){
+          if(err){
+            //err handling
+          }
+          else {
+	    saveItem.forEach( function( item ){  var eachItem = [rows.insertId, item, amount]; itemValue.push(eachItem);     });
+            connection.query('INSERT INTO Combo_Data_Table ( Combo_ID, Fund_ID, Amount ) values ?', [itemValue] , function(err,rows){
+            	if(err){  } 
+            	else if(rows.length == 0 ){  res.end(); }
+            	     else { res.end(); }
+	       });
+          }
+        });
+      }
+      else {
+        //old combo name
+        var id = rows[0].Combo_ID;
+	saveItem.forEach( function( item ){  var eachItem = [id, item, amount]; itemValue.push(eachItem);     });
+        connection.query('Insert INTO Combo_Data_Table (Combo_ID, Fund_ID, Amount) VALUES ? ON DUPLICATE KEY UPDATE Amount = ?', [itemValue,amount], function(err,rows){
+                if(err){  }
+                else if(rows.length == 0 ){  res.end(); }
+                     else { res.end(); }
+               });
+          }
+    });
+    connection.release();
+  });
+});
+
+router.post('/combobulkdelete',  isLoggedIn, function(req, res) {
+        var userID = req.user.User_ID;
+        var saveItem = req.body.comboID;
+        var itemValue = [];
+        saveItem.forEach( function( item ){  var eachItem = [userID, item]; itemValue.push(eachItem);     });
+
+        pool.getConnection(function(err, connection) {
+        if(err){
+          //err handling
+        }
+        else {
+          connection.query('USE ' + dbconfig.database);
+          connection.query('DELETE FROM Combo_Table WHERE (User_ID, Combo_ID) IN (?)', [itemValue] , function(err,rows){
             if(err){
               //err handling
             }
