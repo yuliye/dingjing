@@ -448,6 +448,11 @@ router.get('/logout', function(req, res) {
     res.redirect('/login');
   });
 
+router.get('/cta_logout', function(req, res) {
+    req.logout();
+    res.redirect('/cta_login');
+  });
+
 
 router.post('/risktest', function(req, res) {
   var id = req.body["pageid"];

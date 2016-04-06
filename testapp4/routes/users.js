@@ -376,7 +376,7 @@ router.get('/cta_home', isLoggedIn, function(req, res) {
       user: req.user
     });
   }
-  else res.redirect('/users/unified');
+  else res.redirect('/users/cta_welcome');
   /*var queryString = "SELECT Fund_ID, Fund_Name, Last_Month_Return, Annual_Return,Assets FROM Fund_Table";
   var type = "detail?fundid";
   var values = [];
@@ -403,7 +403,24 @@ router.get('/cta_fund', isLoggedIn, function(req, res) {
       user: req.user
     });
   }
-  else res.redirect('/users/unified');
+  else res.redirect('/users/cta_welcome');
+});
+
+router.get('/cta_add', isLoggedIn, function(req, res) {
+  //console.log(req.user.First_Name);
+  if(req.user.Fund_Manager==1) {
+
+    // get a list of managed fund
+    // get fund manager detail table
+    // pass it to render
+
+    res.render('pages/bs_cta_add_view',{
+      auth:req.isAuthenticated(),
+      page:'add',
+      user: req.user
+    });
+  }
+  else res.redirect('/users/cta_welcome');
 });
 
 router.get('/cta_data', isLoggedIn, function(req, res) {
@@ -420,7 +437,15 @@ router.get('/cta_data', isLoggedIn, function(req, res) {
       user: req.user
     });
   }
-  else res.redirect('/users/unified');
+  else res.redirect('/users/cta_welcome');
+});
+
+router.get('/cta_welcome', isLoggedIn, function(req, res) {
+    res.render('pages/bs_cta_welcome_view',{
+      auth:req.isAuthenticated(),
+      page: 'login',
+      user: req.user
+    });
 });
 
 router.get('/compute', isLoggedIn, function(req, res) {
