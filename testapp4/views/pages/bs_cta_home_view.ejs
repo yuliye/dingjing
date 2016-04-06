@@ -14,12 +14,81 @@
     <div class="dashhead m-t-md">
       <div class="dashhead-titles">
       <!--h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6-->
-      <h2 class="dashhead-title p-t-lg">Welcome!</h2>
+      <h2 class="dashhead-title p-t-lg">Welcome, <%=user.First_Name%>!</h2>
       </div>
     </div>
       <div class="hr-divider m-t">
       <h3 class="hr-divider-content hr-divider-heading"></h3>
     </div>
+
+ <div class="col-xs-4 col-sm-4 col-md-4">
+      <div class="m-b">
+        First Name：
+      </div>
+<input type="text" class="form-control m-b" placeholder="<%=user.First_Name%>" style="width:200px;">
+    </div>
+
+    <div class="col-xs-4 col-sm-4 col-md-4">
+      <div class="m-b">
+        Last Name：
+      </div>
+<input type="text" class="form-control m-b" placeholder="<%=user.Last_Name%>" style="width:200px;">
+    </div>
+
+    <div class="col-xs-4 col-sm-4 col-md-4">
+      <div class="m-b">
+        Email：
+      </div>
+<input type="text" class="form-control m-b" placeholder="<%=user.Email%>" style="width:200px;">
+    </div>
+
+    <div class="col-xs-4 col-sm-4 col-md-4">
+      <div class="m-b">
+        Company：
+      </div>
+<input type="text" class="form-control m-b" placeholder="<%=user.Company%>" style="width:200px;">
+    </div>
+
+    <div class="col-xs-4 col-sm-4 col-md-4">
+      <div class="m-b">
+        Work Phone：
+      </div>
+<input type="text" class="form-control m-b" placeholder="<%=user.Phone%>" style="width:200px;">
+    </div>
+
+        <div class="col-xs-4 col-sm-4 col-md-4">
+      <div class="m-b">
+        Website：
+      </div>
+<input type="text" class="form-control m-b" placeholder="<%=user.Website%>" style="width:200px;">
+    </div>
+
+    <div class="col-xs-4 col-sm-4 col-md-4">
+      <div class="m-b">
+        Cell Phone：
+      </div>
+<input type="text" class="form-control m-b" placeholder="<%=user.Cell_Phone%>" style="width:200px;">
+    </div>
+
+    <div class="col-xs-4 col-sm-4 col-md-4">
+      <div class="m-b">
+        Fund Name：
+      </div>
+<input type="text" class="form-control m-b" placeholder="Goldenwise Capital" style="width:200px;">
+    </div>
+
+<div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="m-b">
+        Brief Introduction：
+      </div>
+<textarea class="form-control" rows="5" id="comment">盈透证券是美国注册的经纪商-经销商、期货佣金商及外汇交易商会员，受美国证券交易委员会SEC、商品期货交易委员会CFTC、及国家期货业协会NFA监管，并且是美国金融业管理局 FINRA及其他规管自律组织的会员。美国盈透证券不被隶属于、也不背书或推荐任何金融顾问或经纪商，包括海鲸证券。盈透证券为鼎鲸证券介绍的客户提供执行和清算服务。以上的任何信息均不构成推荐、建议，或盈透招揽买入、卖出或持有任何证券、金融产品或工具或参与任何具体投资策略的要约。美国盈透不参与并且对于此网站提供的信息准确度及完成度不作任何陈述及不承担任何责任。想获得更多的关于盈透证券的信息，敬请访问下面网址www.interactivebrokers.com 或www.ibkr.com.cn</textarea>
+    </div>
+
+
+<div class="form-group text-right col-xs-12 col-sm-12 col-md-12 m-y-md">
+      <button type="button submit" class="btn btn-lg btn-primary">Update</button>
+  </div>
+
   </div>
 
   <% include ../partials/bs_foot.ejs %>

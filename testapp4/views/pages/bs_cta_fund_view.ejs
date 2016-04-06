@@ -21,8 +21,7 @@
       <h3 class="hr-divider-content hr-divider-heading"></h3>
     </div>
 
-
-    <div class="col-xs-4 col-sm-4 col-md-4">
+ <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="m-b">
         Program Name：
       </div>
@@ -45,66 +44,49 @@
     </div>
     </div>
 
-        <div class="col-xs-4 col-sm-4 col-md-4">
+    <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
-        Year：
+        Management Fee：
       </div>
-    <div class="flextable m-b">
-      <div class="flextable-item">
-        <select class="custom-select custom-select-sm" name="compoundRate">
-          <option selected="selected" value="0">2万－5万美元</option>
-          <option value="1">5万－7.5万美元</option>
-          <option value="2">7.5万－10万美元</option>
-          <option value="3">10万－25万美元</option>
-          <option value="4">25万－50万美元</option>
-          <option value="5">50万－100万美元</option>
-          <option value="6">100万－500万美元</option>
-          <option value="7">500万－1000万美元</option>
-          <option value="8">1000万－2500万美元</option>
-          <option value="9">2500万－5000万美元</option>
-          <option value="10">大于5000万美元</option>
-        </select>
-      </div>
+<input type="text" class="form-control m-b" placeholder="<%=user.Last_Name%>" style="width:200px;">
     </div>
-    </div>
-
-        <div class="col-xs-4 col-sm-4 col-md-4">
-      <div class="m-b">
-        Month：
-      </div>
-    <div class="flextable m-b">
-      <div class="flextable-item">
-        <select class="custom-select custom-select-sm" name="compoundRate">
-          <option selected="selected" value="0">2万－5万美元</option>
-          <option value="1">5万－7.5万美元</option>
-          <option value="2">7.5万－10万美元</option>
-          <option value="3">10万－25万美元</option>
-          <option value="4">25万－50万美元</option>
-          <option value="5">50万－100万美元</option>
-          <option value="6">100万－500万美元</option>
-          <option value="7">500万－1000万美元</option>
-          <option value="8">1000万－2500万美元</option>
-          <option value="9">2500万－5000万美元</option>
-          <option value="10">大于5000万美元</option>
-        </select>
-      </div>
-    </div>
-    </div>
-
 
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
-        Monthly Return：
+        Performance Fee：
       </div>
-<input type="text" class="form-control m-b" placeholder="5%" style="width:200px;">
+<input type="text" class="form-control m-b" placeholder="<%=user.Email%>" style="width:200px;">
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
+      <div class="m-b">
+        Minimum Investment：
+      </div>
+<input type="text" class="form-control m-b" placeholder="<%=user.Company%>" style="width:200px;">
+    </div>
+
+      <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Asset：
       </div>
-<input type="text" class="form-control m-b" placeholder="5000000" style="width:200px;">
+<input type="text" class="form-control m-b" placeholder="<%=user.Email%>" style="width:200px;">
     </div>
+
+    <div class="col-xs-4 col-sm-4 col-md-4">
+      <div class="m-b">
+        Fund Manager：
+      </div>
+<input type="text" class="form-control m-b" placeholder="<%=user.Company%>" style="width:200px;">
+    </div>
+
+
+<div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="m-b">
+        Fund Description：
+      </div>
+<textarea class="form-control" rows="5" id="comment">盈透证券是美国注册的经纪商-经销商、期货佣金商及外汇交易商会员，受美国证券交易委员会SEC、商品期货交易委员会CFTC、及国家期货业协会NFA监管，并且是美国金融业管理局 FINRA及其他规管自律组织的会员。美国盈透证券不被隶属于、也不背书或推荐任何金融顾问或经纪商，包括海鲸证券。盈透证券为鼎鲸证券介绍的客户提供执行和清算服务。以上的任何信息均不构成推荐、建议，或盈透招揽买入、卖出或持有任何证券、金融产品或工具或参与任何具体投资策略的要约。美国盈透不参与并且对于此网站提供的信息准确度及完成度不作任何陈述及不承担任何责任。想获得更多的关于盈透证券的信息，敬请访问下面网址www.interactivebrokers.com 或www.ibkr.com.cn</textarea>
+    </div>
+
 
 <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 m-y-md">
       <button type="button submit" class="btn btn-lg btn-primary">Update</button>

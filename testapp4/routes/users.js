@@ -363,7 +363,7 @@ router.get('/home', isLoggedIn, function(req, res) {
 });
 
 router.get('/cta_home', isLoggedIn, function(req, res) {
-  console.log(req.user.First_Name);
+  //console.log(req.user.First_Name);
   if(req.user.Fund_Manager==1) {
 
     // get a list of managed fund
@@ -372,7 +372,8 @@ router.get('/cta_home', isLoggedIn, function(req, res) {
 
     res.render('pages/bs_cta_home_view',{
       auth:req.isAuthenticated(),
-      page:'home'
+      page:'home',
+      user: req.user
     });
   }
   else res.redirect('/users/unified');
@@ -384,17 +385,39 @@ router.get('/cta_home', isLoggedIn, function(req, res) {
   //res.redirect('/users/unified');
 });
 
-router.get('/cta_home', isLoggedIn, function(req, res) {
-  console.log(req.user.First_Name);
+router.get('/open', function(req, res) {
+   res.render('pages/bs_open_view');
+});
+
+router.get('/cta_fund', isLoggedIn, function(req, res) {
+  //console.log(req.user.First_Name);
   if(req.user.Fund_Manager==1) {
 
     // get a list of managed fund
     // get fund manager detail table
     // pass it to render
 
-    res.render('pages/bs_cta_home_view',{
+    res.render('pages/bs_cta_fund_view',{
       auth:req.isAuthenticated(),
-      page:'home'
+      page:'fund',
+      user: req.user
+    });
+  }
+  else res.redirect('/users/unified');
+});
+
+router.get('/cta_data', isLoggedIn, function(req, res) {
+  //console.log(req.user.First_Name);
+  if(req.user.Fund_Manager==1) {
+
+    // get a list of managed fund
+    // get fund manager detail table
+    // pass it to render
+
+    res.render('pages/bs_cta_data_view',{
+      auth:req.isAuthenticated(),
+      page:'data',
+      user: req.user
     });
   }
   else res.redirect('/users/unified');
