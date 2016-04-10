@@ -11,6 +11,7 @@
 <body class="with-top-navbar djx-container">
   <% include ../partials/smenu4.ejs %>  
   <div class="container-fluid container-fluid-spacious">
+ <form action="updateprofile" method="post" class="comboForm" onsubmit="return checkProfileForm(this);">	
     <div class="dashhead m-t-md">
       <div class="dashhead-titles">
       <!--h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6-->
@@ -25,56 +26,56 @@
       <div class="m-b">
         First Name：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.First_Name%>" style="width:200px;">
+<input type="text" class="form-control m-b"   id="pffirstname" name="pffirstname" value="<%=user.First_Name%>" placeholder="<%=user.First_Name%>" style="width:200px;">
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Last Name：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Last_Name%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="pflastname" name="pflastname"  value="<%=user.Last_Name%>" placeholder="<%=user.Last_Name%>" style="width:200px;">
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Email：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Email%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="pfemail" name="pfemail" value="<%=user.Email%>"  placeholder="<%=user.Email%>" style="width:200px;">
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Company：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Company%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="pfcompany" name="pfcompany" value="<%=user.Company%>" placeholder="<%=user.Company%>" style="width:200px;">
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Work Phone：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Phone%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="pfworkphone" name="pfworkphone"  value="<%=user.Phone%>" placeholder="<%=user.Phone%>" style="width:200px;">
     </div>
 
         <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Website：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Website%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="pfwebsite" name="pfwebsite" value="<%=user.Website%>" placeholder="<%=user.Website%>" style="width:200px;">
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Cell Phone：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Cell_Phone%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="pfcellphone" name="pfcellphone" value="<%=user.Cell_Phone%>" placeholder="<%=user.Cell_Phone%>" style="width:200px;">
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Fund Name：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Fund_CName%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="pffundname" name="pffundname" value="<%=user.Fund_CName%>" placeholder="<%=user.Fund_CName%>" style="width:200px;">
     </div>
 
 <!--div class="col-xs-12 col-sm-12 col-md-12">
@@ -88,7 +89,7 @@
 <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 m-y-md">
       <button type="button submit" class="btn btn-lg btn-primary" style="width:120px;">Update</button>
   </div>
-
+</form>
   </div>
 
   <% include ../partials/bs_foot.ejs %>

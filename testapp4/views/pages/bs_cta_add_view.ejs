@@ -11,6 +11,7 @@
 <body class="with-top-navbar djx-container">
   <% include ../partials/smenu4.ejs %>  
   <div class="container-fluid container-fluid-spacious">
+    <form action="addprogram" method="post" class="comboForm" onsubmit="return checkProgramForm(this);">
     <div class="dashhead m-t-md">
       <div class="dashhead-titles">
       <!--h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6-->
@@ -25,42 +26,42 @@
       <div class="m-b">
         Program Name：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Last_Name%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="programname" name="programname"  placeholder="" style="width:200px;">
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Management Fee (in %)：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Last_Name%>" style="width:200px;">
+<input type="text" class="form-control m-b"  id="managementfee" name="managementfee" placeholder="" style="width:200px;">
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Performance Fee (in %)：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Email%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="performancefee" name="performancefee" placeholder="" style="width:200px;">
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Minimum Investment (in K)：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Company%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="mininvestment" name="mininvestment" placeholder="" style="width:200px;">
     </div>
 
       <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Inception Date：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Email%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="inceptiondate" name="inceptiondate" placeholder="" style="width:200px;">
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Manager Name：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Company%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="managername" name="managername" placeholder="" style="width:200px;">
     </div>
 
 
@@ -75,7 +76,7 @@
 <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 m-y-md">
       <button type="button submit" class="btn btn-lg btn-primary" style="width:120px;">Add</button>
   </div>
-
+</form>
   </div>
 
   <% include ../partials/bs_foot.ejs %>

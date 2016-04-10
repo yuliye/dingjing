@@ -411,6 +411,72 @@ function  loadPage() {
 
 });
 
+
+function checkProfileForm(form){
+    var flag  = true;
+    if(form.pffirstname.value =="") {
+        form.pffirstname.placeholder="This field cannot be empty！";
+        flag = false;
+    }
+
+    if(form.pflastname.value =="") {
+        form.pflastname.placeholder="This field cannot be empty！";
+        flag = false;
+    }
+    if(form.pfemail.value =="") {
+        form.pfemail.placeholder="This field cannot be empty！";
+        flag = false;
+    }
+    if(form.pfcompany.value =="") {
+        form.pfcompany.placeholder="This field cannot be empty！";
+        flag = false;
+    }
+    if(form.pfworkphone.value =="") {
+        form.pfworkphone.eplaceholder="This field cannot be empty！";
+        flag = false;
+    }
+    if(form.pfwebsite.value =="") {
+        form.pfwebsite.placeholder="This field cannot be empty！";
+        flag = false;
+    }
+    if(form.pfcellphone.value =="") {
+        form.pfcellphone.placeholder="This field cannot be empty！";
+        flag = false;
+    }
+    if(form.pffundname.value =="") {
+        form.pffundname.placeholder="This field cannot be empty！";
+        flag = false;
+    }
+
+    return flag;
+
+  /*    if(isNaN(form.amount.value) || form.amount.value == "" || form.amount.value<=0) {
+        form.amount.value="";
+        form.amount.placeholder="数目不对！";
+        return false;
+    } */
+  }
+
+function checkProgramForm(form){
+    var flag  = true;
+    return flag;
+}
+
+function fetch_select(val)
+{
+   $.ajax({
+     type: 'post',
+     url: '/users/fetchprogram',
+     data: {
+       getoption:val
+     },
+     success: function (response) {
+	alert("see");
+        alert(response); 
+     }
+   });
+}
+
 </script>
 
 

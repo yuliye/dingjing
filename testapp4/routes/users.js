@@ -385,6 +385,37 @@ router.get('/cta_home', isLoggedIn, function(req, res) {
   //res.redirect('/users/unified');
 });
 
+router.post('/updateprofile',  isLoggedIn, function(req, res) {
+        var userID = req.user.User_ID;
+
+        pool.getConnection(function(err, connection) {
+        if(err){
+          //err handling
+        }
+        else {
+          connection.query('USE ' + dbconfig.database);
+          connection.query('UPDATE User_Table SET First_Name=?, Last_Name=?,Email=?,Phone=?,Company=?, Website=?,Cell_Phone=?,Fund_CName=? WHERE User_ID=?', 
+ 				[req.body.pffirstname,req.body.pflastname,req.body.pfemail,req.body.pfworkphone,
+				 req.body.pfcompany,req.body.pfwebsite, req.body.pfcellphone,req.body.pffundname,userID] , function(err,rows){
+
+            if(err){
+              //err handling
+            }
+            else if(rows.length == 0 ){
+		res.redirect('/users/cta_home');
+            }
+            else {
+              //err handling
+		res.redirect('/users/cta_home');
+            }
+          });
+        }
+        connection.release();
+    }); 
+
+});
+
+
 router.get('/open', function(req, res) {
    res.render('pages/bs_open_view');
 });
@@ -422,6 +453,67 @@ router.get('/cta_add', isLoggedIn, function(req, res) {
   }
   else res.redirect('/users/cta_welcome');
 });
+
+
+router.post('/addprogram',  isLoggedIn, function(req, res) {
+        var userID = req.user.User_ID;
+
+        pool.getConnection(function(err, connection) {
+        if(err){
+          //err handling
+        }
+        else {
+          connection.query('USE ' + dbconfig.database);
+       connection.query('INSERT INTO Fund_Table( Fund_Manager_ID,Program_Name,Mgmt_Fee,Perf_Fee,Min_Invest,Inception_Date,Manager_Name    )  VALUES (?,?,?,?,?,?,? )',
+                                 [userID,req.body.programname,req.body.managementfee,req.body.performancefee,
+				  req.body.mininvestment, req.body.inceptiondate, req.body.managername] , function(err,rows){
+
+            if(err){
+              //err handling
+            }
+            else if(rows.length == 0 ){
+                res.redirect('/users/cta_add');
+            }
+            else {
+              //err handling
+                res.redirect('/users/cta_add');
+            }
+          });
+        }
+        connection.release();
+    });
+
+});
+
+router.post('/fetchprogram',  isLoggedIn, function(req, res) {
+        var userID = req.user.User_ID;
+         console.log(req.body.getoption);	
+        pool.getConnection(function(err, connection) {
+        if(err){
+          //err handling
+        }
+        else {
+          connection.query('USE ' + dbconfig.database);
+          connection.query('SELECT Manager_Name, Perf_Fee,Mgmt_Fee, Min_Invest, Inception_Date FROM Fund_Table WHERE Fund_Manager_ID=? AND Program_Name = ? ',
+                  [userID,req.body.getoption] , function(err,rows){
+
+            if(err){
+              //err handling
+            }
+            else if(rows.length == 0 ){
+                res.redirect('/users/cta_add');
+            }
+            else {
+		res.json(rows);
+		res.end();
+            }
+          });
+        }
+        connection.release();
+    });
+
+});
+
 
 router.get('/cta_data', isLoggedIn, function(req, res) {
   //console.log(req.user.First_Name);
