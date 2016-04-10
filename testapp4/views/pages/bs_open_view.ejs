@@ -41,7 +41,7 @@
   <div role="tabpanel" class="tab-pane active" id="gr">
     <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="m-b">
-        您的中文姓名：
+        您的手机号码：
       </div>
 <input type="text" class="form-control m-b" style="width:200px;">
     </div>
@@ -405,7 +405,30 @@
   </div>  
 
   <div role="tabpanel" class="tab-pane" id="qm">
-<p class="col-xs-12 col-sm-12 col-md-12">
+<div>
+<p class="col-xs-12 col-sm-12 col-md-12">上传身份证正面照片：</p>
+<form id="uploadForm" enctype="multipart/form-data" action="/api/photo" method="post">
+<div class="form-group text-right col-xs-6 col-sm-6 col-md-6">
+<input type="file" name="userPhoto">
+</div> 
+<!--div class="form-group text-right col-xs-6 col-sm-6 col-md-6">
+      <button type="button submit" class="btn btn-primary">提交</button>
+</div-->  
+</form>
+
+<p class="col-xs-12 col-sm-12 col-md-12 m-t-md">上传身份证反面照片：</p>
+<form id="uploadForm" enctype="multipart/form-data" action="/api/photo" method="post">
+<div class="form-group text-right col-xs-6 col-sm-6 col-md-6">
+<input type="file" name="userPhoto">
+</div> 
+<!--div class="form-group text-right col-xs-6 col-sm-6 col-md-6">
+      <button type="button submit" class="btn btn-primary">提交</button>
+</div-->  
+</form>
+</div>
+
+
+<p class="col-xs-12 col-sm-12 col-md-12 m-t">
 本人声明，本人提供的所有开户信息均真实准确并同意在内容有任何变化的情况下以电话或邮件的形式通知海鲸。必要时，本人授权海鲸证券对资料的准确性进行确认。
 <br><br>
 姓名：
@@ -414,6 +437,7 @@
 日期：
 </p>
 <p class="col-xs-12 col-sm-12 col-md-12" id="demo"></p>
+
 <p class="col-xs-12 col-sm-12 col-md-12 m-t-md">
 盈透证券是美国注册的经纪商-经销商、期货佣金商及外汇交易商会员，受美国证券交易委员会SEC、商品期货交易委员会CFTC、及国家期货业协会NFA监管，并且是美国金融业管理局 FINRA及其他规管自律组织的会员。美国盈透证券不被隶属于、也不背书或推荐任何金融顾问或经纪商，包括海鲸证券。盈透证券为鼎鲸证券介绍的客户提供执行和清算服务。以上的任何信息均不构成推荐、建议，或盈透招揽买入、卖出或持有任何证券、金融产品或工具或参与任何具体投资策略的要约。美国盈透不参与并且对于此网站提供的信息准确度及完成度不作任何陈述及不承担任何责任。想获得更多的关于盈透证券的信息，敬请访问下面网址www.interactivebrokers.com 或www.ibkr.com.cn
 </p>
@@ -433,7 +457,11 @@
   <% include ../partials/bs_foot.ejs %>
 
   <script>
-document.getElementById("demo").innerHTML = Date();
+var date = new Date();
+var day = date.getDate();
+var month = date.getMonth();
+var year = date.getFullYear();
+document.getElementById("demo").innerHTML = year+'-'+month+'-'+day;
 </script>
 
 </body>
