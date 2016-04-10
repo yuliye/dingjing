@@ -394,9 +394,9 @@ router.post('/updateprofile',  isLoggedIn, function(req, res) {
         }
         else {
           connection.query('USE ' + dbconfig.database);
-          connection.query('UPDATE User_Table SET First_Name=?, Last_Name=?,Email=?,Phone=?,Company=?, Website=?,Cell_Phone=?,Fund_CName=? WHERE User_ID=?', 
+          connection.query('UPDATE User_Table SET First_Name=?, Last_Name=?,Email=?,Phone=?,Company=?, Website=?,Fund_CName=? WHERE User_ID=?', 
  				[req.body.pffirstname,req.body.pflastname,req.body.pfemail,req.body.pfworkphone,
-				 req.body.pfcompany,req.body.pfwebsite, req.body.pfcellphone,req.body.pffundname,userID] , function(err,rows){
+				 req.body.pfcompany,req.body.pfwebsite,req.body.pffundname,userID] , function(err,rows){
 
             if(err){
               //err handling
