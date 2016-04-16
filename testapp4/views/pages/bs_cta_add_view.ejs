@@ -16,6 +16,7 @@
       <div class="dashhead-titles">
       <!--h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6-->
       <h2 class="dashhead-title p-t-lg">Welcome <%=user.First_Name%>!</h2>
+	<input type="hidden" name="fundnameforprogram"  id="fundnameforprogram" value="<%=user.Fund_CName%>">
       </div>
     </div>
       <div class="hr-divider m-t">
@@ -72,7 +73,7 @@
       <div class="m-b">
         Program Description：
       </div>
-<textarea class="form-control" rows="5" id="comment"></textarea>
+<textarea class="form-control" rows="5" id="progcomment" name="progcomment"></textarea>
     </div>
 
 

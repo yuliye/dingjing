@@ -3,11 +3,9 @@
 <head><% include ../partials/bs_head.ejs %>
   <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,300,600,900,800,700,200,100' rel='stylesheet' type='text/css'>
     <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
-  
     <!-- Plugins CSS -->     
   <link id="extra-style" rel="stylesheet" href="/sassets/css/styles_mix2.css">
 </head>
-
 <body class="with-top-navbar djx-container">
   <% include ../partials/smenu4.ejs %>  
   <div class="container-fluid container-fluid-spacious">
@@ -20,49 +18,38 @@
       <div class="hr-divider m-t">
       <h3 class="hr-divider-content hr-divider-heading"></h3>
     </div>
-
-
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Program Name：
       </div>
     <div class="flextable m-b">
       <div class="flextable-item">
-        <select class="custom-select custom-select-sm" name="compoundRate">
-          <option selected="selected" value="0">2万－5万美元</option>
-          <option value="1">5万－7.5万美元</option>
-          <option value="2">7.5万－10万美元</option>
-          <option value="3">10万－25万美元</option>
-          <option value="4">25万－50万美元</option>
-          <option value="5">50万－100万美元</option>
-          <option value="6">100万－500万美元</option>
-          <option value="7">500万－1000万美元</option>
-          <option value="8">1000万－2500万美元</option>
-          <option value="9">2500万－5000万美元</option>
-          <option value="10">大于5000万美元</option>
+	 <select class="custom-select custom-select-sm" name="ctadataprogname" id="ctadataprogname" onchange="fetchdataprograminfo(this.value);">
+         <% for(var i=0; i<programname.length; i++) { %>
+                <%if ( i == 0) { %>
+                        <option selected="selected" value="<%= fundID[i] %>"> <%= programname[i] %> </option>
+                <% } else { %>
+                        <option value="<%= fundID[i] %>"> <%= programname[i] %> </option>
+         <% } } %>
         </select>
       </div>
     </div>
     </div>
-
         <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Year：
       </div>
     <div class="flextable m-b">
       <div class="flextable-item">
-        <select class="custom-select custom-select-sm" name="compoundRate">
-          <option selected="selected" value="0">2010</option>
-          <option value="1">2011</option>
-          <option value="2">2012</option>
-          <option value="3">2013</option>
-          <option value="4">2014</option>
-          <option value="5">2015</option>
-          <option value="6">2016</option>
-          <option value="7">2017</option>
-          <option value="8">2018</option>
-          <option value="9">2019</option>
-          <option value="10">2020</option>
+        <select class="custom-select custom-select-sm" name="ctadatayear" id="ctadatayear">
+	 <% for(var year=2010; year<=2020; year++) { %>
+                <%if ( year == fundinfo[2] ) { %>
+                        <option selected="selected" value="<%= year %>"> <%= year %> </option>
+                <% } else { %>
+                        <option value="<%= year %>"> <%= year %> </option>
+
+         <% } } %>
+
         </select>
       </div>
     </div>
@@ -74,19 +61,15 @@
       </div>
     <div class="flextable m-b">
       <div class="flextable-item">
-        <select class="custom-select custom-select-sm" name="compoundRate">
-          <option selected="selected" value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
+        <select class="custom-select custom-select-sm" name="ctadatamonth" id="ctadatamonth">
+	 <% for(var month=1; month<=12; month++) { %>
+
+                <%if ( month == fundinfo[3] ) { %>
+                        <option selected="selected" value="<%= month %>"> <%= month %> </option>
+                <% } else { %>
+                        <option value="<%= month %>"> <%= month %> </option>
+
+         <% } } %>
         </select>
       </div>
     </div>
@@ -97,18 +80,18 @@
       <div class="m-b">
         Monthly Return (in %)：
       </div>
-<input type="text" class="form-control m-b" placeholder="5" style="width:200px;">
+<input type="text" class="form-control m-b" id="ctadatamonret" value="<%= fundinfo[0] %>" placeholder="<%= fundinfo[0] %>" style="width:200px;">
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Assets (in $)：
       </div>
-<input type="text" class="form-control m-b" placeholder="5000000" style="width:200px;">
+<input type="text" class="form-control m-b"  id="ctadataassets" value="<%= fundinfo[1] %>" placeholder="<%= fundinfo[1] %>" style="width:200px;">
     </div>
 
 <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 m-y-md">
-      <button type="button submit" class="btn btn-lg btn-primary" style="width:120px;">Update</button>
+      <button type="button submit" class="btn btn-lg btn-primary" id="ctadataupdate" style="width:120px;">Update</button>
   </div>
 
   </div>

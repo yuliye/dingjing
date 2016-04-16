@@ -8,9 +8,11 @@
   <link id="extra-style" rel="stylesheet" href="/sassets/css/styles_mix2.css">
 </head>
 
-<body class="with-top-navbar djx-container">
+<body class="with-top-navbar djx-container" >
   <% include ../partials/smenu4.ejs %>  
   <div class="container-fluid container-fluid-spacious">
+   <form class="comboForm" onsubmit="return checkProgramForm(this);">
+
     <div class="dashhead m-t-md">
       <div class="dashhead-titles">
       <!--h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6-->
@@ -27,18 +29,15 @@
       </div>
     <div class="flextable m-b">
       <div class="flextable-item">
-        <select class="custom-select custom-select-sm" name="compoundRate" onchange="fetch_select(this.value);">
-          <option selected="selected" value="0">2万－5万美元</option>
-          <option value="1">5万－7.5万美元</option>
-          <option value="2">7.5万－10万美元</option>
-          <option value="3">10万－25万美元</option>
-          <option value="4">25万－50万美元</option>
-          <option value="5">50万－100万美元</option>
-          <option value="6">100万－500万美元</option>
-          <option value="7">500万－1000万美元</option>
-          <option value="8">1000万－2500万美元</option>
-          <option value="9">2500万－5000万美元</option>
-          <option value="10">大于5000万美元</option>
+        <select class="custom-select custom-select-sm" name="ctaprogname" id="ctaprogname" onchange="fetchprograminfo(this.value);">
+	 <% for(var i=0; i<programname.length; i++) { %>
+
+		<%if ( i == 0) { %>
+			<option selected="selected" value="<%= programname[i] %>"> <%= programname[i] %> </option>
+		<% } else { %>
+          		<option value="<%= programname[i] %>"> <%= programname[i] %> </option>
+
+	 <% } } %>
         </select>
       </div>
     </div>
@@ -48,21 +47,21 @@
       <div class="m-b">
         Management Fee (in %)：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Last_Name%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="ctamanfee" value="<%= programinfo[1] %>"  placeholder="<%= programinfo[1] %>" style="width:200px;">
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Performance Fee (in %)：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Email%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="ctaperfee" value="<%= programinfo[3] %>" placeholder="<%= programinfo[3] %>" style="width:200px;">
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Minimum Investment (in K)：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Company%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="ctamininvest" name=="ctamininvest" value="<%= programinfo[0] %>" placeholder="<%= programinfo[0] %>" style="width:200px;">
     </div>
 
       <div class="col-xs-4 col-sm-4 col-md-4">
@@ -70,7 +69,7 @@
         Inception Date：
       </div>
 <div class="btn-toolbar-item input-with-icon" >
-  <input type="text"  class="form-control" data-provide="datepicker" placeholder="mm/dd/yyyy" name="inception" id="inception" >
+  <input type="text"  class="form-control" data-provide="datepicker"  value="<%= programinfo[2] %>" placeholder="<%= programinfo[2] %>" name="inception" id="inception" >
       <span class="icon icon-calendar"></span>
     </div>
     </div>
@@ -79,7 +78,7 @@
       <div class="m-b">
         Manager Name：
       </div>
-<input type="text" class="form-control m-b" placeholder="<%=user.Company%>" style="width:200px;">
+<input type="text" class="form-control m-b" id="ctamanname" value="<%= programinfo[4] %>" placeholder="<%= programinfo[4] %>" style="width:200px;">
     </div>
 
 
@@ -92,9 +91,9 @@
 
 
 <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 m-y-md">
-      <button type="button submit" class="btn btn-lg btn-primary" style="width:120px;">Update</button>
+      <button type="button" class="btn btn-lg btn-primary" style="width:120px;" id="ctaprogupdate">Update</button>
   </div>
-
+</form>
   </div>
 
   <% include ../partials/bs_foot.ejs %>
