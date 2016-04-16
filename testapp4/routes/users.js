@@ -420,6 +420,10 @@ router.get('/open', function(req, res) {
    res.render('pages/bs_open_view');
 });
 
+router.get('/manage', function(req, res) {
+   res.render('pages/bs_manage_view');
+});
+
 router.get('/cta_fund', isLoggedIn, function(req, res) {
   if(req.user.Fund_Manager==1) {
      pool.getConnection(function(err, connection) {
