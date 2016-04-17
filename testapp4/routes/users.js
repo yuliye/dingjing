@@ -537,11 +537,15 @@ router.post('/addprogram',  isLoggedIn, function(req, res) {
           //err handling
         }
         else {
+          var fname = req.body.fundnameforprogram+'-'+req.body.programname;
+          if (req.body.fundnameforprogram == req.body.programname)
+            fname = req.body.fundnameforprogram;
+
           connection.query('USE ' + dbconfig.database);
-       connection.query('INSERT INTO Fund_Table( Fund_Manager_ID,Program_Name,Mgmt_Fee,Perf_Fee,Min_Invest,Inception_Date,Manager_Name,Fund_CName,Fund_Description, Fund_Name)  VALUES (?,?,?,?,?,STR_TO_DATE(?, \'%m/%d/%Y\'),?,?,?,? )',
+          connection.query('INSERT INTO Fund_Table( Fund_Manager_ID,Program_Name,Mgmt_Fee,Perf_Fee,Min_Invest,Inception_Date,Manager_Name,Fund_CName,Fund_Description, Fund_Name)  VALUES (?,?,?,?,?,STR_TO_DATE(?, \'%m/%d/%Y\'),?,?,?,? )',
                                  [userID,req.body.programname,req.body.managementfee,req.body.performancefee,
 				  req.body.mininvestment,req.body.inception, req.body.managername, req.body.fundnameforprogram,
-				   req.body.progcomment, req.body.fundnameforprogram+'-'+req.body.programname] , function(err,rows){
+				   req.body.progcomment, fname] , function(err,rows){
 
             if(err){
               //err handling
