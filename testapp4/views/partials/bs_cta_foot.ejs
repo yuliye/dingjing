@@ -1,0 +1,136 @@
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/toolkit.js"></script>
+<script src="/assets/js/application.js"></script>
+
+<script>
+
+function checkProfileForm(form){
+    var flag  = true;
+    if(form.pffirstname.value =="") {
+        form.pffirstname.placeholder="This field cannot be empty！";
+        flag = false;
+    }
+
+    if(form.pflastname.value =="") {
+        form.pflastname.placeholder="This field cannot be empty！";
+        flag = false;
+    }
+    if(form.pfemail.value =="") {
+        form.pfemail.placeholder="This field cannot be empty！";
+        flag = false;
+    }
+    if(form.pfcompany.value =="") {
+        form.pfcompany.placeholder="This field cannot be empty！";
+        flag = false;
+    }
+    if(form.pfworkphone.value =="") {
+        form.pfworkphone.eplaceholder="This field cannot be empty！";
+        flag = false;
+    }
+    if(form.pfwebsite.value =="") {
+        form.pfwebsite.placeholder="This field cannot be empty！";
+        flag = false;
+    }
+    /*if(form.pfcellphone.value =="") {
+        form.pfcellphone.placeholder="This field cannot be empty！";
+        flag = false;
+    }*/
+    if(form.pffundname.value =="") {
+        form.pffundname.placeholder="This field cannot be empty！";
+        flag = false;
+    }
+
+    return flag;
+
+  /*    if(isNaN(form.amount.value) || form.amount.value == "" || form.amount.value<=0) {
+        form.amount.value="";
+        form.amount.placeholder="数目不对！";
+        return false;
+    } */
+  }
+
+function checkProgramForm(form){
+    var flag  = true;
+    return flag;
+}
+
+function fetchprograminfo(val)
+{
+   $.ajax({
+     type: 'post',
+     url: '/users/fetchprogram',
+     data: {
+       getoption:val
+     },
+     success: function (response) {
+	$("#ctamanfee").val(response[0].Mgmt_Fee);
+	$("#ctaperfee").val(response[0].Perf_Fee);
+	$("#ctamininvest").val(response[0].Min_Invest);
+	$("#inception").val(response[0].Inception_Date);
+	$("#ctamanname").val(response[0].Manager_Name);
+    $("#ctafunddes").val(response[0].Fund_Description);
+     }
+   });
+}
+
+function fetchdataprograminfo(val)
+{
+   $.ajax({
+     type: 'post',
+     url: '/users/fetchdatafund',
+     data: {
+       getoption:val
+     },
+     success: function (response) {
+        $("#ctamanfee").val(response[0].Mgmt_Fee);
+        $("#ctaperfee").val(response[0].Perf_Fee);
+        $("#ctamininvest").val(response[0].Min_Invest);
+        $("#inception").val(response[0].Inception_Date);
+        $("#ctamanname").val(response[0].Manager_Name);
+        $("#ctafunddes").val(response[0].Fund_Description);
+     }
+   });
+}
+
+
+$("#ctaprogupdate").click(function(event){
+                var programData = {
+                        'ctamininvest' : $('#ctamininvest').val(), 
+			            'ctaperfee' : $('#ctaperfee').val(),
+                        'ctamanfee' : $('#ctamanfee').val(),
+                        'ctaprogname' : $('#ctaprogname').val(),
+                        'inception' : $('#inception').val(),
+                        'ctamanname' : $('#ctamanname').val(),
+                        'ctafunddes' : $('#ctafunddes').val()
+                };
+
+                $.ajax({
+                        type: "POST",
+                        url: '/users/updateprogram',
+                        data: programData,
+                }).done( function (data ) {
+			alert("Update successfully");
+                });
+        });
+
+$("#ctadataupdate").click(function(event){
+                var programData = {
+                        'ctadataprogname' : $('#ctadataprogname').val(),
+                        'ctadatamonth' : $('#ctadatamonth').val(),
+                        'ctadatayear' : $('#ctadatayear').val(),
+                        'ctadatamonret' : $('#ctadatamonret').val(),
+                        'ctadataassets' : $('#ctadataassets').val(),
+                };
+
+                $.ajax({
+                        type: "POST",
+                        url: '/users/updateprogramdata',
+                        data: programData,
+                }).done( function (data ) {
+                        alert("Update successfully");
+                });
+        });
+
+
+</script>
+

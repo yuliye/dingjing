@@ -310,7 +310,7 @@ $('#addfundtocombo').submit(function(event){
 
 function  loadPage() {
     var currentPage = 0;
-    var numPerPage = 8;
+    var numPerPage = 10;
     var $table = $('table.paginated');
    $table.bind('sortPaginate', function(){
          $table.find('tbody tr').hide().slice(0, numPerPage).show();

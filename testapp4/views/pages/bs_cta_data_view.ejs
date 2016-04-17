@@ -18,13 +18,13 @@
       <div class="hr-divider m-t">
       <h3 class="hr-divider-content hr-divider-heading"></h3>
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-4">
+    <div class="col-xs-12 col-sm-12 col-md-12 m-b">
       <div class="m-b">
         Program Name：
       </div>
     <div class="flextable m-b">
       <div class="flextable-item">
-	 <select class="custom-select custom-select-sm" name="ctadataprogname" id="ctadataprogname" onchange="fetchdataprograminfo(this.value);">
+	 <select class="custom-select custom-select-sm" name="ctadataprogname" id="ctadataprogname" onchange="">
          <% for(var i=0; i<programname.length; i++) { %>
                 <%if ( i == 0) { %>
                         <option selected="selected" value="<%= fundID[i] %>"> <%= programname[i] %> </option>
@@ -35,7 +35,41 @@
       </div>
     </div>
     </div>
-        <div class="col-xs-4 col-sm-4 col-md-4">
+
+     <!--div class="col-xs-12 col-sm-12 col-md-12 m-b-lg">
+     <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Month</th>
+        <th>Return (in %)</th>
+        <th>Assets (in $)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2010</td>
+        <td>1</td>
+        <td>10</td>
+        <td>10000000</td>
+      </tr>
+      <tr>
+        <td>2010</td>
+        <td>2</td>
+        <td>6</td>
+        <td>10000000</td>
+      </tr>
+      <tr>
+        <td>2010</td>
+        <td>3</td>
+        <td>-4</td>
+        <td>10000000</td>
+      </tr>
+    </tbody>
+  </table>
+     </div-->
+
+        <div class="col-xs-2 col-sm-2 col-md-2">
       <div class="m-b">
         Year：
       </div>
@@ -55,7 +89,7 @@
     </div>
     </div>
 
-        <div class="col-xs-4 col-sm-4 col-md-4">
+        <div class="col-xs-2 col-sm-2 col-md-2">
       <div class="m-b">
         Month：
       </div>
@@ -80,14 +114,14 @@
       <div class="m-b">
         Monthly Return (in %)：
       </div>
-<input type="text" class="form-control m-b" id="ctadatamonret" value="<%= fundinfo[0] %>" placeholder="<%= fundinfo[0] %>" style="width:200px;">
+<input type="text" class="form-control m-b" id="ctadatamonret" value="" placeholder="" style="width:200px;">
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4">
       <div class="m-b">
         Assets (in $)：
       </div>
-<input type="text" class="form-control m-b"  id="ctadataassets" value="<%= fundinfo[1] %>" placeholder="<%= fundinfo[1] %>" style="width:200px;">
+<input type="text" class="form-control m-b"  id="ctadataassets" value="" placeholder="" style="width:200px;">
     </div>
 
 <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 m-y-md">
@@ -96,6 +130,6 @@
 
   </div>
 
-  <% include ../partials/bs_foot.ejs %>
+  <% include ../partials/bs_cta_foot.ejs %>
 </body>
 </html>

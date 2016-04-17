@@ -436,7 +436,7 @@ router.get('/cta_fund', isLoggedIn, function(req, res) {
             else {
 		 var programname = [];
                 for(i=0;i<rows.length;i++) programname.push(rows[i].Program_Name);
-                connection.query( "SELECT Min_Invest, Mgmt_Fee, Inception_Date, Perf_Fee, Manager_Name FROM Fund_Table WHERE Fund_Manager_ID = ? AND Program_Name = ? " ,
+                connection.query( "SELECT Min_Invest, Mgmt_Fee, DATE_FORMAT(Inception_Date,\'%m/%d/%Y\') Inception_Date, Perf_Fee, Manager_Name, Fund_Description FROM Fund_Table WHERE Fund_Manager_ID = ? AND Program_Name = ? " ,
                                         [req.user.User_ID, programname[0]], function(err, rows){
                                         if(err){ }  else if(rows.length==0){ }
                                         else {
@@ -445,7 +445,8 @@ router.get('/cta_fund', isLoggedIn, function(req, res) {
 						programinfo.push(rows[0].Mgmt_Fee);
 						programinfo.push(rows[0].Inception_Date);
 						programinfo.push(rows[0].Perf_Fee);
-						programinfo.push(rows[0].Manager_Name);					
+						programinfo.push(rows[0].Manager_Name);		
+            programinfo.push(rows[0].Fund_Description); 			
        					        res.render('pages/bs_cta_fund_view',{
                      				  auth:req.isAuthenticated(),
                     				  page:'fund',
@@ -537,10 +538,10 @@ router.post('/addprogram',  isLoggedIn, function(req, res) {
         }
         else {
           connection.query('USE ' + dbconfig.database);
-       connection.query('INSERT INTO Fund_Table( Fund_Manager_ID,Program_Name,Mgmt_Fee,Perf_Fee,Min_Invest,Inception_Date,Manager_Name,Fund_Name,Fund_Description )  VALUES (?,?,?,?,?,STR_TO_DATE(?, \'%m/%d/%Y\'),?,?,? )',
+       connection.query('INSERT INTO Fund_Table( Fund_Manager_ID,Program_Name,Mgmt_Fee,Perf_Fee,Min_Invest,Inception_Date,Manager_Name,Fund_CName,Fund_Description, Fund_Name)  VALUES (?,?,?,?,?,STR_TO_DATE(?, \'%m/%d/%Y\'),?,?,?,? )',
                                  [userID,req.body.programname,req.body.managementfee,req.body.performancefee,
 				  req.body.mininvestment,req.body.inception, req.body.managername, req.body.fundnameforprogram,
-				   req.body.progcomment] , function(err,rows){
+				   req.body.progcomment, req.body.fundnameforprogram+'-'+req.body.programname] , function(err,rows){
 
             if(err){
               //err handling
@@ -567,7 +568,7 @@ router.post('/fetchprogram',  isLoggedIn, function(req, res) {
         }
         else {
           connection.query('USE ' + dbconfig.database);
-          connection.query('SELECT Manager_Name, Perf_Fee,Mgmt_Fee, Min_Invest, DATE_FORMAT(Inception_Date,\'%m/%d/%Y\') Inception_Date FROM Fund_Table WHERE Fund_Manager_ID=? AND Program_Name = ? ',
+          connection.query('SELECT Manager_Name, Perf_Fee,Mgmt_Fee, Min_Invest, DATE_FORMAT(Inception_Date,\'%m/%d/%Y\') Inception_Date, Fund_Description FROM Fund_Table WHERE Fund_Manager_ID=? AND Program_Name = ? ',
                   [userID,req.body.getoption] , function(err,rows){
 
             if(err){
@@ -577,7 +578,7 @@ router.post('/fetchprogram',  isLoggedIn, function(req, res) {
                 res.redirect('/users/cta_add');
             }
             else {
-		console.log(rows);
+		//console.log(rows);
 		res.json(rows);
 		res.end();
             }
@@ -606,7 +607,7 @@ router.post('/fetchdatafund',  isLoggedIn, function(req, res) {
                 res.redirect('/users/cta_add');
             }
             else {
-                console.log(rows);
+                //console.log(rows);
                 res.json(rows);
                 res.end();
             }
@@ -626,8 +627,8 @@ router.post('/updateprogram',  isLoggedIn, function(req, res) {
         }
         else {
           connection.query('USE ' + dbconfig.database);
-          connection.query('UPDATE Fund_Table SET Manager_Name=?,Perf_Fee=?,Mgmt_Fee=?,Min_Invest=?,Inception_Date=STR_TO_DATE(?, \'%m/%d/%Y\') WHERE Fund_Manager_ID=? AND Program_Name = ? ',
-                  [req.body.ctamanname, req.body.ctaperfee,req.body.ctamanfee,req.body.ctamininvest,req.body.inception,userID,req.body.ctaprogname] , 
+          connection.query('UPDATE Fund_Table SET Manager_Name=?,Perf_Fee=?,Mgmt_Fee=?,Min_Invest=?,Inception_Date=STR_TO_DATE(?, \'%m/%d/%Y\'), Fund_Description=? WHERE Fund_Manager_ID=? AND Program_Name = ? ',
+                  [req.body.ctamanname, req.body.ctaperfee,req.body.ctamanfee,req.body.ctamininvest,req.body.inception,req.body.ctafunddes,userID,req.body.ctaprogname] , 
          function(err,rows){
             if(err){ } else if (rows.length == 0 ){ res.end(); }
             else {
