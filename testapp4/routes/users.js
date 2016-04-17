@@ -416,12 +416,12 @@ router.post('/updateprofile',  isLoggedIn, function(req, res) {
 });
 
 
-router.get('/open', function(req, res) {
-   res.render('pages/bs_open_view');
+router.get('/open', isLoggedIn, function(req, res) {
+   res.render('pages/bs_open_view', {page: 'unified' ,auth:req.isAuthenticated()});
 });
 
-router.get('/manage', function(req, res) {
-   res.render('pages/bs_manage_view');
+router.get('/manage', isLoggedIn, function(req, res) {
+   res.render('pages/bs_manage_view', {page: 'unified' ,auth:req.isAuthenticated()});
 });
 
 router.get('/cta_fund', isLoggedIn, function(req, res) {

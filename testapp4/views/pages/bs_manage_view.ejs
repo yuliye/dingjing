@@ -9,14 +9,36 @@
 </head>
 
 <body class="with-top-navbar djx-container">
-  <!--% include ../partials/smenu4.ejs %!-->  
-  <div class="container-fluid container-fluid-spacious">
+  <% include ../partials/smenu2.ejs %>
+  <div class="row">
+<div class="container-fluid container-fluid-spacious col-md-12 p-r-md">
+  <div class="m-t m-l col-md-2 col-sm-12 col-xs-12">
+  <a href="unified" class="icon icon-shopping-cart" style="font-size:22px; font-weight:900;"> 在线基金</a>
+  </div>
+  <div class="m-t m-l col-md-2 col-sm-12 col-xs-12">
+  <a href="open" class="icon icon-home" style="font-size:22px; font-weight:900;"> 开户入金</a>
+  </div>
+  <div class="m-t m-l col-md-2 col-sm-12 col-xs-12">
+  <a href="manage" class="icon icon-credit" style="font-size:22px; font-weight:900;"> 资金管理</a>
+  </div>
+<form action="/users/text" method="get" class="form-inline navbar-form navbar-right m-t m-l col-md-8 col-sm-12 col-xs-12">
+          <div class="input-with-icon" id="prefetch">
+            <input class="typeahead form-control" type="text" name="fundname" placeholder="搜索基金...">
+            <span class="icon icon-magnifying-glass"></span>
+          </div>
+          <button type="button submit" class="btn btn-sm btn-primary">GO!</button>
+        </form>
+</div>
+<div class="container-fluid container-fluid-spacious col-sm-4 col-md-4 p-l-md">
     <div class="dashhead m-t-md">
-      <div class="dashhead-titles">
-      <!--h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6-->
-      <h2 class="dashhead-title p-t-lg">资金管理！</h2>
-      </div>
-    </div>
+  <div class="dashhead-titles p-a">
+    <!--h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6-->
+    <h2 class="dashhead-title">资金管理</h2>
+  </div>
+</div>
+</div>
+</div>  
+  <div class="container-fluid container-fluid-spacious">
 <div class="hr-divider m-y-md">
   <ul class="nav nav-pills hr-divider-content hr-divider-nav" role="tablist" style="font-size:20px;">
     <li class="active" role="presentation">
@@ -75,6 +97,7 @@
  
 </div>
 </div>
+
 
 
   <% include ../partials/bs_foot.ejs %>
