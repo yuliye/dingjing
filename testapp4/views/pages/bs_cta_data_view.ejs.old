@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><% include ../partials/bs_head.ejs %>
+  <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,300,600,900,800,700,200,100' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+    <!-- Plugins CSS -->     
+  <link id="extra-style" rel="stylesheet" href="/sassets/css/styles_mix2.css">
+</head>
+<body class="with-top-navbar djx-container">
+  <% include ../partials/smenu4.ejs %>  
+  <div class="container-fluid container-fluid-spacious">
+    <div class="dashhead m-t-md">
+      <div class="dashhead-titles">
+      <!--h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6-->
+      <h2 class="dashhead-title p-t-lg">Welcome <%=user.First_Name%>!</h2>
+      </div>
+    </div>
+      <div class="hr-divider m-t">
+      <h3 class="hr-divider-content hr-divider-heading"></h3>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 m-b">
+      <div class="m-b">
+        Program Name：
+      </div>
+    <div class="flextable m-b">
+      <div class="flextable-item">
+	 <select class="custom-select custom-select-sm" name="ctadataprogname" id="ctadataprogname" onchange="">
+         <% for(var i=0; i<programname.length; i++) { %>
+                <%if ( i == 0) { %>
+                        <option selected="selected" value="<%= fundID[i] %>"> <%= programname[i] %> </option>
+                <% } else { %>
+                        <option value="<%= fundID[i] %>"> <%= programname[i] %> </option>
+         <% } } %>
+        </select>
+      </div>
+    </div>
+    </div>
+<div id="ctaprogramdataoption">
+     <div class="col-xs-12 col-sm-12 col-md-12 m-b-lg" >
+     <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Month</th>
+        <th>Return (in %)</th>
+        <th>Assets (in $)</th>
+      </tr>
+    </thead>
+    <tbody>
+	<% tabledata.forEach(function(row) { %>
+        <tr>
+          <td><%= row.Year %></td>
+          <td><%= row.Month %></td>
+          <td><%= row.Month_Return %></td>
+          <td><%= row.Assets %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+     </div>
+
+        <div class="col-xs-6 col-sm-2 col-md-2">
+      <div class="m-b">
+        Year：
+      </div>
+    <div class="flextable m-b">
+      <div class="flextable-item">
+        <select class="custom-select custom-select-sm" name="ctadatayear" id="ctadatayear">
+	 <% for(var year= fundinfo[2] ; year<=2020; year++) { %>
+                <%if ( year == fundinfo[2] ) { %>
+                        <option selected="selected" value="<%= year %>"> <%= year %> </option>
+                <% } else { %>
+                        <option value="<%= year %>"> <%= year %> </option>
+
+         <% } } %>
+
+        </select>
+      </div>
+    </div>
+    </div>
+
+        <div class="col-xs-6 col-sm-2 col-md-2">
+      <div class="m-b">
+        Month：
+      </div>
+    <div class="flextable m-b">
+      <div class="flextable-item">
+        <select class="custom-select custom-select-sm" name="ctadatamonth" id="ctadatamonth">
+	 <% for(var month=1; month<=12; month++) { %>
+
+                <%if ( month == fundinfo[3] ) { %>
+                        <option selected="selected" value="<%= month %>"> <%= month %> </option>
+                <% } else { %>
+                        <option value="<%= month %>"> <%= month %> </option>
+
+         <% } } %>
+        </select>
+      </div>
+    </div>
+    </div>
+
+
+    <div class="col-xs-6 col-sm-4 col-md-4">
+      <div class="m-b">
+        Monthly Return (in %)：
+      </div>
+<input type="text" class="form-control m-b" id="ctadatamonret" value="" placeholder="" style="width:200px;">
+    </div>
+
+    <div class="col-xs-6 col-sm-4 col-md-4">
+      <div class="m-b">
+        Assets (in $)：
+      </div>
+<input type="text" class="form-control m-b"  id="ctadataassets" value="" placeholder="" style="width:200px;">
+    </div>
+</div>
+<div class="form-group text-right col-xs-12 col-sm-12 col-md-12 m-y-md">
+      <button type="button submit" class="btn btn-lg btn-danger m-r-md" id="ctadatadelete" style="width:120px;">Delete</button>
+       <button type="button submit" class="btn btn-lg btn-primary" id="ctadataupdate" style="width:120px;">Update</button>
+  </div>
+
+  </div>
+
+  <% include ../partials/bs_cta_foot.ejs %>
+</body>
+</html>

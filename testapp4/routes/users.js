@@ -415,6 +415,48 @@ router.post('/updateprofile',  isLoggedIn, function(req, res) {
 
 });
 
+router.post('/fetchprogramdata',  isLoggedIn, function(req, res) {
+        var userID = req.user.User_ID;
+	console.log(userID);
+        pool.getConnection(function(err, connection) {
+        if(err){
+          //err handling
+        }
+        else {
+          connection.query('USE ' + dbconfig.database);
+	  connection.query( "SELECT Month_Return, Assets, Year, Month FROM Fund_Data_Table WHERE Fund_ID = ? ORDER BY Year, Month" ,
+                                        [req.body.getoption], function(err, newrows){
+                                        var fundinfo = [];
+                                        if(err){ }  else{ if(newrows.length==0){
+                                                fundinfo.push(0);
+                                                fundinfo.push(0);
+                                                fundinfo.push(2010);
+                                                fundinfo.push(1);
+                                         }
+                                        else {
+                                                        fundinfo.push( newrows[0].Month_Return);
+                                                        fundinfo.push( newrows[0].Assets);
+                                                        fundinfo.push( newrows[0].Year);
+                                                        fundinfo.push( newrows[0].Month);
+                                                }
+
+                                        }
+                                        res.render('partials/cta_program_data_table',{
+                                                  auth:req.isAuthenticated(),
+                                                  page:'data',
+                                                  user: req.user,
+                                                  tabledata : newrows,
+                                                  fundinfo : fundinfo
+                                                });
+
+                                });
+                }
+ 
+        connection.release();
+    });
+
+});
+
 
 router.get('/open', isLoggedIn, function(req, res) {
    res.render('pages/bs_open_view', {page: 'unified' ,auth:req.isAuthenticated()});
@@ -430,12 +472,16 @@ router.get('/cta_fund', isLoggedIn, function(req, res) {
         if(err){ }
         else {
           connection.query('USE ' + dbconfig.database);
-          connection.query('SELECT Program_Name from Fund_Table WHERE Fund_Manager_ID = ? ORDER BY Program_Name', 
+          connection.query('SELECT Program_Name,Fund_ID from Fund_Table WHERE Fund_Manager_ID = ? ORDER BY Program_Name', 
                               [req.user.User_ID], function(err,rows){ 
             if(err){ } else if (rows.length == 0 ){ res.redirect('/users/cta_welcome'); }
             else {
 		 var programname = [];
-                for(i=0;i<rows.length;i++) programname.push(rows[i].Program_Name);
+		 var fundID = [];
+                for(i=0;i<rows.length;i++){ programname.push(rows[i].Program_Name);
+                                            fundID.push(rows[i].Fund_ID);
+                                          }
+
                 connection.query( "SELECT Min_Invest, Mgmt_Fee, DATE_FORMAT(Inception_Date,\'%m/%d/%Y\') Inception_Date, Perf_Fee, Manager_Name, Fund_Description FROM Fund_Table WHERE Fund_Manager_ID = ? AND Program_Name = ? " ,
                                         [req.user.User_ID, programname[0]], function(err, rows){
                                         if(err){ }  else if(rows.length==0){ }
@@ -452,6 +498,7 @@ router.get('/cta_fund', isLoggedIn, function(req, res) {
                     				  page:'fund',
                      				  user: req.user,
                      				  programname : programname,
+						  fundID : fundID,
                      				  programinfo : programinfo
 						
                                         	});
@@ -481,19 +528,21 @@ router.get('/cta_data', isLoggedIn, function(req, res) {
 					    fundID.push(rows[i].Fund_ID);
                                           }
                 connection.query( "SELECT Month_Return, Assets, Year, Month FROM Fund_Data_Table WHERE Fund_ID = ? ORDER BY Year, Month" ,
-                                        [ rows[0].Fund_ID], function(err, rows){
-						var fundinfo = [];
-                                        if(err){ }  else{ if(rows.length==0){
+                                        [ rows[0].Fund_ID], function(err, newrows){
+					var fundinfo = [];
+                                        if(err){ }  else{ if(newrows.length==0){
 					 	fundinfo.push(0);
                                                 fundinfo.push(0);
                                                 fundinfo.push(2010);
                                                 fundinfo.push(1);
 					 }
                                         else {
-                                                fundinfo.push(rows[0].Month_Return);
-                                                fundinfo.push(rows[0].Assets);
-                                                fundinfo.push(rows[0].Year);
-                                                fundinfo.push(rows[0].Month);
+							fundinfo.push( newrows[0].Month_Return);
+							fundinfo.push( newrows[0].Assets);
+							fundinfo.push( newrows[0].Year);
+							fundinfo.push( newrows[0].Month); 
+						}
+
                                         }
 					res.render('pages/bs_cta_data_view',{
                                                   auth:req.isAuthenticated(),
@@ -501,9 +550,10 @@ router.get('/cta_data', isLoggedIn, function(req, res) {
                                                   user: req.user,
                                                   programname : programname,
 						  fundID : fundID,
-                                                  fundinfo : fundinfo
+                                                  tabledata : newrows,
+					          fundinfo : fundinfo 
                                                 });
-					}
+					
                                 });
                 }
                   });
@@ -572,7 +622,7 @@ router.post('/fetchprogram',  isLoggedIn, function(req, res) {
         }
         else {
           connection.query('USE ' + dbconfig.database);
-          connection.query('SELECT Manager_Name, Perf_Fee,Mgmt_Fee, Min_Invest, DATE_FORMAT(Inception_Date,\'%m/%d/%Y\') Inception_Date, Fund_Description FROM Fund_Table WHERE Fund_Manager_ID=? AND Program_Name = ? ',
+          connection.query('SELECT Manager_Name, Perf_Fee,Mgmt_Fee, Min_Invest, DATE_FORMAT(Inception_Date,\'%m/%d/%Y\') Inception_Date, Fund_Description FROM Fund_Table WHERE Fund_Manager_ID=? AND Fund_ID = ? ',
                   [userID,req.body.getoption] , function(err,rows){
 
             if(err){
@@ -622,6 +672,35 @@ router.post('/fetchdatafund',  isLoggedIn, function(req, res) {
 
 });
 
+router.post('/deleteprogram',  isLoggedIn, function(req, res) {
+        var userID = req.user.User_ID;
+        pool.getConnection(function(err, connection) {
+        if(err){
+          //err handling
+        }
+        else {
+          connection.query('USE ' + dbconfig.database);
+          connection.query('DELETE FROM Fund_Table WHERE Manager_Name=? AND Fund_ID = ? ',
+                  [req.body.ctamanname,req.body.ctaprogname] ,
+         function(err,rows){
+            if(err){ } else if (rows.length == 0 ){ res.end(); }
+            else {
+		 connection.query('DELETE FROM Fund_Data_Table WHERE Fund_ID = ? ',
+                  [req.body.ctaprogname] ,
+		         function(err,rows){
+           		 if(err){ } else {
+					res.redirect('/users/cta_fund');			
+					res.end();
+				 }
+         		 });
+
+            }
+          });
+        }
+        connection.release();
+    });
+
+});
 
 router.post('/updateprogram',  isLoggedIn, function(req, res) {
         var userID = req.user.User_ID;
@@ -631,7 +710,7 @@ router.post('/updateprogram',  isLoggedIn, function(req, res) {
         }
         else {
           connection.query('USE ' + dbconfig.database);
-          connection.query('UPDATE Fund_Table SET Manager_Name=?,Perf_Fee=?,Mgmt_Fee=?,Min_Invest=?,Inception_Date=STR_TO_DATE(?, \'%m/%d/%Y\'), Fund_Description=? WHERE Fund_Manager_ID=? AND Program_Name = ? ',
+          connection.query('UPDATE Fund_Table SET Manager_Name=?,Perf_Fee=?,Mgmt_Fee=?,Min_Invest=?,Inception_Date=STR_TO_DATE(?, \'%m/%d/%Y\'), Fund_Description=? WHERE Fund_Manager_ID=? AND Fund_ID = ? ',
                   [req.body.ctamanname, req.body.ctaperfee,req.body.ctamanfee,req.body.ctamininvest,req.body.inception,req.body.ctafunddes,userID,req.body.ctaprogname] , 
          function(err,rows){
             if(err){ } else if (rows.length == 0 ){ res.end(); }
@@ -645,21 +724,99 @@ router.post('/updateprogram',  isLoggedIn, function(req, res) {
 
 });
 
-router.post('/updateprogramdata',  isLoggedIn, function(req, res) {
+router.post('/deleteprogramdata',  isLoggedIn, function(req, res) {
         var userID = req.user.User_ID;
+	
         pool.getConnection(function(err, connection) {
         if(err){
           //err handling
         }
         else {
           connection.query('USE ' + dbconfig.database);
-          connection.query('INSERT INTO Fund_Data_Table (Month_Return,Assets,Fund_ID,Year,Month) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE Fund_ID=?,Year=?,Month=? ',
-                  [req.body.ctadatamonret, req.body.ctadataassets,req.body.ctadataprogname,req.body.ctadatayear,req.body.ctadatamonth,req.body.ctadataprogname,req.body.ctadatayear,req.body.ctadatamonth] ,
+          connection.query('DELETE FROM Fund_Data_Table WHERE Fund_ID=? AND Year=? AND Month=?',
+                  [req.body.ctadataprogname,req.body.ctadatayear,req.body.ctadatamonth], 
          function(err,rows){
             if(err){ } else if (rows.length == 0 ){ res.end(); }
             else {
-                res.end();
+                         connection.query( "SELECT Month_Return, Assets, Year, Month FROM Fund_Data_Table WHERE Fund_ID = ? ORDER BY Year, Month" ,
+                                        [req.body.ctadataprogname], function(err, newrows){
+                                        var fundinfo = [];
+                                        if(err){ }  else{ if(newrows.length==0){
+                                                fundinfo.push(0);
+                                                fundinfo.push(0);
+                                                fundinfo.push(2010);
+                                                fundinfo.push(1);
+                                         }
+                                        else {
+                                                        fundinfo.push( newrows[0].Month_Return);
+                                                        fundinfo.push( newrows[0].Assets);
+                                                        fundinfo.push( newrows[0].Year);
+                                                        fundinfo.push( newrows[0].Month);
+                                                }
+
+                                        }
+                                        res.render('partials/cta_program_data_table',{
+                                                  auth:req.isAuthenticated(),
+                                                  page:'data',
+                                                  user: req.user,
+                                                  tabledata : newrows,
+                                                  fundinfo : fundinfo
+                                                });
+
+                                });
+
             }
+
+          });
+        }
+        connection.release();
+    });
+});
+
+router.post('/updateprogramdata',  isLoggedIn, function(req, res) {
+        var userID = req.user.User_ID;
+	console.log( req.body.ctadatamonret  +" "+ req.body.ctadataassets +" "+req.body.ctadataprogname +" "+req.body.ctadatayear +" "+req.body.ctadatamonth,req.body.ctadataprogname +" "+req.body.ctadatayear +" "+req.body.ctadatamonth );
+        pool.getConnection(function(err, connection) {
+        if(err){
+          //err handling
+        }
+        else {
+          connection.query('USE ' + dbconfig.database);
+          connection.query('INSERT INTO Fund_Data_Table (Month_Return,Assets,Fund_ID,Year,Month) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE Month_Return=?,Assets=? ', 
+                  [req.body.ctadatamonret, req.body.ctadataassets,req.body.ctadataprogname,req.body.ctadatayear,
+                    req.body.ctadatamonth,req.body.ctadatamonret,req.body.ctadataassets] ,
+         function(err,rows){
+            if(err){ } else if (rows.length == 0 ){ res.end(); }
+            else {
+		         connection.query( "SELECT Month_Return, Assets, Year, Month FROM Fund_Data_Table WHERE Fund_ID = ? ORDER BY Year, Month" ,
+                                        [req.body.ctadataprogname], function(err, newrows){
+                                        var fundinfo = [];
+                                        if(err){ }  else{ if(newrows.length==0){
+                                                fundinfo.push(0);
+                                                fundinfo.push(0);
+                                                fundinfo.push(2010);
+                                                fundinfo.push(1);
+                                         }
+                                        else {
+                                                        fundinfo.push( newrows[0].Month_Return);
+                                                        fundinfo.push( newrows[0].Assets);
+                                                        fundinfo.push( newrows[0].Year);
+                                                        fundinfo.push( newrows[0].Month);
+                                                }
+
+                                        }
+                                        res.render('partials/cta_program_data_table',{
+                                                  auth:req.isAuthenticated(),
+                                                  page:'data',
+                                                  user: req.user,
+                                                  tabledata : newrows,
+                                                  fundinfo : fundinfo
+                                                });
+
+                                });
+
+            }
+
           });
         }
         connection.release();
@@ -667,7 +824,7 @@ router.post('/updateprogramdata',  isLoggedIn, function(req, res) {
 
 });
 
-
+/*
 router.get('/cta_data', isLoggedIn, function(req, res) {
   //console.log(req.user.First_Name);
   if(req.user.Fund_Manager==1) {
@@ -684,7 +841,7 @@ router.get('/cta_data', isLoggedIn, function(req, res) {
   }
   else res.redirect('/users/cta_welcome');
 });
-
+*/
 router.get('/cta_welcome', isLoggedIn, function(req, res) {
     res.render('pages/bs_cta_welcome_view',{
       auth:req.isAuthenticated(),

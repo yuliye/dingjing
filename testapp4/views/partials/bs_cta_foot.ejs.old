@@ -124,28 +124,6 @@ $("#ctaprogupdate").click(function(event){
                 });
         });
 
-$("#ctadatadelete").click(function(event){
-                var programData = {
-                        'ctamininvest' : $('#ctamininvest').val(),
-                                    'ctaperfee' : $('#ctaperfee').val(),
-                        'ctamanfee' : $('#ctamanfee').val(),
-                        'ctaprogname' : $('#ctaprogname').val(),
-                        'inception' : $('#inception').val(),
-                        'ctamanname' : $('#ctamanname').val(),
-                        'ctafunddes' : $('#ctafunddes').val()
-                };
-
-                $.ajax({
-                        type: "POST",
-                        url: '/users/deleteprogram',
-                        data: programData,
-                }).done( function (data ) {
-			
-                        alert("Delete Successfully");
-                });
-        });
-
-
 $("#ctadataupdate").click(function(event){
                 var programData = {
                         'ctadataprogname' : $('#ctadataprogname').val(),
@@ -160,29 +138,7 @@ $("#ctadataupdate").click(function(event){
                         url: '/users/updateprogramdata',
                         data: programData,
                 }).done( function (data ) {
-                       // alert("Update successfully");
-			 $("#ctaprogramdataoption").html(data);
-			
-                });
-        });
-
-$("#ctadatadelete").click(function(event){
-                var programData = {
-                        'ctadataprogname' : $('#ctadataprogname').val(),
-                        'ctadatamonth' : $('#ctadatamonth').val(),
-                        'ctadatayear' : $('#ctadatayear').val(),
-                        'ctadatamonret' : $('#ctadatamonret').val(),
-                        'ctadataassets' : $('#ctadataassets').val(),
-                };
-
-                $.ajax({
-                        type: "POST",
-                        url: '/users/deleteprogramdata',
-                        data: programData,
-                }).done( function (data ) {
-                       // alert("Update successfully");
-                         $("#ctaprogramdataoption").html(data);
-
+                        alert("Update successfully");
                 });
         });
 
