@@ -248,7 +248,8 @@ small {
 .flip-title{
   font-size: 18px;
   font-weight: 600;
-  color: #FFC500;
+  color: white;
+  /*color: #FFC500;*/
 }
 
 .flip-content{
