@@ -47,7 +47,7 @@
       </tr>
       <tr>
         <td>手机号：</td>
-        <td>13761658888</td>
+        <td>1376165****</td>
         <td>
         <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">修改</button>
         </td>
@@ -67,8 +67,34 @@
     </tbody>
   </table>
   </div>
+  <div class="col-xs-12 col-sm-12 col-md-12">
+  <div class="m-t">
+        交易账号
+  </div>
+  <div class="hr-divider m-y"></div>
+<table class="table table-borderless m-t-lg">
+    <tbody>
+      <tr>
+        <td>账户名：</td>
+        <td>tgyum2010</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>账户状态：</td>
+        <td>恭喜您完成入金！</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
   </div>
   <div role="tabpanel" class="tab-pane" id="deposite">
+  <div class="col-xs-12 col-sm-12 col-md-12">
+<div class="alert alert-danger">
+仅限汇款后填写，虚假填写将会对您的账号造成困扰。
+</div>
+</div>
 <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="m-b">
         存入金额：
@@ -76,8 +102,15 @@
 <input type="text" class="form-control m-b" style="width:200px;">
     </div>
 
+<div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="m-b">
+        收款银行名称：
+      </div>
+<input type="text" class="form-control m-b" style="width:200px;">
+    </div>  
+
   <div class="col-xs-12 col-sm-12 col-md-12">
-  <label class="m-b">留言备注：</label>
+  <div class="m-b">留言备注：</div>
   <textarea class="form-control" rows="5" id="comment"></textarea>
   </div>
 
@@ -86,6 +119,11 @@
 </div> 
   </div>
   <div role="tabpanel" class="tab-pane" id="withdraw">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+<div class="alert alert-danger">
+此功能仅作为通知客服及时操作，真实提取资金请等待客服通知。
+</div>
+</div>
 <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="m-b">
         提取金额：
@@ -93,8 +131,15 @@
 <input type="text" class="form-control m-b" style="width:200px;">
     </div>
 
+<div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="m-b">
+        提款银行名称：
+      </div>
+<input type="text" class="form-control m-b" style="width:200px;">
+    </div>  
+
   <div class="col-xs-12 col-sm-12 col-md-12">
-  <label class="m-b">留言备注：</label>
+  <div class="m-b">留言备注：</div>
   <textarea class="form-control" rows="5" id="comment"></textarea>
   </div>
 
@@ -105,8 +150,6 @@
  
 </div>
 </div>
-
-
 
   <% include ../partials/bs_foot.ejs %>
 
