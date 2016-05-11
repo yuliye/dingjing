@@ -43,9 +43,11 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 var routes = require('./routes/index')(passport, pool, dbconfig, flash);
 var users = require('./routes/users')(passport, pool, dbconfig);
+var mobile = require('./routes/mobile')(passport, pool, dbconfig);
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/mobile', mobile);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

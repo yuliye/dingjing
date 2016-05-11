@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><% include ../partials/bs_head.ejs %>
+  <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,300,600,900,800,700,200,100' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+  
+    <!-- Plugins CSS -->     
+  <link id="extra-style" rel="stylesheet" href="/sassets/css/styles_mix2.css">
+</head>
+
+<body class="with-top-navbar djx-container">
+  <% include ../partials/smenu2.ejs %>
+  <div class="row">
+<div class="container-fluid container-fluid-spacious col-sm-4 col-md-4 p-l-md">
+    <div class="dashhead m-t-md">
+  <div class="dashhead-titles p-a">
+    <!--h6 class="dashhead-subtitle p-b">WhaleBrokers.com</h6-->
+    <h2 class="dashhead-title">资金管理</h2>
+  </div>
+</div>
+</div>
+</div>  
+  <div class="container-fluid container-fluid-spacious">
+<div class="hr-divider m-y-md">
+  <ul class="nav nav-pills hr-divider-content hr-divider-nav" role="tablist" style="font-size:16px;">
+    <li class="active" role="presentation">
+      <a href="#account" role="tab" data-toggle="tab" aria-controls="account" class="m-x">我的账户</a>
+    </li>
+    <li role="presentation">
+      <a href="#deposite" role="tab" data-toggle="tab" aria-controls="deposite" class="m-x">存入资金</a>
+    </li>
+    <li role="presentation">
+      <a href="#withdraw" role="tab" data-toggle="tab" aria-controls="withdraw" class="m-x">提取资金</a>
+    </li>
+  </ul>
+</div>
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="account">
+  <h2 class="text-center m-t-lg">我的账户资金：$1000000000
+  <br><br><br>
+
+  我的关联银行：中国人民银行</h2>  
+  </div>
+  <div role="tabpanel" class="tab-pane" id="deposite">
+<div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="m-b">
+        存入金额：
+      </div>
+<input type="text" class="form-control m-b" style="width:200px;">
+    </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-12">
+  <label class="m-b" for="comment">留言备注：</label>
+  <textarea class="form-control" rows="5" id="comment"></textarea>
+  </div>
+
+<div class="form-group text-right col-xs-12 col-sm-12 col-md-12 m-y">
+      <button type="button submit" class="btn btn-lg btn-primary" style="width:120px;">提交</button>
+</div> 
+  </div>
+  <div role="tabpanel" class="tab-pane" id="withdraw">
+<div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="m-b">
+        提取金额：
+      </div>
+<input type="text" class="form-control m-b" style="width:200px;">
+    </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-12">
+  <label class="m-b" for="comment">留言备注：</label>
+  <textarea class="form-control" rows="5" id="comment"></textarea>
+  </div>
+
+<div class="form-group text-right col-xs-12 col-sm-12 col-md-12 m-y">
+      <button type="button submit" class="btn btn-lg btn-primary" style="width:120px;">提交</button>
+</div>  
+</div>
+ 
+</div>
+</div>
+
+
+
+  <% include ../partials/bs_foot.ejs %>
+
+  <script>
+var date = new Date();
+var day = date.getDate();
+var month = date.getMonth();
+var year = date.getFullYear();
+document.getElementById("demo").innerHTML = year+'-'+month+'-'+day;
+</script>
+
+</body>
+</html>
+
+
