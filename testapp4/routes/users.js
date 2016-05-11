@@ -1,4 +1,5 @@
 var express = require('express');
+
 //var formidable = require('formidable');
 
 
@@ -8,6 +9,8 @@ var router = express.Router();
 var fetchData = require('../waterloo/fund.js');
 var robot = require('../waterloo/robot.js');
 //router.use(bodyParser.json())
+var resttest = require('./rest_test.js');
+
 
 code = '1122334'
 
@@ -863,7 +866,7 @@ router.get('/compute', isLoggedIn, function(req, res) {
 });
 
 router.get('/test', isLoggedIn, function(req, res) {
-  //console.log(req.user);
+ // console.log(req.user);
   res.render('pages/bs_home_view',{
     index: 7
   });
@@ -1095,6 +1098,30 @@ router.post('/combobulkdelete',  isLoggedIn, function(req, res) {
         }
         connection.release();
     });
+
+});
+
+
+router.get('/resttest', isLoggedIn, function(req, res) {
+	console.log("star");
+	 var selectResFunc = function( result, response){
+	     	//var resu = JSON.parse(result);
+		var resu = JSON.stringify(result);
+		console.log(resu);
+                console.log(result);
+		res.end();
+	 } 
+	var url = "http://52.72.227.135/rest/v1/api/categoriesDetailedList?updateTime=2016-03-28-14h20m10s";
+
+	 //var url = "https://c1cre709.caspio.com/rest/v1/views/Fund_Data_View/rows?q={\"select\":\"Fund_Table_Fund_ID, Fund_Table_Fund_Name, Fund_Data_Table_Year, Fund_Data_Table_Month, Fund_Data_Table_Monthly_Return\", \"orderby\":\"Fund_Table_Fund_ID, Fund_Data_Table_Year,Fund_Data_Table_Month\"}";
+	console.log("start in ");
+	 resttest.result(selectResFunc, url);	
+/*	 res.render('pages/bs_cta_welcome_view',{
+      auth:req.isAuthenticated(),
+      page: 'login',
+      user: req.user
+    }); */
+//	res.redirect('/users/login');
 
 });
 
