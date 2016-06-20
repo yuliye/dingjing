@@ -256,6 +256,10 @@ $("#deletecombo").click(function(event){
 
         });
 
+$(".nextopeninfor").click(function(){
+	var ref_li = $("ul#openinfor li.active");
+	ref_li.next().find("a").click();
+});
 
 $("#resetSelectItem").click(function(){
         $("select#compoundRate").val('-1000');
